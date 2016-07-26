@@ -25,7 +25,13 @@
     "minimum-stability": "dev",
 
     "require-dev" : {
-        "codeception/codeception": "*"
+        "codeception/codeception": "*",
+        "rudra/router": "dev-master",
+        "rudra/container": "dev-master",
+        "rudra/db": "dev-master",
+        "rudra/validation": "dev-master",
+        "rudra/controller": "dev-master",
+        "rudra/redirect": "dev-master"
     },
 
     "autoload": {
@@ -38,11 +44,5 @@
         "php": ">=7.0",
         "twig/twig": "~1.0",
         "raveren/kint": "^1.0",
-        "rudra/router": "dev-master",
-        "rudra/container": "dev-master",
-        "rudra/db": "dev-master",
-        "rudra/validation": "dev-master",
-        "rudra/controller": "dev-master",
-        "rudra/redirect": "dev-master"
     }
 }
