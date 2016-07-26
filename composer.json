@@ -1,0 +1,45 @@
+{
+    "name"        : "rudra/framework",
+    "description" : "The Rudra framework",
+    "version"     : "1.0.0-dev",
+    "type"        : "library",
+    "keywords"    : [
+        "rudra",
+        "framework"
+    ],
+    "license"     : "MIT",
+    "authors"     : [
+        {
+            "name"    : "Danila Korotkov (Jagepard)",
+            "email"   : "jagepard@yandex.ru",
+            "homepage": "https://jagepard.ru",
+            "role"    : "Developer"
+        }
+    ],
+
+    "support"     : {
+        "email": "jagepard@yandex.ru",
+        "skype": "jagepard.ru"
+    },
+
+    "require-dev" : {
+        "codeception/codeception": "*"
+    },
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+
+    "require": {
+        "php": ">=7.0",
+        "twig/twig": "~1.0",
+        "raveren/kint": "^1.0",
+        "rudra/router": "dev-master",
+        "rudra/container": "dev-master",
+        "rudra/db": "dev-master",
+        "rudra/validation": "dev-master",
+        "rudra/controller": "dev-master"
+    }
+}
