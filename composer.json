@@ -22,6 +22,8 @@
         "skype": "jagepard.ru"
     },
 
+    "minimum-stability": "dev",
+
     "require-dev" : {
         "codeception/codeception": "*"
     },
@@ -40,6 +42,7 @@
         "rudra/container": "dev-master",
         "rudra/db": "dev-master",
         "rudra/validation": "dev-master",
-        "rudra/controller": "dev-master"
+        "rudra/controller": "dev-master",
+        "rudra/redirect": "dev-master"
     }
 }
