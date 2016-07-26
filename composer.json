@@ -43,6 +43,6 @@
     "require": {
         "php": ">=7.0",
         "twig/twig": "~1.0",
-        "raveren/kint": "^1.0",
+        "raveren/kint": "^1.0"
     }
 }
