@@ -29,19 +29,19 @@ composer require doctrine/orm=v2.5.0
 
 use App\Config\Config;
 
-function doctrine()
-{
-    return ['paths' => [
-        '/path/to/app/main/entity'
-    ],
-        'isDevMode' => true,
-
-// the connection configuration
-        'dbParams' => [
-            'driver' => 'pdo_mysql',
-            'user' => Config::DB['user'],
-            'password' => Config::DB['password'],
-            'dbname' => Config::DB['name'],
-        ]
-    ];
-}
+    function doctrine()
+    {
+        return ['paths' => [
+            '/path/to/app/main/entity'
+        ],
+            'isDevMode' => true,
+    
+    // the connection configuration
+            'dbParams' => [
+                'driver' => 'pdo_mysql',
+                'user' => Config::DB['user'],
+                'password' => Config::DB['password'],
+                'dbname' => Config::DB['name'],
+            ]
+        ];
+    }
