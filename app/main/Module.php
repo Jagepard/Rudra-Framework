@@ -16,7 +16,7 @@ use Rudra\Controller;
  * @package Main
  * Родительский класс для контроллеров модуля
  */
-class Main extends Controller
+class Module extends Controller
 {
     /**
      * Директория модуля

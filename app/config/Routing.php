@@ -11,7 +11,7 @@ namespace App\Config;
 
 
 use Rudra\Router;
-use App\Main\Main;
+use App\Main\Module;
 
 class Routing
 {
@@ -35,9 +35,9 @@ class Routing
     public function run()
     {
         $this->app->set('',
-            ['Main\\MainController', 'actionIndex']
+            ['App\\Main\\Controller\\MainController', 'actionIndex']
         );
 
-        if (!$this->app->isToken()) $this->app->error404(new Main());
+        if (!$this->app->isToken()) $this->app->error404(new Module());
     }
 }

@@ -20,16 +20,15 @@ require BP . 'vendor/autoload.php';
  */
 (DEV) ? getUrl() : getUrl('example.com');
 
-
 $di = new \Rudra\Container();
 
-$di->set('dbClass', new \Rudra\DB($di, App\Config\Config::DB));
+$di->set('dbClass', new \Rudra\DB($di, \App\Config\Config::DB));
 
-$di->set('redirect', new \Rudra\Redirect(App\Config\Config::URI));
+$di->set('redirect', new \Rudra\Redirect(\App\Config\Config::URI));
 
-$di->set('validation', new \Rudra\Validation(App\Config\Config::CAPTHA_SECRET));
+$di->set('validation', new \Rudra\Validation(\App\Config\Config::CAPTHA_SECRET));
 
-$app = new App\Config\Routing(
+$app = new \App\Config\Routing(
     new \Rudra\Router($di)
 );
 
