@@ -1,9 +1,7 @@
-<?php
+<?php namespace App\Main\Controller;
 
-namespace Main;
 
-use Main\Model\Categories;
-use Main\Model\Items;
+use App\Main;
 
 /**
  * Class MainController
@@ -13,6 +11,6 @@ class MainController extends Main
 {
     public function actionIndex()
     {
-        echo $this->twig->render('main.html.twig', $this->data);
+        echo 'String';
     }
 }

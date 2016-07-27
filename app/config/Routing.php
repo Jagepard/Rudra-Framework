@@ -7,16 +7,16 @@
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
 
-namespace Config;
+namespace App\Config;
 
 
 use Rudra\Router;
-use Main\Main;
+use App\Main\Main;
 
 class Routing
 {
     /**
-     * @var Route
+     * @var Router
      */
     private $app;
 

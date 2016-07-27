@@ -1,4 +1,4 @@
-<?php namespace Main;
+<?php namespace App\Main;
 
 
 use Rudra\Controller;

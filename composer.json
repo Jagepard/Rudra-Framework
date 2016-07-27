@@ -22,8 +22,6 @@
         "skype": "jagepard.ru"
     },
 
-    "minimum-stability": "dev",
-
     "require-dev" : {
         "codeception/codeception": "*",
         "rudra/router": "dev-master",
@@ -44,5 +42,9 @@
         "php": ">=7.0",
         "twig/twig": "~1.0",
         "raveren/kint": "^1.0"
-    }
+    },
+
+
+    "minimum-stability": "dev",
+    "prefer-stable" : true
 }
