@@ -29,7 +29,8 @@
         "rudra/db": "dev-master",
         "rudra/validation": "dev-master",
         "rudra/controller": "dev-master",
-        "rudra/redirect": "dev-master"
+        "rudra/redirect": "dev-master",
+        "rudra/helpers": "dev-master"
     },
 
     "autoload": {
