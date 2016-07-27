@@ -23,7 +23,6 @@
     },
 
     "require-dev" : {
-        "codeception/codeception": "*",
         "rudra/router": "dev-master",
         "rudra/container": "dev-master",
         "rudra/db": "dev-master",
