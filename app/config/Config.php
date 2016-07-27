@@ -62,9 +62,9 @@ class Config
      *                   Имя БД
      */
     const DB = [
-        'type'     => 'NotORM',
-        'host'     => '',
-        'user'     => '',
+        'type'     => 'mysqli',
+        'host'     => 'localhost',
+        'user'     => 'root',
         'password' => '',
         'name'     => '',
     ];
