@@ -27,7 +27,7 @@ composer require doctrine/orm=v2.5.0
 а также в корень сайта добавляем config-doctrine.php
 с содержимым:
 
-use App\Config\Config;
+   use App\Config\Config;
 
     function doctrine()
     {
