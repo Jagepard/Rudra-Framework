@@ -23,6 +23,7 @@ class Module extends Controller
      */
     const DIR = __DIR__;
 
+
     /**
      * @param iContainer $di
      */
