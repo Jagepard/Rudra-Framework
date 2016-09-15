@@ -17,19 +17,37 @@ namespace App\Config;
 class Config
 {
     /**
+     * Данные авторизации
+     */
+    const ADMIN = [
+        'email'    => 'admin',
+        'password' => '',
+        'role'     => 'admin'
+    ];
+
+    /**
+     * RBAC
+     */
+    const ROLE = [
+        'admin'     => 1,
+        'editor'    => 2,
+        'moderator' => 3
+    ];
+
+    /**
      * Соль - для кеширования пароля
      */
-    const SALT = '123';
+    const SALT = '';
 
     /**
      * Ключ reCaptcha для фронтенда
      */
-    const CAPTHA_SITEKEY = "";
+    const CAPTHA_SITEKEY = '';
 
     /**
      * Ключ reCaptcha для бекэнда
      */
-    const CAPTHA_SECRET = "";
+    const CAPTHA_SECRET = '';
 
     /**
      * Параметр использующийся для маршрутизации
@@ -40,7 +58,7 @@ class Config
      */
     const URI = 'REQUEST';
 
-    /**7
+    /**
      * Шаблонизатор
      * twig или false
      */
