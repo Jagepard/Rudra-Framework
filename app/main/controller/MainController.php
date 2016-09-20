@@ -1,5 +1,6 @@
-<?php namespace App\Main\Controller;
+<?php 
 
+namespace App\Main\Controller;
 
 use App\Main\Module;
 
@@ -11,6 +12,6 @@ class MainController extends Module
 {
     public function actionIndex()
     {
-        echo 'String';
+        echo 'Hello World!';
     }
 }

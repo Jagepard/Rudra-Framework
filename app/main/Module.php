@@ -1,18 +1,20 @@
-<?php namespace App\Main;
-
-
-use Rudra\Controller;
+<?php 
 
 /**
  * Date: 16.07.15
  * Time: 12:41
+ * 
  * @author    : Korotkov Danila <dankorot@gmail.com>
  * @copyright Copyright (c) 2016, Korotkov Danila
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
 
+namespace App\Main;
+
+use Rudra\Controller;
+
 /**
- * Class Main
+ * Class Module
  * @package Main
  * Родительский класс для контроллеров модуля
  */
@@ -22,7 +24,6 @@ class Module extends Controller
      * Директория модуля
      */
     const DIR = __DIR__;
-
 
     /**
      * @param iContainer $di
@@ -42,8 +43,6 @@ class Module extends Controller
      */
     public function before()
     {
-        $this->getDi()->set('notice', new Notice());
-        $this->getDi()->set('auth', new Auth($this->getDi(), Config::ADMIN));
         $this->getDi()->get('auth')->check();
     }
 

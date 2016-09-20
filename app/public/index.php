@@ -23,10 +23,10 @@ require BP . 'vendor/autoload.php';
 $di = new \Rudra\Container();
 
 $di->set('dbClass', new \Rudra\DB($di, \App\Config\Config::DB));
-
-$di->set('redirect', new \Rudra\Redirect(\App\Config\Config::URI));
-
-$di->set('validation', new \Rudra\Validation(\App\Config\Config::CAPTHA_SECRET));
+$di->set('redirect', new \Rudra\Redirect($di, \App\Config\Config::URI));
+$di->set('validation', new \Rudra\Validation());
+$di->set('notice', new \App\Main\Helpers\Notice());
+$di->set('auth', new \Rudra\Auth($di, App\Config\Config::ADMIN));
 
 $app = new \App\Config\Routing(
     new \Rudra\Router($di)

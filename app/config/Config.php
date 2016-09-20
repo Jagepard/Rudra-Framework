@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Config;
-
 /**
  * Date: 14.07.15
  * Time: 11:41
+ * 
  * @author    : Korotkov Danila <dankorot@gmail.com>
  * @copyright Copyright (c) 2016, Korotkov Danila
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
 
+namespace App\Config;
 
 /**
  * Class Config Конфигурация сайта
  */
 class Config
 {
+
     /**
      * Данные авторизации
      */
@@ -86,4 +87,5 @@ class Config
         'password' => '',
         'name'     => '',
     ];
+
 }
