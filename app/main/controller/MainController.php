@@ -10,8 +10,13 @@ use App\Main\Module;
  */
 class MainController extends Module
 {
+
+    /**
+     * @Routing(url = '')
+     */
     public function actionIndex()
     {
         echo 'Hello World!';
     }
+
 }
