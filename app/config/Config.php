@@ -66,6 +66,11 @@ class Config
     const TE = 'twig';
 
     /**
+     * Базовое пространство имен
+     */
+    const DEFAULT_NAMESPACE = 'App\Main\Controller\\';
+
+    /**
      * @var array
      * array['type']     string
      *                   Способ работы с базой данных
