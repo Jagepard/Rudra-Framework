@@ -19,26 +19,33 @@ class Routing
     /**
      * @var Router
      */
-    private $app;
+    private $router;
 
     /**
      * Routing constructor.
-     * @param Router $app
+     * @param Router $router
      */
-    public function __construct(Router $app)
+    public function __construct(Router $router)
     {
-        $this->app = $app;
+        $this->router = $router;
     }
 
     /**
-     * Устанавливаем Routing
+     * Устанавливаем приоритет Routing
      */
     public function run()
     {
-        $this->app->set('',
-            ['App\\Main\\Controller\\MainController', 'actionIndex']
-        );
+        $this->getRouter()->annotation('MainController', 'actionIndex');
 
-        if (!$this->app->isToken()) $this->app->error404(new Module());
+        if (!$this->getRouter()->isToken()) $this->getRouter()->error404(new Module());
     }
+
+    /**
+     * @return \Rudra\Router
+     */
+    public function getRouter()
+    {
+        return $this->router;
+    }
+
 }
