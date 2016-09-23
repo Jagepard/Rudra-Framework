@@ -27,6 +27,7 @@ $di->set('redirect', new \Rudra\Redirect($di, \App\Config\Config::URI));
 $di->set('validation', new \Rudra\Validation());
 $di->set('notice', new \App\Main\Helpers\Notice());
 $di->set('auth', new \Rudra\Auth($di, App\Config\Config::ADMIN));
+$di->set('annotation', new \Rudra\Annotations());
 
 $app = new \App\Config\Routing(
     new \Rudra\Router($di)
