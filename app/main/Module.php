@@ -34,7 +34,7 @@ class Module extends Controller
 
         $this->setData('title', 'Title');
         $this->setData('sitekey', Config::CAPTHA_SITEKEY);
-        $this->setData('app', $this->getDi());
+        $this->setData('di', $this->getDi());
         $this->setData('csrf_token', $this->getDi()->getSubSession('csrf_token', 3));
     }
 
