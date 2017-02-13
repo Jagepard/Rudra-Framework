@@ -12,40 +12,21 @@
 namespace App\Config;
 
 use Rudra\Router;
-use App\Main\Module;
+use Rudra\RouterException;
 
 class Routing
 {
-    /**
-     * @var Router
-     */
-    private $router;
 
     /**
-     * Routing constructor.
-     * @param Router $router
+     * Устанавливаем приоритет маршрутов
+     * @param \Rudra\Router $router
+     *
+     * @throws \Rudra\RouterException
      */
-    public function __construct(Router $router)
+    public function run(Router $router)
     {
-        $this->router = $router;
-    }
-
-    /**
-     * Устанавливаем приоритет Routing
-     */
-    public function run()
-    {
-        $this->getRouter()->annotation('MainController', 'actionIndex');
-
-        if (!$this->getRouter()->isToken()) $this->getRouter()->error404(new Module());
-    }
-
-    /**
-     * @return \Rudra\Router
-     */
-    public function getRouter()
-    {
-        return $this->router;
+        $router->annotation('MainController', 'actionIndex');
+        if (!$router->isToken()) throw new RouterException('404');
     }
 
 }

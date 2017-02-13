@@ -86,7 +86,7 @@ class Config
      *                   Имя БД
      */
     const DB = [
-        'type'     => 'mysqli',
+        'driver'     => 'mysqli',
         'host'     => 'localhost',
         'user'     => 'root',
         'password' => '',
