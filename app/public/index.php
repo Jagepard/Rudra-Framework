@@ -1,4 +1,6 @@
-<?php
+<<?php
+
+use \Rudra\Container as Rudra;
 
 /**
  * Enviroment
@@ -18,18 +20,16 @@ require BP . 'vendor/autoload.php';
 /**
  * Базовый url
  */
-(DEV) ? getUrl() : getUrl('example.com');
+getUrl('jagepard.ru');
 
-$di = new \Rudra\Container();
-
-$di->set('dbClass', new \Rudra\DB($di, \App\Config\Config::DB));
-$di->set('redirect', new \Rudra\Redirect($di, \App\Config\Config::URI));
-$di->set('validation', new \Rudra\Validation());
-$di->set('auth', new \Rudra\Auth($di, App\Config\Config::ADMIN));
-$di->set('annotation', new \Rudra\Annotations());
-
-$app = new \App\Config\Routing(
-    new \Rudra\Router($di, \App\Config\Config::DEFAULT_NAMESPACE)
-);
-
-$app->run();
+Rudra::app();
+Rudra::$app->set('debugbar', new \DebugBar\StandardDebugBar());
+Rudra::$app->get('debugbar')['time']->startMeasure('Index', 'Index');
+Rudra::$app->set('annotation', new \Rudra\Annotations());
+Rudra::$app->set('validation', new \Rudra\Validation());
+Rudra::$app->set('auth', new \Rudra\Auth(Rudra::$app));
+Rudra::$app->set('redirect', new \Rudra\Redirect(Rudra::$app, \App\Config\Config::URI));
+Rudra::$app->set('dbClass', new \Rudra\DB(Rudra::$app, \App\Config\Config::DB));
+Rudra::$app->set('router', new \Rudra\Router(Rudra::$app, \App\Config\Config::DEFAULT_NAMESPACE));
+Rudra::$app->set('routing', new \App\Config\Routing());
+Rudra::$app->get('routing')->run(Rudra::$app->get('router'));
