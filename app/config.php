@@ -3,28 +3,19 @@
 /**
  * Date: 14.07.15
  * Time: 11:41
- * 
+ *
  * @author    : Korotkov Danila <dankorot@gmail.com>
  * @copyright Copyright (c) 2016, Korotkov Danila
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
 
-namespace App\Config;
+namespace App;
 
 /**
  * Class Config Конфигурация сайта
  */
 class Config
 {
-
-    /**
-     * Данные авторизации
-     */
-    const ADMIN = [
-        'email'    => 'admin',
-        'password' => '',
-        'role'     => 'admin'
-    ];
 
     /**
      * RBAC
@@ -38,7 +29,7 @@ class Config
     /**
      * Соль - для кеширования пароля
      */
-    const SALT = '';
+    const SALT = '123';
 
     /**
      * Ключ reCaptcha для фронтенда
@@ -61,20 +52,25 @@ class Config
 
     /**
      * Шаблонизатор
-     * twig или false
+     * twig или php
      */
     const TE = 'twig';
 
     /**
+     * Public Path
+     */
+    const PUBLIC_PATH = BP . 'app/public';
+
+    /**
      * Базовое пространство имен
      */
-    const DEFAULT_NAMESPACE = 'App\Main\Controller\\';
+    const DEFAULT_NAMESPACE = 'App\Http\Controllers\\';
 
     /**
      * @var array
      * array['type']     string
      *                   Способ работы с базой данных
-     *                   PDO / NotORM / mysqli или doctrine,
+     *                   mysqli / PDO / Eloquent или Doctrine,
      *                   либо false если БД не используется
      * array['host']     string
      *                   Имя хоста или IP адрес
@@ -86,11 +82,15 @@ class Config
      *                   Имя БД
      */
     const DB = [
-        'driver'     => 'mysqli',
+        'driver'   => 'PDO',
         'host'     => 'localhost',
         'user'     => 'root',
-        'password' => '',
-        'name'     => '',
+        'password' => '123',
+        'name'     => 'jagepard',
     ];
 
+    const HTTP_ERRORS = [
+        '404' => ['App\Http\BaseController', 'error404'],
+        '503' => ['App\Http\BaseController', 'error503'],
+    ];
 }

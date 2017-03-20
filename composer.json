@@ -1,54 +1,51 @@
 {
-    "name"        : "rudra/framework",
-    "description" : "The Rudra framework",
-    "version"     : "1.0.0",
-    "type"        : "library",
-    "keywords"    : [
-        "rudra",
-        "framework"
-    ],
-    "license"     : "MIT",
-    "authors"     : [
-        {
-            "name"    : "Danila Korotkov (Jagepard)",
-            "email"   : "jagepard@yandex.ru",
-            "homepage": "https://jagepard.ru",
-            "role"    : "Developer"
-        }
-    ],
-
-    "support"     : {
-        "email": "jagepard@yandex.ru",
-        "skype": "jagepard.ru"
-    },
-
-    "require-dev" : {
-        "rudra/pagination": "dev-master",
-        "rudra/router": "dev-master",
-        "rudra/container": "dev-master",
-        "rudra/db": "dev-master",
-        "rudra/validation": "dev-master",
-        "rudra/controller": "dev-master",
-        "rudra/redirect": "dev-master",
-        "rudra/helpers": "dev-master",
-        "rudra/model": "dev-master",
-        "rudra/auth": "dev-master",
-        "rudra/annotations": "dev-master"
-    },
-
-    "autoload": {
-        "psr-4": {
-            "App\\":"app/"
-        }
-    },
-
-    "require": {
-        "php": ">=7.0",
-        "twig/twig": "~1.0",
-        "raveren/kint": "^1.0"
-    },
-
-
-    "minimum-stability": "dev",
-    "prefer-stable" : true
+  "name": "rudra/framework",
+  "description": "The Rudra framework",
+  "version": "1.0.0",
+  "type": "library",
+  "keywords": [
+    "rudra",
+    "framework"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Danila Korotkov (Jagepard)",
+      "email": "jagepard@yandex.ru",
+      "homepage": "https://jagepard.ru",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "jagepard@yandex.ru",
+    "skype": "jagepard.ru"
+  },
+  "require-dev": {
+    "rudra/pagination": "dev-master",
+    "rudra/router": "dev-master",
+    "rudra/container": "dev-master",
+    "rudra/validation": "dev-master",
+    "rudra/redirect": "dev-master",
+    "rudra/helpers": "dev-master",
+    "rudra/model": "dev-master",
+    "rudra/annotations": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "require": {
+    "php": ">=7.0",
+    "twig/twig": "~1.0",
+    "raveren/kint": "^1.0",
+    "vrana/notorm": "dev-master",
+    "maximebf/debugbar": "1.*",
+    "rudra/db": "dev-master",
+    "rudra/exception": "dev-master",
+    "rudra/controller": "dev-master",
+    "rudra/auth": "dev-master"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
