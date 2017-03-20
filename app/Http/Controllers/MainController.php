@@ -18,6 +18,6 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        ddd(123);
+        ddd('Hello World!!!');
     }
 }
