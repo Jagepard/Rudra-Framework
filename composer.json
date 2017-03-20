@@ -39,7 +39,6 @@
     "php": ">=7.0",
     "twig/twig": "~1.0",
     "raveren/kint": "^1.0",
-    "vrana/notorm": "dev-master",
     "maximebf/debugbar": "1.*",
     "rudra/db": "dev-master",
     "rudra/exception": "dev-master",
