@@ -29,10 +29,10 @@
     "rudra/helpers": "dev-master",
     "rudra/model": "dev-master",
     "rudra/annotations": "dev-master",
-    "rudra/db": "dev-master",
     "rudra/exception": "dev-master",
     "rudra/controller": "dev-master",
-    "rudra/auth": "dev-master"
+    "rudra/auth": "dev-master",
+    "rudra/db": "dev-master"
   },
   "autoload": {
     "psr-4": {
