@@ -24,11 +24,12 @@ class BaseController extends Controller
 {
 
     /**
-     * @param \Rudra\IContainer $container
+     * @param IContainer $container
+     * @param string     $templateEngine
      */
-    public function init(IContainer $container)
+    public function init(IContainer $container, string $templateEngine)
     {
-        parent::init($container);
+        parent::init($container, $templateEngine);
         $this->setData('Rudra', 'title');
     }
 
@@ -47,7 +48,7 @@ class BaseController extends Controller
         $this->container()->unsetSession('alert');
     }
 
-    public function templateEngine($config)
+    public function templateEngine(string $config): void
     {
         parent::templateEngine($config);
 
