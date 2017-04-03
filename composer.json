@@ -19,20 +19,6 @@
         "email" : "jagepard@yandex.ru",
         "skype" : "jagepard.ru"
     },
-    "replace"           : {
-        "rudra/pagination"  : "self.version",
-        "rudra/router"      : "self.version",
-        "rudra/container"   : "self.version",
-        "rudra/validation"  : "self.version",
-        "rudra/redirect"    : "self.version",
-        "rudra/helpers"     : "self.version",
-        "rudra/model"       : "self.version",
-        "rudra/annotations" : "self.version",
-        "rudra/exception"   : "self.version",
-        "rudra/controller"  : "self.version",
-        "rudra/auth"        : "self.version",
-        "rudra/db"          : "self.version"
-    },
     "autoload"          : {
         "psr-4" : {
             "App\\" : "app/"
