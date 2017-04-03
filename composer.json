@@ -1,49 +1,64 @@
 {
-  "name": "rudra/framework",
-  "description": "The Rudra framework",
-  "version": "dev-master",
-  "type": "library",
-  "keywords": [
-    "rudra",
-    "framework"
-  ],
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Danila Korotkov (Jagepard)",
-      "email": "jagepard@yandex.ru",
-      "homepage": "https://jagepard.ru",
-      "role": "Developer"
+    "name"              : "rudra/framework",
+    "description"       : "The Rudra framework",
+    "type"              : "library",
+    "keywords"          : [
+        "rudra",
+        "framework"
+    ],
+    "license"           : "MIT",
+    "authors"           : [
+        {
+            "name"     : "Danila Korotkov (Jagepard)",
+            "email"    : "jagepard@yandex.ru",
+            "homepage" : "https://jagepard.ru",
+            "role"     : "Developer"
+        }
+    ],
+    "support"           : {
+        "email" : "jagepard@yandex.ru",
+        "skype" : "jagepard.ru"
+    },
+    "replace"           : {
+        "rudra/pagination"  : "self.version",
+        "rudra/router"      : "self.version",
+        "rudra/container"   : "self.version",
+        "rudra/validation"  : "self.version",
+        "rudra/redirect"    : "self.version",
+        "rudra/helpers"     : "self.version",
+        "rudra/model"       : "self.version",
+        "rudra/annotations" : "self.version",
+        "rudra/exception"   : "self.version",
+        "rudra/controller"  : "self.version",
+        "rudra/auth"        : "self.version",
+        "rudra/db"          : "self.version"
+    },
+    "autoload"          : {
+        "psr-4" : {
+            "App\\" : "app/"
+        }
+    },
+    "require"           : {
+        "php"               : ">=7.1",
+        "twig/twig"         : "~1.0",
+        "raveren/kint"      : "^1.0",
+        "maximebf/debugbar" : "^1.0",
+        "rudra/pagination"  : "self.version",
+        "rudra/router"      : "self.version",
+        "rudra/container"   : "self.version",
+        "rudra/validation"  : "self.version",
+        "rudra/redirect"    : "self.version",
+        "rudra/helpers"     : "self.version",
+        "rudra/model"       : "self.version",
+        "rudra/annotations" : "self.version",
+        "rudra/exception"   : "self.version",
+        "rudra/controller"  : "self.version",
+        "rudra/auth"        : "self.version",
+        "rudra/db"          : "self.version"
+    },
+    "minimum-stability" : "dev",
+    "config"            : {
+        "optimize-autoloader" : true,
+        "prefer-stable"       : true
     }
-  ],
-  "support": {
-    "email": "jagepard@yandex.ru",
-    "skype": "jagepard.ru"
-  },
-  "require-dev": {
-    "rudra/pagination": "dev-master",
-    "rudra/router": "dev-master",
-    "rudra/container": "dev-master",
-    "rudra/validation": "dev-master",
-    "rudra/redirect": "dev-master",
-    "rudra/helpers": "dev-master",
-    "rudra/model": "dev-master",
-    "rudra/annotations": "dev-master",
-    "rudra/exception": "dev-master",
-    "rudra/controller": "dev-master",
-    "rudra/auth": "dev-master",
-    "rudra/db": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "App\\": "app/"
-    }
-  },
-  "require": {
-    "php": ">=7.1",
-    "twig/twig": "~1.0",
-    "raveren/kint": "^1.0",
-    "maximebf/debugbar": "1.*"
-  },
-  "minimum-stability": "dev"
 }
