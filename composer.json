@@ -27,7 +27,7 @@
     "require"           : {
         "php"               : ">=7.1",
         "twig/twig"         : "~1.0",
-        "raveren/kint"      : "^1.0",
+        "kint-php/kint"      : "^1.0",
         "maximebf/debugbar" : "1.*",
         "rudra/db"          : "self.version",
         "rudra/exception"   : "self.version",
