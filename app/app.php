@@ -24,7 +24,7 @@ return [
         'helper'     => ['App\Helpers\CommonHelper'],
         'auth'       => ['Rudra\Auth'],
         'redirect'   => ['Rudra\Redirect', ['config' => Config::URI]],
-        'dbClass'    => ['Rudra\DB', ['config' => Config::DB]],
+        'dbClass'    => ['Rudra\ConnectDB', ['config' => Config::DB]],
         'router'     => ['Rudra\Router', ['namespace' => Config::DEFAULT_NAMESPACE]],
         'route'      => ['App\Route']
     ]
