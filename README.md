@@ -1,3 +1,6 @@
+[![Latest Stable Version](https://poser.pugx.org/rudra/framework/v/stable)](https://packagist.org/packages/rudra/framework)
+[![Total Downloads](https://poser.pugx.org/rudra/framework/downloads)](https://packagist.org/packages/rudra/framework)
+[![License](https://poser.pugx.org/rudra/framework/license)](https://packagist.org/packages/rudra/framework)
 # Rudra-Framework
 
     composer create-project --prefer-dist rudra/framework=dev-master newapp
