@@ -1,6 +1,11 @@
 <?php
 
-use \Rudra\Container as Rudra;
+declare(strict_types = 1);
+
+
+use Rudra\Container as Rudra;
+use Rudra\Helpers;
+
 
 /**
  * Enviroment
@@ -17,12 +22,9 @@ define('BP', dirname(dirname(__DIR__)) . '/');
  */
 require BP . 'vendor/autoload.php';
 
-/**
- * Базовый url
- */
-getUrl('lingam.loc');
-
 Rudra::app();
+Helpers::setUrl(Rudra::app(), DEV, 'lingam.loc');
+
 $app = require_once BP . 'app/app.php';
 Rudra::$app->setServices($app);
 Rudra::$app->get('route')->run(Rudra::$app->get('router'));
