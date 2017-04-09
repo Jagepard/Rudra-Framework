@@ -4,6 +4,8 @@
 [![Latest Stable Version](https://poser.pugx.org/rudra/framework/v/stable)](https://packagist.org/packages/rudra/framework)
 [![Total Downloads](https://poser.pugx.org/rudra/framework/downloads)](https://packagist.org/packages/rudra/framework)
 [![License](https://poser.pugx.org/rudra/framework/license)](https://packagist.org/packages/rudra/framework)
+
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/3af6d532-ddb3-43b2-803c-3acac133488e/big.png)](https://insight.sensiolabs.com/projects/3af6d532-ddb3-43b2-803c-3acac133488e)
 # Rudra-Framework
 
     composer create-project --prefer-dist rudra/framework=dev-master newapp
