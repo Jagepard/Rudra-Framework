@@ -1,8 +1,5 @@
 <?php
 
-use Rudra\Container;
-use App\Config;
-
 /**
  * Date: 20.02.17
  * Time: 14:54
@@ -11,6 +8,11 @@ use App\Config;
  * @copyright Copyright (c) 2016, Korotkov Danila
  * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
  */
+
+
+use Rudra\Container;
+use App\Config;
+
 
 return [
     'contracts' => [

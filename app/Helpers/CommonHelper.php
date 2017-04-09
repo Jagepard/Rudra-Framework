@@ -51,5 +51,4 @@ class CommonHelper
     {
         return ($value) ? '1' : '0';
     }
-
 }

@@ -11,9 +11,16 @@
 
 namespace App;
 
+
 use Rudra\Router;
 use Rudra\RouterException;
 
+
+/**
+ * Class Route
+ *
+ * @package App
+ */
 class Route
 {
 
