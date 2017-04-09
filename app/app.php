@@ -10,13 +10,14 @@
  */
 
 
+use Rudra\ContainerInterface;
 use Rudra\Container;
 use App\Config;
 
 
 return [
     'contracts' => [
-        \Rudra\IContainer::class => Container::$app
+        ContainerInterface::class => Container::$app
     ],
 
     'services' => [
