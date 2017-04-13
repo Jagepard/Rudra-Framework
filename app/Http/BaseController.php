@@ -13,6 +13,7 @@ namespace App\Http;
 
 
 use Rudra\Container;
+use Rudra\ContainerInterface;
 use Rudra\Controller;
 use Rudra\IContainer;
 
@@ -26,10 +27,10 @@ class BaseController extends Controller
 {
 
     /**
-     * @param IContainer $container
-     * @param string     $templateEngine
+     * @param ContainerInterface $container
+     * @param string             $templateEngine
      */
-    public function init(IContainer $container, string $templateEngine)
+    public function init(ContainerInterface $container, string $templateEngine)
     {
         parent::init($container, $templateEngine);
         $this->setData('Rudra', 'title');
