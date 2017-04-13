@@ -28,7 +28,7 @@ return [
         'auth'       => ['Rudra\Auth'],
         'redirect'   => ['Rudra\Redirect', ['config' => Config::URI]],
         'dbClass'    => ['Rudra\ConnectDB', ['config' => Config::DB]],
-        'router'     => ['Rudra\Router', ['namespace' => Config::DEFAULT_NAMESPACE]],
+        'router'     => ['Rudra\Router', ['namespace' => Config::DEFAULT_NAMESPACE, 'templateEngine' => Config::TE]],
         'route'      => ['App\Route']
     ]
 ];
