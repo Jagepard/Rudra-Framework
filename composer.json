@@ -4,7 +4,11 @@
     "type"              : "library",
     "keywords"          : [
         "rudra",
-        "framework"
+        "framework",
+        "mvc-framework",
+        "mvc-pattern",
+        "mvc-architecture",
+        "mvc"
     ],
     "license"           : "MIT",
     "authors"           : [
