@@ -18,7 +18,7 @@ use Rudra\ContainerInterface;
 /**
  * Class BaseMiddleware
  *
- * @package stub
+ * @package App\Http
  */
 abstract class BaseMiddleware
 {
