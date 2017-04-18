@@ -90,7 +90,13 @@ class Config
     ];
 
     const HTTP_ERRORS = [
-        '404' => ['App\Http\BaseController', 'error404'],
-        '503' => ['App\Http\BaseController', 'error503'],
+        '404' => [
+            'controller'  => 'App\\Http\\BaseController',
+            'method'      => 'error404'
+        ],
+        '503' => [
+            'controller'  => 'App\\Http\\BaseController',
+            'method'      => 'error503'
+        ],
     ];
 }
