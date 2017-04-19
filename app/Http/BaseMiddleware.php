@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Date: 17.04.17
  * Time: 14:19
@@ -16,11 +15,11 @@ use Rudra\ContainerInterface;
 
 
 /**
- * Class BaseMiddleware
+ * Class Middleware
  *
- * @package App\Http
+ * @package stub
  */
-abstract class BaseMiddleware
+class BaseMiddleware
 {
 
     /**
@@ -43,12 +42,27 @@ abstract class BaseMiddleware
      *
      * @return bool
      */
-    abstract public function __invoke($middleware = null);
+    public function __invoke($middleware = null)
+    {
+        $middleware = $this->handleArray($middleware);
+
+        // StartMiddleware
+
+        if ($middleware[0][1]['int'] % 2) {
+            echo json_encode($_SERVER);
+        }
+
+        $this->container()->set('middleware', 'middleware', 'raw');
+
+        // EndMiddleware
+
+        $this->next($middleware);
+    }
 
     /**
      * @return ContainerInterface
      */
-    public function container(): ContainerInterface
+    protected function container(): ContainerInterface
     {
         return $this->container;
     }
@@ -58,9 +72,7 @@ abstract class BaseMiddleware
      */
     protected function next($middleware)
     {
-        if (isset($middleware[1])) {
-            (new $middleware[1][0]($this->container()))(array_pop($middleware));
-        }
+        $this->container()->get('router')->handleMiddleware($middleware, 1);
     }
 
     /**
