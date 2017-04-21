@@ -30,15 +30,11 @@ class MainMiddleware extends BaseMiddleware
      */
     public function __invoke($middleware = null)
     {
-        $middleware = $this->handleArray($middleware);
-
         // StartMiddleware
 
         if ($middleware[0][1]['int'] % 2) {
             echo json_encode($_SERVER);
         }
-
-        $this->container()->set('middleware', 'middleware', 'raw');
 
         // EndMiddleware
 
