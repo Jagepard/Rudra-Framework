@@ -11,7 +11,7 @@
 namespace App\Http;
 
 
-use Rudra\ContainerInterface;
+use Rudra\SetContainerTrait;
 
 
 /**
@@ -22,20 +22,7 @@ use Rudra\ContainerInterface;
 class BaseMiddleware
 {
 
-    /**
-     * @var ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * Middleware constructor.
-     *
-     * @param ContainerInterface $container
-     */
-    public function __construct(ContainerInterface $container)
-    {
-        $this->container = $container;
-    }
+    use SetContainerTrait;
 
     /**
      * @param null $middleware
@@ -44,27 +31,15 @@ class BaseMiddleware
      */
     public function __invoke($middleware = null)
     {
-        $middleware = $this->handleArray($middleware);
-
         // StartMiddleware
 
         if ($middleware[0][1]['int'] % 2) {
             echo json_encode($_SERVER);
         }
 
-        $this->container()->set('middleware', 'middleware', 'raw');
-
         // EndMiddleware
 
         $this->next($middleware);
-    }
-
-    /**
-     * @return ContainerInterface
-     */
-    protected function container(): ContainerInterface
-    {
-        return $this->container;
     }
 
     /**
@@ -73,22 +48,5 @@ class BaseMiddleware
     protected function next($middleware)
     {
         $this->container()->get('router')->handleMiddleware($middleware, 1);
-    }
-
-    /**
-     * @param $middleware
-     *
-     * @return mixed
-     */
-    protected function handleArray($middleware)
-    {
-        if (!is_array($middleware[0])) {
-            $middleware[0] = $middleware;
-            unset($middleware[1]);
-
-            return $middleware;
-        }
-
-        return $middleware;
     }
 }
