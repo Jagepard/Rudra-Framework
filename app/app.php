@@ -4,7 +4,6 @@ use Rudra\ContainerInterface;
 use Rudra\Container;
 use App\Config;
 
-
 return [
     'contracts' => [
         ContainerInterface::class => Container::$app
