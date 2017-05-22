@@ -1,15 +1,5 @@
 <?php
 
-/**
- * Date: 20.02.17
- * Time: 14:54
- *
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
- */
-
-
 use Rudra\ContainerInterface;
 use Rudra\Container;
 use App\Config;
