@@ -4,6 +4,10 @@ use Rudra\ContainerInterface;
 use Rudra\Container;
 use App\Config;
 
+/**
+ * Возвращает массив контрактов и сервисов
+ * Контракты связывают интерфейсы с реализацией
+ */
 return [
     'contracts' => [
         ContainerInterface::class => Container::$app
@@ -15,9 +19,9 @@ return [
         'validation' => ['Rudra\Validation'],
         'helper'     => ['App\Helpers\CommonHelper'],
         'auth'       => ['Rudra\Auth'],
-        'redirect'   => ['Rudra\Redirect', ['config' => Config::URI]],
-        'dbClass'    => ['Rudra\ConnectDB', ['config' => Config::DB]],
-        'router'     => ['Rudra\Router', ['namespace' => Config::DEFAULT_NAMESPACE, 'templateEngine' => Config::TE]],
+        'redirect'   => ['Rudra\Redirect',  ['config'    => Config::URI]],
+        'dbClass'    => ['Rudra\ConnectDB', ['config'    => Config::DB]],
+        'router'     => ['Rudra\Router',    ['namespace' => Config::DEFAULT_NAMESPACE, 'templateEngine' => Config::TE]],
         'route'      => ['App\Route']
     ]
 ];
