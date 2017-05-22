@@ -1,14 +1,5 @@
 <?php
 
-/**
- * Date: 14.07.15
- * Time: 11:41
- *
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
- */
-
 namespace App;
 
 /**
@@ -34,12 +25,12 @@ class Config
     /**
      * Ключ reCaptcha для фронтенда
      */
-    const CAPTHA_SITEKEY = '';
+    const CAPTCHA_SITE_KEY = '';
 
     /**
      * Ключ reCaptcha для бекэнда
      */
-    const CAPTHA_SECRET = '';
+    const CAPTCHA_SECRET = '';
 
     /**
      * Параметр использующийся для маршрутизации
