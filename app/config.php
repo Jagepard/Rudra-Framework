@@ -55,7 +55,7 @@ class Config
     /**
      * Базовое пространство имен
      */
-    const DEFAULT_NAMESPACE = 'App\Http\Controllers\\';
+    const DEFAULT_NAMESPACE = 'App\Http\\';
 
     /**
      * @var array
