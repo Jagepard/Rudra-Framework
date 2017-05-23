@@ -17,7 +17,6 @@ return [
         'debugbar'   => ['DebugBar\StandardDebugBar'],
         'annotation' => ['Rudra\Annotations'],
         'validation' => ['Rudra\Validation'],
-        'helper'     => ['App\Helpers\CommonHelper'],
         'auth'       => ['Rudra\Auth'],
         'redirect'   => ['Rudra\Redirect',  ['config'    => Config::URI]],
         'dbClass'    => ['Rudra\ConnectDB', ['config'    => Config::DB]],
