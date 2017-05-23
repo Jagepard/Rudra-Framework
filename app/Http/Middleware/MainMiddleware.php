@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Http\BaseMiddleware;
+use App\Http\HttpMiddleware;
 
-class MainMiddleware extends BaseMiddleware
+class MainMiddleware extends HttpMiddleware
 {
 
     /**
