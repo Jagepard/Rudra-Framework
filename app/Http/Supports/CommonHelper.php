@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Http\Supports;
 
-class CommonHelper
+trait CommonHelper
 {
 
     /**

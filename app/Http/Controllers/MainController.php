@@ -11,6 +11,8 @@ class MainController extends BaseController
      */
     public function actionIndex()
     {
-        ddd('Hello World!!!');
+        $this->setData('content', $this->view('index', $this->getData()));
+        
+        return $this->render('layout', $this->getData());
     }
 }
