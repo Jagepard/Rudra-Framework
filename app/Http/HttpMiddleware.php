@@ -4,7 +4,7 @@ namespace App\Http;
 
 use Rudra\SetContainerTrait;
 
-class BaseMiddleware
+class HttpMiddleware
 {
 
     use SetContainerTrait;
