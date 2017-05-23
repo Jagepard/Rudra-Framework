@@ -86,7 +86,7 @@ class HttpController extends Controller
         $this->container()->get('redirect')->responseCode('404');
 
         return $this->twig('errors/error.html.twig', [
-            'title'  => '404 Page Not Found :: ' . $this->getData('title'),
+            'title'  => '404 Page Not Found :: ' . $this->data('title'),
         ]);
     }
 
@@ -95,7 +95,7 @@ class HttpController extends Controller
         $this->container()->get('redirect')->responseCode('503');
 
         return $this->twig('errors/error.html.twig', [
-            'title'  => '503 Service Unavailable :: ' . $this->getData('title'),
+            'title'  => '503 Service Unavailable :: ' . $this->data('title'),
         ]);
     }
 
@@ -104,7 +104,7 @@ class HttpController extends Controller
         $this->container()->get('redirect')->responseCode('503');
 
         return $this->twig('errors/503.html.twig', [
-            'title'  => '503 Service Unavailable :: ' . $this->getData('title'),
+            'title'  => '503 Service Unavailable :: ' . $this->data('title'),
         ]);
     }
 }
