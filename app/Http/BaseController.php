@@ -1,22 +1,11 @@
 <?php
 
-/**
- * Date: 16.07.15
- * Time: 12:41
- *
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
- */
-
 namespace App\Http;
-
 
 use Rudra\Container;
 use Rudra\ContainerInterface;
 use Rudra\Controller;
 use Rudra\IContainer;
-
 
 /**
  * Class Module
