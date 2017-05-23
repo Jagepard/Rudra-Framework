@@ -2,15 +2,6 @@
 
 namespace App\Helpers;
 
-/**
- * Date: 23.12.16
- * Time: 15:01
- *
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
- */
-
 class CommonHelper
 {
 
