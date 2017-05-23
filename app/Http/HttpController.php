@@ -9,9 +9,9 @@ use Rudra\Controller;
 /**
  * Class Module
  *
- * @package Main
+ * @package Http
  */
-class BaseController extends Controller
+class HttpController extends Controller
 {
 
     /**
