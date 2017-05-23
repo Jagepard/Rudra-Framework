@@ -1,26 +1,10 @@
 <?php
 
-/**
- * Date: 15.07.16
- * Time: 17:40
- *
- * @author    : Korotkov Danila <dankorot@gmail.com>
- * @copyright Copyright (c) 2016, Korotkov Danila
- * @license   http://www.gnu.org/licenses/gpl.html GNU GPLv3.0
- */
-
 namespace App;
-
 
 use Rudra\Router;
 use Rudra\RouterException;
 
-
-/**
- * Class Route
- *
- * @package App
- */
 class Route
 {
 
