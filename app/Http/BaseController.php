@@ -5,7 +5,6 @@ namespace App\Http;
 use Rudra\Container;
 use Rudra\ContainerInterface;
 use Rudra\Controller;
-use Rudra\IContainer;
 
 /**
  * Class Module
