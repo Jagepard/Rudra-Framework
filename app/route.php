@@ -17,7 +17,7 @@ class Route
      */
     public function run(Router $router)
     {
-        $router->annotation('MainController', 'actionIndex');              // mainpage
+        $router->annotation('MainController');              // mainpage
 
         $router->middleware('get', [
             'pattern'     => '123/123',
