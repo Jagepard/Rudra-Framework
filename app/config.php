@@ -76,17 +76,17 @@ class Config
         'driver'   => 'PDO',
         'host'     => 'localhost',
         'user'     => 'root',
-        'password' => '123',
-        'name'     => 'jagepard',
+        'password' => '',
+        'name'     => '',
     ];
 
     const HTTP_ERRORS = [
         '404' => [
-            'controller'  => 'App\\Http\\BaseController',
+            'controller'  => 'App\\Http\\HttpController',
             'method'      => 'error404'
         ],
         '503' => [
-            'controller'  => 'App\\Http\\BaseController',
+            'controller'  => 'App\\Http\\HttpController',
             'method'      => 'error503'
         ],
     ];
