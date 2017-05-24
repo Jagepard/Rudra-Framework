@@ -7,18 +7,11 @@ use App\Http\HttpMiddleware;
 class MainMiddleware extends HttpMiddleware
 {
 
-    /**
-     * @param null $middleware
-     *
-     * @return bool
-     */
-    public function __invoke($middleware = null)
+    public function __invoke($current, $middleware = null)
     {
         // StartMiddleware
 
-        if ($middleware[0][1]['int'] % 2) {
-            echo json_encode($_SERVER);
-        }
+        !d($current);
 
         // EndMiddleware
 
