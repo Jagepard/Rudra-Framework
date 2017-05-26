@@ -76,8 +76,8 @@ class Config
         'driver'   => 'PDO',
         'host'     => 'localhost',
         'user'     => 'root',
-        'password' => '',
-        'name'     => '',
+        'password' => '123',
+        'name'     => 'jagepard',
     ];
 
     const HTTP_ERRORS = [
