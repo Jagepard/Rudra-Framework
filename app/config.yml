@@ -1,0 +1,42 @@
+### RBAC ###
+role:
+    admin: 1
+    editor: 2
+    moderator: 3
+
+### Соль - для кеширования пароля ###
+salt: '123'
+
+#re.сaptcha:
+#    site.key: # Ключ reCaptcha для фронтенда
+#    secret: # Ключ reCaptcha для бекэнда
+
+# Параметр использующийся для маршрутизации
+# REQUEST - $_SERVER['REQUEST_URI'] с правилом в .htaccess
+# RewriteRule ^(.*)$ index.php [L,QSA]
+# GET - $_GET['r'], в .htaccess необходимо указать правило
+# RewriteRule ^(.*)$ index.php?r=$1 [L,QSA]
+uri: request
+
+# Шаблонизатор
+# twig или php
+template.engine: twig
+
+# Базовое пространство имен
+default.namespace: App\Http\
+
+# БД
+database:
+    driver: PDO
+    host: localhost
+    user: root
+    password: '123'
+    name: tdcore
+
+http.errors:
+    404:
+        controller: App\Http\HttpController
+        method: error404
+    503:
+        controller: App\Http\HttpController
+        method: error503
