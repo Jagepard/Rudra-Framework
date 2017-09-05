@@ -44,7 +44,8 @@
         "rudra/redirect"    : "self.version",
         "rudra/helpers"     : "self.version",
         "rudra/model"       : "self.version",
-        "rudra/annotations" : "self.version"
+        "rudra/annotations" : "self.version",
+        "symfony/yaml"      : "^4.0@dev"
     },
     "minimum-stability" : "dev",
     "config"            : {
