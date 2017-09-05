@@ -12,14 +12,14 @@
     cd newapp
     composer dumpautoload -o
 
-В newapp/app/config.php настраиваем
+В newapp/app/config.yml настраиваем
 'driver' - Способ работы с базой данных:
  PDO / Eloquent / mysqli или doctrine,
  
-     const DB = [
-         'type'     => 'mysqli',
-         'host'     => 'localhost',
-         'user'     => 'root',
-         'password' => '',
-         'name'     => '',
-     ];
+    # БД
+    database:
+        driver: PDO
+        host: localhost
+        user: root
+        password: '123'
+        name: somedb
