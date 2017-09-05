@@ -21,7 +21,7 @@ require BP . 'vendor/autoload.php';
 
 Rudra::app();
 Rudra::$app->setConfig(Yaml::parse(file_get_contents(BP . 'app/config.yml')));
-Helpers::setUrl(Rudra::$app, DEV, 'lingam.loc');
+Helpers::setUrl(Rudra::$app, DEV, 'some-host.loc');
 
 $app = require_once BP . 'app/app.php';
 
