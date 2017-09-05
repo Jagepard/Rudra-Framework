@@ -31,7 +31,7 @@ database:
     host: localhost
     user: root
     password: '123'
-    name: tdcore
+    name: somedb
 
 http.errors:
     404:
