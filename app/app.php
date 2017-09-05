@@ -2,7 +2,6 @@
 
 use Rudra\ContainerInterface;
 use Rudra\Container;
-use App\Config;
 
 /**
  * Возвращает массив контрактов и сервисов
@@ -18,9 +17,9 @@ return [
         'annotation' => ['Rudra\Annotations'],
         'validation' => ['Rudra\Validation'],
         'auth'       => ['Rudra\Auth'],
-        'redirect'   => ['Rudra\Redirect',  ['config'    => Config::URI]],
-        'dbClass'    => ['Rudra\ConnectDB', ['config'    => Config::DB]],
-        'router'     => ['Rudra\Router',    ['namespace' => Config::DEFAULT_NAMESPACE, 'templateEngine' => Config::TE]],
+        'redirect'   => ['Rudra\Redirect',  ['config'    => Container::$app->config('uri')]],
+        'dbClass'    => ['Rudra\ConnectDB', ['config'    => Container::$app->config('database')]],
+        'router'     => ['Rudra\Router',    ['namespace' => Container::$app->config('default.namespace'), 'templateEngine' => Container::$app->config('template.engine')]],
         'route'      => ['App\Route']
     ]
 ];
