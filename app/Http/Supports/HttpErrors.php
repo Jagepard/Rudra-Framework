@@ -2,8 +2,17 @@
 
 namespace App\Http\Supports;
 
+use Rudra\RouterException;
+
 trait HttpErrors
 {
+
+    public function handle404($data)
+    {
+        if (count($data) < 1) {
+            throw new RouterException('404');
+        }
+    }
 
     public function error404()
     {
