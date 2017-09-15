@@ -33,7 +33,7 @@
         "twig/twig"         : "~1.0",
         "kint-php/kint"     : "^1.0",
         "maximebf/debugbar" : "1.*",
-        "symfony/yaml"      : "^4.0@dev",
+        "symfony/yaml"      : "*",
         "robmorgan/phinx"   : "^0.9.1",
         "fzaninotto/faker"  : "^1.7",
         "rudra/db"          : "self.version",
