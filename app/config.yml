@@ -28,10 +28,11 @@ default.namespace: App\Http\
 # БД
 database:
     driver: PDO
+    DSN: mysql
     host: localhost
     user: root
     password: '123'
-    name: somedb
+    name: rudra
 
 http.errors:
     404:
