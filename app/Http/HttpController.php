@@ -26,7 +26,7 @@ class HttpController extends Controller
     {
         parent::init($container, $templateEngine);
 
-        $this->setData('Rudra Framework', 'title');
+        $this->setData($this->container()->config('title'), 'title');
         $this->setData($this->container(), 'container');
         $this->check();
     }
