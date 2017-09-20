@@ -6,6 +6,18 @@ trait CommonHelper
 {
 
     /**
+     * @param $slug
+     *
+     * @return string
+     */
+    protected function getIdFromSlug(string $slug) :string
+    {
+      $slug = strip_tags($slug);
+
+      return (strpos($slug, '_') !== false) ? strstr($slug, '_', true) : $slug;
+    }
+
+    /**
      * @param string $uri
      *
      * @return mixed
