@@ -6,6 +6,22 @@ trait CommonHelper
 {
 
     /**
+     * @param string $uri
+     *
+     * @return mixed
+     */
+    protected function redirectToSelf(string $uri)
+    {
+      $page = $this->validation()->sanitize($this->post('page'))->required()->run();
+
+      if ($this->validation()->access($page)) {
+        return $this->redirect($uri . '/page/' . $page[0]);
+      }
+
+      return $this->redirect($uri);
+    }
+
+    /**
      * @param $array
      * @param $arrayKey
      *
