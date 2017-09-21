@@ -26,6 +26,7 @@ class HttpController extends Controller
     {
         parent::init($container, $templateEngine);
 
+        $this->container()->get('debugbar')['time']->startMeasure('Controller', 'Controller');
         $this->setData($this->container()->config('title'), 'title');
         $this->setData($this->container(), 'container');
         $this->check();
