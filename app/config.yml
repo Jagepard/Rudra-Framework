@@ -25,7 +25,8 @@ uri: request
 template.engine: twig
 
 # Базовое пространство имен
-default.namespace: App\Http\
+namespaces:
+    default: App\Http\
 
 # БД
 database:
@@ -34,7 +35,7 @@ database:
     host: localhost
     user: root
     password: '123'
-    name: rudra
+    name: somedb
 
 http.errors:
     404:
