@@ -26,4 +26,5 @@ Helpers::setUrl(Rudra::$app, DEV, 'some-host.loc');
 $app = require_once BP . 'app/app.php';
 
 Rudra::$app->setServices($app);
+Rudra::$app->get('debugbar')['time']->startMeasure('Index', 'Index');
 Rudra::$app->get('route')->run(Rudra::$app->get('router'));

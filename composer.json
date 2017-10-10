@@ -33,6 +33,9 @@
         "twig/twig"         : "~1.0",
         "kint-php/kint"     : "^1.0",
         "maximebf/debugbar" : "1.*",
+        "symfony/yaml"      : "*",
+        "robmorgan/phinx"   : "^0.9.1",
+        "fzaninotto/faker"  : "^1.7",
         "rudra/db"          : "self.version",
         "rudra/exception"   : "self.version",
         "rudra/controller"  : "self.version",
@@ -44,8 +47,7 @@
         "rudra/redirect"    : "self.version",
         "rudra/helpers"     : "self.version",
         "rudra/model"       : "self.version",
-        "rudra/annotations" : "self.version",
-        "symfony/yaml"      : "^4.0@dev"
+        "rudra/annotations" : "self.version"
     },
     "minimum-stability" : "dev",
     "config"            : {
