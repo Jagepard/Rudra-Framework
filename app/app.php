@@ -19,7 +19,7 @@ return [
         'auth'       => ['Rudra\Auth'],
         'redirect'   => ['Rudra\Redirect',  ['config'    => Container::$app->config('uri')]],
         'dbClass'    => ['Rudra\ConnectDB', ['config'    => Container::$app->config('database')]],
-        'router'     => ['Rudra\Router',    ['namespace' => Container::$app->config('default.namespace'), 'templateEngine' => Container::$app->config('template.engine')]],
+        'router'     => ['Rudra\Router',    ['namespace' => Container::$app->config('namespaces', 'default'), 'templateEngine' => Container::$app->config('template.engine')]],
         'route'      => ['App\Route']
     ]
 ];
