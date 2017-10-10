@@ -15,7 +15,7 @@ class HttpApiController extends Controller
         parent::init($container, $templateEngine);
 
         $this->getTwig()->addGlobal('container', $this->container());
-        $this->setData('Коротков Данила || Веб-разработчик (Web-developer)', 'title');
+        $this->setData($this->container()->config('title'), 'title');
         $this->check('API');
     }
 }
