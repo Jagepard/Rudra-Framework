@@ -3,13 +3,9 @@
 use Rudra\ContainerInterface;
 use Rudra\Container;
 
-/**
- * Возвращает массив контрактов и сервисов
- * Контракты связывают интерфейсы с реализацией
- */
 return [
     'contracts' => [
-        ContainerInterface::class => Container::$app
+        ContainerInterface::class => Container::$app,
     ],
 
     'services' => [
@@ -19,7 +15,7 @@ return [
         'auth'       => ['Rudra\Auth'],
         'redirect'   => ['Rudra\Redirect',  ['config'    => Container::$app->config('uri')]],
         'dbClass'    => ['Rudra\ConnectDB', ['config'    => Container::$app->config('database')]],
-        'router'     => ['Rudra\Router',    ['namespace' => Container::$app->config('default.namespace'), 'templateEngine' => Container::$app->config('template.engine')]],
+        'router'     => ['Rudra\Router',    ['namespace' => Container::$app->config('namespaces', 'default'), 'templateEngine' => Container::$app->config('template')]],
         'route'      => ['App\Route']
     ]
 ];

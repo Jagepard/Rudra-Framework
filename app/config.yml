@@ -1,5 +1,3 @@
-title: 'Rudra Framework'
-
 ### RBAC ###
 role:
     admin: 1
@@ -22,10 +20,15 @@ uri: request
 
 # Шаблонизатор
 # twig или php
-template.engine: twig
+template:
+    engine: twig
+    view.path: app/web/Resources/twig/view
+    cache.path: app/web/Resources/twig/compilation_cache
 
 # Базовое пространство имен
-default.namespace: App\Http\
+namespaces:
+    default: App\Http\
+    web: App\Web\
 
 # БД
 database:
@@ -38,8 +41,8 @@ database:
 
 http.errors:
     404:
-        controller: App\Http\HttpController
+        controller: App\Web\WebController
         method: error404
     503:
-        controller: App\Http\HttpController
+        controller: App\Web\WebController
         method: error503

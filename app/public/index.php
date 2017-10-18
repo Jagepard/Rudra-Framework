@@ -5,7 +5,7 @@ use Rudra\Helpers;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Enviroment
+ * Environment
  */
 define('DEV', true);
 

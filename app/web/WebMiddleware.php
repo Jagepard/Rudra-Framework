@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http;
+namespace App\Web;
 
 use Rudra\SetContainerTrait;
 
-class HttpMiddleware
+class WebMiddleware
 {
 
     use SetContainerTrait;

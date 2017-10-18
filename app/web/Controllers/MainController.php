@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Web\Controllers;
 
-use App\Http\HttpController;
+use App\Web\WebController;
 
-class MainController extends HttpController
+class MainController extends WebController
 {
 
     /**
