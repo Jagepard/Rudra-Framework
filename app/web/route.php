@@ -15,16 +15,16 @@ class Route
                 'controller'  => 'MainController',
                 'method'      => 'actionIndex',
                 'middleware'  => [
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 1]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 2]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 3]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 4]]
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 1]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 2]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 3]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 4]]
                 ],
                 'after_middleware'  => [
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 5]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 6]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 7]],
-                    ['\\App\\Http\\Middleware\\MainMiddleware::namespace', ['int' => 8]]
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 5]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 6]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 7]],
+                    ['\\App\\Web\\Middleware\\MainMiddleware::namespace', ['int' => 8]]
                 ]
             ]
         );
