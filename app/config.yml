@@ -21,9 +21,10 @@ uri: request
 # Шаблонизатор
 # twig или php
 template:
-    engine: twig
-    view.path: app/web/Resources/twig/view
-    cache.path: app/web/Resources/twig/compilation_cache
+    web:
+        engine: twig
+        view.path: app/web/Resources/twig/view
+        cache.path: app/web/Resources/twig/compilation_cache
 
 # Базовое пространство имен
 namespaces:
