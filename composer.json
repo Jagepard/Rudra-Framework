@@ -45,7 +45,7 @@
         "rudra/container"   : "self.version",
         "rudra/validation"  : "self.version",
         "rudra/redirect"    : "self.version",
-        "rudra/helpers"     : "self.version",
+        "rudra/uri"         : "self.version",
         "rudra/model"       : "self.version",
         "rudra/annotations" : "self.version"
     },
