@@ -7,24 +7,29 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Environment
  */
-define('DEV', true);
+define('DEV', false);
 
 /**
  * Base path
  */
-define('BP', dirname(dirname(__DIR__)) . '/');
+define('BP', dirname(__DIR__) . '/');
 
 /**
  * Class Autoloader
  */
 require BP . 'vendor/autoload.php';
 
-Rudra::app();
+/**
+ * Set APP_URL & PROTOCOL
+ */
+Helpers::setUrl(Rudra::app(), DEV, 'some-host.loc');
 Rudra::$app->setConfig(Yaml::parse(file_get_contents(BP . 'app/config.yml')));
-Helpers::setUrl(Rudra::$app, DEV, 'some-host.loc');
 
-$app = require_once BP . 'app/app.php';
+/**
+ * Set Services
+ */
+$services = require_once BP . 'app/services.php';
+Rudra::$app->setServices($services);
 
-Rudra::$app->setServices($app);
 Rudra::$app->get('debugbar')['time']->startMeasure('Index', 'Index');
 Rudra::$app->get('route')->run(Rudra::$app->get('router'));
