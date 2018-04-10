@@ -17,7 +17,7 @@ class WebController extends Controller
 
     public function init(ContainerInterface $container, array $templateEngine)
     {
-        parent::init($container, $container->config('template'));
+        parent::init($container, $container->config('template', 'web'));
 
         $this->getTwig()->addGlobal('container', $this->container());
         $this->container()->get('debugbar')['time']->startMeasure('Controller', 'Controller');
