@@ -20,19 +20,6 @@ trait HttpErrors
         }
     }
 
-    public function handleApi404($data, string $type = 'db', array $page = [])
-    {
-        if ($type == 'db') {
-            if (count($data) < 1 || !$data) {
-                $this->jsonResponse(['status' => 'Not Found']);
-            }
-        } elseif ($type == 'pagination') {
-            if ($page['id'] > count($data)) {
-                $this->jsonResponse(['status' => 'Not Found']);
-            }
-        }
-    }
-
     public function error404()
     {
         $this->redirect()->responseCode('404');
