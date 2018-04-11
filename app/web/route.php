@@ -9,7 +9,7 @@ class Route
     public function run(Router $router, $namespace)
     {
         $router->setNamespace($namespace);
-        $router->annotation('MainController');              // mainpage
+        $router->annotation('MainController'); // mainpage
         $router->middleware('get', [
                 'pattern'     => '123/123',
                 'controller'  => 'MainController',
