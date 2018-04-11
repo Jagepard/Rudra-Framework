@@ -1,7 +1,7 @@
 <?php
 
+use Rudra\URI;
 use Rudra\Container as Rudra;
-use Rudra\Helpers;
 use Symfony\Component\Yaml\Yaml;
 
 /**
@@ -22,7 +22,7 @@ require BP . 'vendor/autoload.php';
 /**
  * Set APP_URL & PROTOCOL
  */
-Helpers::setUrl(Rudra::app(), DEV, 'some-host.loc');
+URI::setup(Rudra::app(), DEV, 'some-host.loc');
 Rudra::$app->setConfig(Yaml::parse(file_get_contents(BP . 'app/config.yml')));
 
 /**
