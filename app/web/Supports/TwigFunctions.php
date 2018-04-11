@@ -13,25 +13,25 @@ trait TwigFunctions
     {
         parent::templateEngine($config);
 
-        $d = new Twig_SimpleFunction('d', function ($var) {
+        $d = new Twig_SimpleFunction('d', function($var) {
             return d($var);
         });
 
         $this->getTwig()->addFunction($d);
 
-        $date = new Twig_SimpleFunction('date', function ($var) {
+        $date = new Twig_SimpleFunction('date', function($var) {
             return date($var);
         });
 
         $this->getTwig()->addFunction($date);
 
-        $auth = new Twig_SimpleFunction('auth', function () {
+        $auth = new Twig_SimpleFunction('auth', function() {
             return $this->container()->get('auth')->access(true);
         });
 
         $this->getTwig()->addFunction($auth);
 
-        $active = new Twig_SimpleFunction('active', function ($link, $page) {
+        $active = new Twig_SimpleFunction('active', function($link, $page) {
             if ($link == $page) {
                 echo 'class="active"';
             }
@@ -39,7 +39,7 @@ trait TwigFunctions
 
         $this->getTwig()->addFunction($active);
 
-        $value = new Twig_SimpleFunction('value', function ($var) {
+        $value = new Twig_SimpleFunction('value', function($var) {
             if ($this->container()->hasSession('value', $var)) {
                 return $this->container()->getSession('value', $var);
             }
@@ -47,7 +47,7 @@ trait TwigFunctions
 
         $this->getTwig()->addFunction($value);
 
-        $alert = new Twig_SimpleFunction('alert', function ($value, $style, $label = null) {
+        $alert = new Twig_SimpleFunction('alert', function($value, $style, $label = null) {
             if ($this->container()->hasSession('alert', $value)) {
                 return '<div class="alert alert-' . $style . '" style="padding: 15px">' . $this->container()->getSession('alert', $value) . $label . '</div>';
             }
