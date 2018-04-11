@@ -13,7 +13,7 @@ return [
         'annotation' => ['Rudra\Annotations'],
         'validation' => ['Rudra\Validation'],
         'auth'       => ['Rudra\Auth'],
-        'redirect'   => ['Rudra\Redirect',  ['config' => Container::$app->config('uri')]],
+        'redirect'   => ['Rudra\Redirect', ['config' => Container::$app->config('uri')]],
         'dbClass'    => ['Rudra\ConnectDB', ['config' => Container::$app->config('database')]],
 
         'router' => [
