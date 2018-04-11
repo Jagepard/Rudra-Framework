@@ -10,7 +10,7 @@ trait HttpErrors
     public function handle404($data, string $type = 'db', array $page = [])
     {
         if ($type == 'db') {
-            if (count($data) < 1 or !$data) {
+            if (count($data) < 1 || !$data) {
                 throw new RouterException('404');
             }
         } elseif ($type == 'pagination') {
@@ -23,7 +23,7 @@ trait HttpErrors
     public function handleApi404($data, string $type = 'db', array $page = [])
     {
         if ($type == 'db') {
-            if (count($data) < 1 or !$data) {
+            if (count($data) < 1 || !$data) {
                 $this->jsonResponse(['status' => 'Not Found']);
             }
         } elseif ($type == 'pagination') {
