@@ -1,6 +1,5 @@
 <?php
 
-
 use Phinx\Migration\AbstractMigration;
 
 class RudraMigration extends AbstractMigration

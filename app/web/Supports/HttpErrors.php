@@ -2,7 +2,7 @@
 
 namespace App\Web\Supports;
 
-use Rudra\RouterException;
+use Rudra\Exceptions\RouterException;
 
 trait HttpErrors
 {

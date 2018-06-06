@@ -18,6 +18,13 @@ salt: '123'
 # RewriteRule ^(.*)$ index.php?r=$1 [L,QSA]
 uri: request
 
+### Base path ###
+bp: ### path to home folder ###
+
+### Environment ###
+env: development
+url: rudra.loc
+
 # Шаблонизатор
 # twig или php
 template:
