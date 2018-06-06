@@ -3,7 +3,7 @@
 namespace App\Web\Middleware;
 
 use App\Web\WebMiddleware;
-use Rudra\AuthTrait;
+use Rudra\ExternalTraits\AuthTrait;
 
 class AuthMiddleware extends WebMiddleware
 {

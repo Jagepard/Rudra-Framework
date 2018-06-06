@@ -1,7 +1,9 @@
 <?php
 
-use Rudra\ContainerInterface;
 use Rudra\Container;
+use Rudra\Interfaces\ContainerInterface;
+
+$app = Container::$app;
 
 return [
     'contracts' => [
@@ -10,19 +12,12 @@ return [
 
     'services' => [
         'debugbar'   => ['DebugBar\StandardDebugBar'],
-        'annotation' => ['Rudra\Annotations'],
+        'annotation' => ['Rudra\Annotation'],
         'validation' => ['Rudra\Validation'],
-        'auth'       => ['Rudra\Auth'],
-        'redirect'   => ['Rudra\Redirect', ['config' => Container::$app->config('uri')]],
-        'dbClass'    => ['Rudra\ConnectDB', ['config' => Container::$app->config('database')]],
-
-        'router' => [
-            'Rudra\Router', [
-                'namespace'      => Container::$app->config('namespaces', 'default'),
-                'templateEngine' => Container::$app->config('template')
-            ]
-        ],
-
-        'route' => ['App\Route']
+        'auth'       => ['Rudra\Auth', ['env' => $app->config('env'), 'role' => $app->config('role')]],
+        'redirect'   => ['Rudra\Redirect', ['url' => APP_URL, 'env' => $app->config('env')]],
+        'connector'  => ['Rudra\Connector', ['config' => $app->config('database')]],
+        'router'     => ['Rudra\Router', ['namespace' => $app->config('namespaces', 'default')]],
+        'route'      => ['App\Route']
     ]
 ];

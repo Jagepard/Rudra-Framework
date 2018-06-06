@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Rudra\RouteTrait;
-use Rudra\SetContainerTrait;
+use Rudra\ExternalTraits\RouteTrait;
+use Rudra\ExternalTraits\SetContainerTrait;
 
 class Route
 {
@@ -11,6 +11,9 @@ class Route
     use SetContainerTrait;
     use RouteTrait;
 
+    /**
+     * @throws \Rudra\Exceptions\RouterException
+     */
     public function run()
     {
         $this->route(Web\Route::class, 'web');

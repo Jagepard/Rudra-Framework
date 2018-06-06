@@ -2,16 +2,16 @@
 
 namespace App\Web\Supports;
 
-use Twig_SimpleFunction;
 use Twig_Environment;
-use Rudra\ContainerInterface;
+use Twig_SimpleFunction;
+use Rudra\Interfaces\ContainerInterface;
 
 trait TwigFunctions
 {
 
-    public function templateEngine(array $config): void
+    public function template(array $config): void
     {
-        parent::templateEngine($config);
+        parent::template($config);
 
         $d = new Twig_SimpleFunction('d', function($var) {
             return d($var);
@@ -55,9 +55,10 @@ trait TwigFunctions
 
         $this->getTwig()->addFunction($alert);
 
-        if (DEV) {
+        if ('development' == $this->container()->config('env')) {
             $debugbarRenderer = $this->container()->get('debugbar')->getJavascriptRenderer();
             $this->getTwig()->addGlobal('debugbar', $debugbarRenderer);
+            $this->getTwig()->addGlobal('env', $this->container()->config('env'));
         }
     }
 

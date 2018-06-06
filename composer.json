@@ -1,6 +1,6 @@
 {
     "name"              : "rudra/framework",
-    "description"       : "The Rudra framework",
+    "description"       : "Rudra framework",
     "type"              : "library",
     "keywords"          : [
         "rudra",
@@ -10,7 +10,7 @@
         "mvc-architecture",
         "mvc"
     ],
-    "license"           : "MIT",
+    "license"           : "GPL-3.0-or-later",
     "authors"           : [
         {
             "name"     : "Danila Korotkov (Jagepard)",
@@ -36,7 +36,7 @@
         "symfony/yaml"      : "*",
         "robmorgan/phinx"   : "^0.9.1",
         "fzaninotto/faker"  : "^1.7",
-        "rudra/db"          : "self.version",
+        "rudra/connector"   : "self.version",
         "rudra/exception"   : "self.version",
         "rudra/controller"  : "self.version",
         "rudra/auth"        : "self.version",
@@ -47,7 +47,7 @@
         "rudra/redirect"    : "self.version",
         "rudra/uri"         : "self.version",
         "rudra/model"       : "self.version",
-        "rudra/annotations" : "self.version"
+        "rudra/annotation"  : "self.version"
     },
     "minimum-stability" : "dev",
     "config"            : {

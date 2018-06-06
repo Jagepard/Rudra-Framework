@@ -2,7 +2,7 @@
 
 namespace App\Web;
 
-use Rudra\SetContainerTrait;
+use Rudra\ExternalTraits\SetContainerTrait;
 
 class WebMiddleware
 {
