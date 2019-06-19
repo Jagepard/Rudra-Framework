@@ -10,10 +10,10 @@
         "mvc-architecture",
         "mvc"
     ],
-    "license"           : "GPL-3.0-or-later",
+    "license"           : "MIT",
     "authors"           : [
         {
-            "name"     : "Danila Korotkov (Jagepard)",
+            "name"     : "Jagepard",
             "email"    : "jagepard@yandex.ru",
             "homepage" : "https://jagepard.ru",
             "role"     : "Developer"
@@ -28,26 +28,31 @@
             "App\\" : "app/"
         }
     },
-    "require"           : {
-        "php"               : ">=7.1",
-        "twig/twig"         : "~1.0",
-        "kint-php/kint"     : "^1.0",
-        "maximebf/debugbar" : "1.*",
-        "symfony/yaml"      : "*",
-        "robmorgan/phinx"   : "^0.9.1",
-        "fzaninotto/faker"  : "^1.7",
-        "rudra/connector"   : "self.version",
-        "rudra/exception"   : "self.version",
-        "rudra/controller"  : "self.version",
-        "rudra/auth"        : "self.version",
-        "rudra/pagination"  : "self.version",
-        "rudra/router"      : "self.version",
-        "rudra/container"   : "self.version",
-        "rudra/validation"  : "self.version",
-        "rudra/redirect"    : "self.version",
-        "rudra/uri"         : "self.version",
-        "rudra/model"       : "self.version",
-        "rudra/annotation"  : "self.version"
+    "require"          : {
+        "php"                    : ">=7.2",
+        "twig/twig"              : "~1.0",
+        "kint-php/kint"          : "^1.0",
+        "maximebf/debugbar"      : "1.*",
+        "symfony/yaml"           : "*",
+        "robmorgan/phinx"        : "^0.9.1",
+        "fzaninotto/faker"       : "^1.7",
+        "swiftmailer/swiftmailer": "^6.0",
+        "filp/whoops"            : "^2.2@dev"
+    },
+    "require-dev"      : {
+        "rudra/connector"           : "dev-master",
+        "rudra/exception"           : "dev-master",
+        "rudra/controller"          : "dev-master",
+        "rudra/auth"                : "dev-master",
+        "rudra/pagination"          : "dev-master",
+        "rudra/router"              : "dev-master",
+        "rudra/container"           : "dev-master",
+        "rudra/validation"          : "dev-master",
+        "rudra/redirect"            : "dev-master",
+        "rudra/model"               : "dev-master",
+        "rudra/annotation"          : "dev-master",
+        "rudra/event-dispatcher"    : "dev-master",
+        "codeception/codeception"   : "2.5.x-dev"
     },
     "minimum-stability" : "dev",
     "config"            : {
