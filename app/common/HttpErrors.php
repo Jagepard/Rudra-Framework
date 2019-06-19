@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Web\Supports;
+namespace App\Common;
 
 use Rudra\Exceptions\RouterException;
 
 trait HttpErrors
 {
-
     public function handle404($data, string $type = 'db', array $page = [])
     {
         if ($type == 'db') {
