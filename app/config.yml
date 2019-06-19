@@ -1,8 +1,8 @@
 ### RBAC ###
 role:
-    admin: 1
-    editor: 2
-    moderator: 3
+    admin: ['C', 'U', 'D']
+    editor: ['C', 'U']
+    moderator: ['U']
 
 ### Соль - для кеширования пароля ###
 salt: '123'
@@ -19,11 +19,11 @@ salt: '123'
 uri: request
 
 ### Base path ###
-bp: ### path to home folder ###
+### path to yours home folder/ ###
+bp: /home/d/projects/rudra/Rudra-Framework/
 
 ### Environment ###
 env: development
-url: rudra.loc
 
 # Шаблонизатор
 # twig или php
@@ -35,17 +35,32 @@ template:
 
 # Базовое пространство имен
 namespaces:
-    default: App\Http\
     web: App\Web\
 
 # БД
 database:
-    driver: PDO
-    DSN: mysql
-    host: localhost
-    user: root
-    password: '123'
-    name: rudra
+    active: pdo
+    pdo:
+        driver: PDO
+        DSN: mysql
+        host: localhost
+        user: root
+        password: ''
+        name: rudra
+    eloquent:
+        driver: Eloquent
+        DSN: mysql
+        host: localhost
+        user: root
+        password: ''
+        name: rudra
+    doctrine:
+        driver: Doctrine
+        DSN: pdo_mysql
+        host: localhost
+        user: root
+        password: ''
+        name: rudra
 
 http.errors:
     404:
