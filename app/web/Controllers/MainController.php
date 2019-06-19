@@ -6,12 +6,11 @@ use App\Web\WebController;
 
 class MainController extends WebController
 {
-
     /**
      * @Routing(url = '')
      */
     public function actionIndex()
     {
-        $this->twig('index.html.twig', (array) $this->data());
+        $this->twig('index', (array) $this->data());
     }
 }

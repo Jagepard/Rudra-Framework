@@ -7,8 +7,6 @@ use Rudra\ExternalTraits\SetContainerTrait;
 
 class Route
 {
-
-    use SetContainerTrait;
     use RouteTrait;
 
     /**
@@ -16,7 +14,7 @@ class Route
      */
     public function run()
     {
-        $this->route(Web\Route::class, 'web');
+        $this->collect(config('namespaces'), config('database', 'active'));
         $this->handleException();
     }
 }
