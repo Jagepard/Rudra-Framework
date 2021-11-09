@@ -1,0 +1,32 @@
+#!/usr/bin/php
+<?php
+
+if (php_sapi_name() !== 'cli') exit;
+
+require __DIR__ . '/vendor/autoload.php';
+
+use Rudra\Cli\Console;
+use Rudra\Container\Facades\Rudra;
+use Rudra\Cli\ConsoleFacade as Cli;
+
+parse_str(implode('&', array_slice($argv, 1)), $inputArgs);
+
+Rudra::config(require_once "./app/config.local.php");
+Rudra::binding(Rudra::config()->get("contracts"));
+Rudra::services(Rudra::config()->get("services"));
+Rudra::set([Console::class, Console::class]);
+
+(new \App\AppController())->eventRegistration();
+
+Cli::addCommand("crud2", [App\Commands\AddCrud2Command::class, "actionAdd"]);
+Cli::addCommand("create:seed", [App\Commands\CreateSeedCommand::class]);
+Cli::addCommand("create:migration", [App\Commands\CreateMigrationCommand::class]);
+Cli::addCommand("seed", [App\Commands\SeedCommand::class]);
+Cli::addCommand("migrate", [App\Commands\MigrateCommand::class]);
+Cli::addCommand("crud", [App\Commands\AddCrudCommand::class, "actionAdd"]);
+Cli::addCommand("events", [App\Commands\EventsCommand::class]);
+Cli::addCommand("bcrypt", [App\Commands\BcryptCommand::class]);
+Cli::addCommand("serve", [App\Commands\ServeCommand::class]);
+Cli::addCommand("help", [App\Commands\ConsoleCommand::class]);
+
+Cli::invoke($inputArgs);

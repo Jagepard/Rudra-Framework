@@ -1,0 +1,8 @@
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="my-4 px-lg-4 py-lg-2">
+        <h1 class="text-center" style="color: gray; font-size: 450%">503 Service Unavailable</
+    </div>
+    <br>
+    <hr>
+</div>
