@@ -11,18 +11,3 @@
     composer create-project --prefer-dist rudra/framework=dev-master newapp
     cd newapp
     composer dumpautoload -o
-
-В newapp/app/config.yml настраиваем
-'driver' - Способ работы с базой данных:
- PDO / Eloquent / mysqli или doctrine,
- Тип базы данных (Data Source Name или DSN), необходим
- для всех способов работы с БД кроме mysqli
- 
-    # БД
-    database:
-        driver: PDO
-        DSN: mysql
-        host: localhost
-        user: root
-        password: '123'
-        name: somedb
