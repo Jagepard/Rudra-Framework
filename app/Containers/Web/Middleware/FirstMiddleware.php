@@ -9,12 +9,17 @@ class FirstMiddleware implements MiddlewareInterface
 {
     public function __invoke($middlewares)
     {
-        dump($middlewares);
+        $this->info(__CLASS__);
         $this->next($middlewares);
     }
 
     public function next(array $middlewares): void
     {
         Router::handleMiddleware($middlewares);
+    }
+
+    public function info($message)
+    {
+        echo "<div class=\"alert alert-primary\">$message</div>";
     }
 }

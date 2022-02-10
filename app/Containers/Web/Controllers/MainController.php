@@ -8,14 +8,21 @@ class MainController extends WebController
 {
     /**
      * @Routing(url = '')
+     * @Routing(url = '{name}')
+     * 
+     * @Middleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
+     * @Middleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
+     * 
+     * @AfterMiddleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
+     * @AfterMiddleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
      */
-    public function mainpage()
+    public function mainpage(string $name = 'John')
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
        ]);
 
-       $this->info("It's working");
+       $this->info("Hello $name");
 
        render("layout", data());
     }
