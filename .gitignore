@@ -1,12 +1,7 @@
-# Created by .ignore support plugin (hsz.mobi)
 /.idea/
 /.vscode/
-/nbproject/private/
 /nbproject/
 /vendor/
-/composer.lock
-/app/web/Resources/twig/compilation_cache/
-/app/config.prod
 /node_modules/
-/app/Auth/.phpunit.result.cache
-/app/config.production.php
+/composer.lock
+/app/Ship/Config/production.php

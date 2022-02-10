@@ -4,25 +4,10 @@
 -----
 [![Latest Stable Version](https://poser.pugx.org/rudra/framework/v/stable)](https://packagist.org/packages/rudra/framework)
 [![Total Downloads](https://poser.pugx.org/rudra/framework/downloads)](https://packagist.org/packages/rudra/framework)
-[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
+![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Framework.svg)
 # Rudra-Framework
 
     composer create-project --prefer-dist rudra/framework=dev-master newapp
     cd newapp
     composer dumpautoload -o
 
-В newapp/app/config.yml настраиваем
-'driver' - Способ работы с базой данных:
- PDO / Eloquent / mysqli или doctrine,
- Тип базы данных (Data Source Name или DSN), необходим
- для всех способов работы с БД кроме mysqli
- 
-    # БД
-    database:
-        driver: PDO
-        DSN: mysql
-        host: localhost
-        user: root
-        password: '123'
-        name: somedb
