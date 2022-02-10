@@ -10,6 +10,7 @@ class ShipController extends Controller
     public function generalPreCall()
     {
         if (Rudra::config()->get("environment") === "development") {
+            Rudra::get("debugbar")['time']->stopMeasure('routing');
             data([
                 "debugbar" => Rudra::get("debugbar")->getJavascriptRenderer(),
             ]);
@@ -19,5 +20,10 @@ class ShipController extends Controller
     public function eventRegistration()
     {
 
+    }
+
+    public function info(string $message): void
+    {
+        Rudra::get("debugbar")['messages']->info($message);
     }
 }

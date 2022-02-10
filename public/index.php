@@ -21,6 +21,8 @@ Rudra::services(Rudra::config()->get("services"));
 if (Rudra::config()->get('environment') === 'development') {
     Rudra::get("debugbar")->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("DSN"))));
     Rudra::get("debugbar")->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->get()));
+    Rudra::get("debugbar")['time']->startMeasure('application');
+    Rudra::get("debugbar")['time']->startMeasure('index');
 }
 
 session_name("RSID_" . Auth::getSessionHash());

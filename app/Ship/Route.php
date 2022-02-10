@@ -13,7 +13,13 @@ class Route
      */
     public function run()
     {
+        if (Rudra::config()->get('environment') === 'development') {
+            Rudra::get("debugbar")['time']->stopMeasure('index');
+            Rudra::get("debugbar")['time']->startMeasure('routing');
+        }
+
         $this->collect(Rudra::config()->get('containers'));
+
         throw new RouterException("404");
     }
 

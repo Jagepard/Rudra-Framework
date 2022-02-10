@@ -15,6 +15,8 @@ class MainController extends WebController
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
        ]);
 
+       $this->info("It's working");
+
        render("layout", data());
     }
 }
