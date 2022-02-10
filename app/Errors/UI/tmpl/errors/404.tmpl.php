@@ -1,9 +1,0 @@
-<div class="container">
-
-    <!-- Example row of columns -->
-    <div class="my-4 px-lg-4 py-lg-2">
-        <hr>
-        <h1 class="text-center" style="color: gray; font-size: 450%">404 Page Not Found</h1>
-        <hr>
-    </div>
-</div>

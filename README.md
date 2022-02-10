@@ -4,8 +4,7 @@
 -----
 [![Latest Stable Version](https://poser.pugx.org/rudra/framework/v/stable)](https://packagist.org/packages/rudra/framework)
 [![Total Downloads](https://poser.pugx.org/rudra/framework/downloads)](https://packagist.org/packages/rudra/framework)
-[![License: GPL-3.0-or-later](https://img.shields.io/badge/license-GPL--3.0--or--later-498e7f.svg)](https://www.gnu.org/licenses/gpl-3.0)
-
+![GitHub](https://img.shields.io/github/license/jagepard/Rudra-Framework.svg)
 # Rudra-Framework
 
     composer create-project --prefer-dist rudra/framework=dev-master newapp
