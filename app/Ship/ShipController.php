@@ -2,11 +2,16 @@
 
 namespace App\Ship;
 
+use App\Containers\Web\Listeners\MessageListener;
+use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
+use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class ShipController extends Controller
 {
+    use HelperTrait;
+
     public function generalPreCall()
     {
         if (Rudra::config()->get("environment") === "development") {
@@ -19,11 +24,6 @@ class ShipController extends Controller
 
     public function eventRegistration()
     {
-
-    }
-
-    public function info(string $message): void
-    {
-        Rudra::get("debugbar")['messages']->info($message);
+        Dispatcher::addListener('message', [MessageListener::class, 'info']);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Containers\Web\Controllers;
 
 use App\Containers\Web\WebController;
+use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class MainController extends WebController
 {
@@ -22,6 +23,7 @@ class MainController extends WebController
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
        ]);
 
+       Dispatcher::dispatch('message', __CLASS__);
        $this->info("Hello $name");
 
        render("layout", data());
