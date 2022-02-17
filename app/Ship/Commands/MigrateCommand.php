@@ -9,18 +9,28 @@ class MigrateCommand
 {
     public function actionIndex()
     {
-        $fileList    = array_slice(scandir(Rudra::config()->get('app.path') . "/db/Migrations/"), 2);
-        $historyPath = Rudra::config()->get('app.path') . "/db/history.php";
+        Cli::printer("Enter container (empty for Ship): ", "magneta");
+        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+
+        if (!empty($container)) {
+            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), 2);
+            $namespace = "App\\Containers\\$container\\Migrations\\";
+        } else {
+            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), 2);
+            $namespace = "App\\Ship\\Migrations\\";
+        }
+
+        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/dBhistory.php";
         $history     = require_once $historyPath;
 
         foreach ($fileList as $filename) {
-            $migrationName = "Db\\Migrations\\" . strstr($filename, '.', true);
+            $migrationName = $namespace . strstr($filename, '.', true);
 
             if (in_array($migrationName, $history)) {
-                Cli::printer("The $migrationName is already migrated\n", "yellow");
+                Cli::printer("The $migrationName is already migrated\n", "light_yellow");
             } else {
                 (new $migrationName)->up();
-                Cli::printer("The $migrationName has migrate\n", "blue");
+                Cli::printer("The $migrationName has migrate\n", "light_green");
 
                 if (file_exists($historyPath)) {
                     $contents = file_get_contents($historyPath);

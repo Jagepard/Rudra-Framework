@@ -19,7 +19,7 @@ class EventsCommand
         $i    = 1;
 
         foreach ($data as $name => $routes) {
-            printf("\e[1;36m" . $mask . "\e[m", $i, $name, $routes["listener"], $routes["method"]);
+            printf("\e[5;36m" . $mask . "\e[m", $i, $name, $routes["listener"], $routes["method"]);
             $i++;
         }
     }
