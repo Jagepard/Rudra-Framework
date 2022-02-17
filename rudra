@@ -18,20 +18,43 @@ Rudra::set([Console::class, Console::class]);
 
 (new \App\Ship\ShipController())->eventRegistration();
 
+Cli::addCommand("create:repository", [App\Ship\Commands\CreateRepositoryCommand::class]);
+Cli::addCommand("cr:r", [App\Ship\Commands\CreateRepositoryCommand::class]);
+
+Cli::addCommand("create:model", [App\Ship\Commands\CreateModelCommand::class]);
+Cli::addCommand("cr:ml", [App\Ship\Commands\CreateModelCommand::class]);
+
+Cli::addCommand("create:middleware", [App\Ship\Commands\CreateMiddlewareCommand::class]);
+Cli::addCommand("cr:mid", [App\Ship\Commands\CreateMiddlewareCommand::class]);
+
+Cli::addCommand("create:listener", [App\Ship\Commands\CreateListenerCommand::class]);
+Cli::addCommand("cr:l", [App\Ship\Commands\CreateListenerCommand::class]);
+
+Cli::addCommand("create:container", [App\Ship\Commands\CreateContainerCommand::class]);
+Cli::addCommand("cr:cr", [App\Ship\Commands\CreateContainerCommand::class]);
+
+Cli::addCommand("create:controller", [App\Ship\Commands\CreateControllerCommand::class]);
+Cli::addCommand("cr:ctr", [App\Ship\Commands\CreateControllerCommand::class]);
+
 Cli::addCommand("create:seed", [App\Ship\Commands\CreateSeedCommand::class]);
 Cli::addCommand("cr:s", [App\Ship\Commands\CreateSeedCommand::class]);
+
 Cli::addCommand("create:migration", [App\Ship\Commands\CreateMigrationCommand::class]);
 Cli::addCommand("cr:m", [App\Ship\Commands\CreateMigrationCommand::class]);
+
 Cli::addCommand("seed", [App\Ship\Commands\SeedCommand::class]);
 Cli::addCommand("migrate", [App\Ship\Commands\MigrateCommand::class]);
 Cli::addCommand("events", [App\Ship\Commands\EventsCommand::class]);
 Cli::addCommand("bcrypt", [App\Ship\Commands\BcryptCommand::class]);
 Cli::addCommand("serve", [App\Ship\Commands\ServeCommand::class]);
 Cli::addCommand("run", [App\Ship\Commands\ServeCommand::class]);
+
 Cli::addCommand("help", [App\Ship\Commands\ConsoleCommand::class]);
 Cli::addCommand("h", [App\Ship\Commands\ConsoleCommand::class]);
+
 Cli::addCommand("router", [App\Ship\Commands\RouterCommand::class]);
 Cli::addCommand("r", [App\Ship\Commands\RouterCommand::class]);
+
 Cli::addCommand("router:container", [App\Ship\Commands\RouterCommand::class, "actionContainer"]);
 Cli::addCommand("rc", [App\Ship\Commands\RouterCommand::class,  "actionContainer"]);
 

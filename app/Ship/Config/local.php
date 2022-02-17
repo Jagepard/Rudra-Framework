@@ -38,7 +38,7 @@ return [
         Redirect::class   => Redirect::class,
         // "DSN"             => new \PDO('pgsql:host=127.0.0.1;port=5432;dbname=rudra_postgres;', 'jagepard', 'password'),
         // "DSN"             => new \PDO('mysql:dbname=rudra_mysql;host=127.0.0.1', 'jagepard', 'password'),
-        "DSN"             => new PDO('sqlite:/home/d/custom_projects/php/rudra/Rudra-Framework/app/Ship/Data/rudra.db'),
+        "DSN"             => new PDO('sqlite:/home/d/custom_projects/php/rudra/Rudra-Framework/app/Ship/Data/rudra.sqlite'),
 
         "debugbar"        => new StandardDebugBar()
     ]
