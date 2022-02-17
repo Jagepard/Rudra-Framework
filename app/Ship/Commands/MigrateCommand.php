@@ -20,7 +20,7 @@ class MigrateCommand
             $namespace = "App\\Ship\\Migrations\\";
         }
 
-        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/dBhistory.php";
+        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/Data/Migrationshistory.php";
         $history     = require_once $historyPath;
 
         foreach ($fileList as $filename) {

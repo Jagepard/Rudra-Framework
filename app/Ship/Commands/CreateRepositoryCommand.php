@@ -5,7 +5,7 @@ namespace App\Ship\Commands;
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
 
-class CreateSeedCommand
+class CreateRepositoryCommand
 {
     /**
      * Creates a file with Seed data
@@ -14,71 +14,53 @@ class CreateSeedCommand
      */
     public function actionIndex()
     {
-        Cli::printer("Enter table name: ", "magneta");
-        $table     = str_replace("\n", "", Cli::reader());
-        $date      = date("_dmYHis");
-        $className = ucfirst($table . $date);
+        Cli::printer("Enter repository name: ", "magneta");
+        $prefix    = str_replace("\n", "", Cli::reader());
+        $className = ucfirst($prefix) . 'Repository';
 
-        Cli::printer("Enter container (empty for Ship): ", "magneta");
+        Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace("\n", "", Cli::reader()));
 
         if (!empty($container)) {
 
-            $namespace = 'App\Containers\\' . $container . '\Seeds';
-
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/", "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace)
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/", "{$className}.php"],
+                $this->createClass($className, $container)
             );
-
 
         } else {
-
-            $namespace = "App\Ship\Seeds";
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Ship/Seeds/", "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace)
-            );
+            $this->actionIndex();
         }
     }
 
     /**
      * @param string $className
-     * @param string $table
+     * @param string $container
      * @return string
      *
      * Creates class data
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $table, string $namespace)
+    private function createClass(string $className, string $container)
     {
         return <<<EOT
 <?php
 
-namespace {$namespace};
+namespace App\Containers\\{$container}\Repository;
 
-use App\Ship\Seeds\AbstractSeed;
+use Rudra\Model\QBFacade;
 
-class {$className}_seed extends AbstractSeed
+class {$className}
 {
-    public function create()
-    {
-        \$table = "$table";
-        \$fields = [
-            
-        ];
 
-        \$this->execute(\$table, \$fields);
-    }
 }
 EOT;
     }
 
     /**
      * @param $path
-     * @param $callable
+     * @param $data
      *
      * Writes data to a file
      * ---------------------
