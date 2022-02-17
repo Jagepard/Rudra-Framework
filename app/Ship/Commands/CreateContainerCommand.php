@@ -1,0 +1,148 @@
+<?php
+
+namespace App\Ship\Commands;
+
+use Rudra\Cli\ConsoleFacade as Cli;
+use Rudra\Container\Facades\Rudra;
+
+class CreateContainerCommand
+{
+    /**
+     * Creates a file with Seed data
+     * -----------------------------
+     * Создает файл с данными Seed
+     */
+    public function actionIndex()
+    {
+        Cli::printer("Enter container name: ", "magneta");
+        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $className = $container . 'Controller';
+
+        if (!empty($container)) {
+
+            if (is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("The container $container already exists\n", "light_yellow");
+                return;
+            }
+
+            $this->writeFile(
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "{$className}.php"],
+                $this->createContainersConroller($className, $container)
+            );
+
+            $this->writeFile(
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "routes.php"],
+                $this->createRoutes()
+            );
+
+            $this->createDirectories(Rudra::config()->get('app.path') . "/app/Containers/$container/");
+            Cli::printer("The container $container was created\n", "light_green");
+
+        } else {
+            $this->actionIndex();
+        }
+    }
+
+    /**
+     * @param string $className
+     * @param string $container
+     *
+     * Creates class data
+     * ------------------
+     * Создает данные класса
+     */
+    private function createContainersConroller(string $className, string $container)
+    {
+        return <<<EOT
+<?php
+
+namespace App\Containers\\{$container};
+
+use App\Ship\ShipController;
+use Rudra\View\ViewFacade as View;
+
+class {$container}Controller extends ShipController
+{
+    public function init()
+    {
+        View::setup([
+            "base.path"      => dirname(__DIR__) . '/',
+            "engine"         => "native",
+            "view.path"      => "{$container}/UI/tmpl",
+            "cache.path"     => "{$container}/UI/cache",
+            "file.extension" => "phtml",
+        ]);
+
+        data([
+            "title" => __CLASS__,
+        ]);
+    }
+}
+EOT;
+    }
+
+    /**
+     * Creates routes
+     * ------------------
+     * Создает файл маршрутизатора
+     */
+    private function createRoutes()
+    {
+        return <<<EOT
+<?php
+
+return [
+
+];
+EOT;
+    }
+
+    /**
+     * @param $path
+     * @param $callable
+     *
+     * Writes data to a file
+     * ---------------------
+     * Записывает данные в файл
+     */
+    private function writeFile(array $path, string $data)
+    {
+        if (!is_dir($path[0])) {
+            mkdir($path[0], 0755, true);
+        }
+
+        $fullPath = $path[0] . $path[1];
+
+        if (!file_exists($fullPath)) {
+            Cli::printer("The file ", "light_green");
+            Cli::printer($fullPath, "light_green");
+            Cli::printer(" was created\n", "light_green");
+            file_put_contents($fullPath, $data);
+        } else {
+            Cli::printer("The file $fullPath is already exists\n", "light_yellow");
+        }
+    }
+
+    /**
+     * @param $path
+     * @param $callable
+     *
+     * Create UI directories
+     * ---------------------
+     * Создает каталоги для UI
+     */
+    private function createDirectories(string $path)
+    {
+        if (!is_dir($path . 'UI')) {
+            mkdir($path . 'UI', 0755, true);
+        }
+
+        if (!is_dir($path . 'UI/cache')) {
+            mkdir($path . 'UI/cache', 0755, true);
+        }
+
+        if (!is_dir($path . 'UI/tmpl')) {
+            mkdir($path . 'UI/tmpl', 0755, true);
+        }
+    }
+}

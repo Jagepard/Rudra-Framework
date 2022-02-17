@@ -21,7 +21,7 @@ class SeedCommand
             $namespace = "App\\Ship\\Seeds\\";
         }
  
-        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/dBhistory.php";
+        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/Data/SeedsHistory.php";
         $history     = require_once $historyPath;
 
         foreach ($fileList as $filename) {

@@ -41,7 +41,6 @@ class CreateMigrationCommand
                 );
             }
 
-
         } else {
 
             $namespace = "App\Ship\Migrations";
@@ -201,7 +200,7 @@ EOT;
             Cli::printer("The file $fullPath was created\n", "light_green");
             file_put_contents($fullPath, $callable);
         } else {
-            Cli::printer("The file $fullPath is already exists", "light_yellow");
+            Cli::printer("The file $fullPath is already exists\n", "light_yellow");
         }
     }
 }
