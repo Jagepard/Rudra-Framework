@@ -21,7 +21,7 @@ class RouterCommand
         foreach (Rudra::config()->get('containers') as $container => $item) {
             $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |\n";
             Cli::printer(strtoupper($container) . "\n", "yellow");
-            printf("\e[1;36m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
+            printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
             $this->getTable($this->getRoutes($container));
         }
     }
@@ -36,10 +36,10 @@ class RouterCommand
         $_SERVER["REQUEST_METHOD"] = 'GET';
         $_SERVER["REQUEST_URI"]    = '';
 
-        Cli::printer("Enter container name: ");
+        Cli::printer("Enter container name: ", "magneta");
         $link = trim(Cli::reader());
         $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |\n";
-        printf("\e[1;36m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
+        printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
         $this->getTable($this->getRoutes($link));
     }
 
@@ -57,7 +57,7 @@ class RouterCommand
 
         foreach ($data as $routes) {
             //dump($routes); continue;
-            printf("\e[1;35m" . $mask . "\e[m", $i, $routes[0][0], $routes[0][1], $routes[0][2][0], $routes[0][2][1] ?? "actionIndex");
+            printf("\e[5;36m" . $mask . "\e[m", $i, $routes[0][0], $routes[0][1], $routes[0][2][0], $routes[0][2][1] ?? "actionIndex");
             $i++;
         }
     }

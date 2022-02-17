@@ -14,15 +14,33 @@ class CreateSeedCommand
      */
     public function actionIndex()
     {
-        Cli::printer("Enter table name: ", "cyan");
+        Cli::printer("Enter table name: ", "magneta");
         $table     = str_replace("\n", "", Cli::reader());
         $date      = date("_dmYHis");
         $className = ucfirst($table . $date);
 
-        $this->writeFile(
-            Rudra::config()->get('app.path') . "/db/Seeds/{$className}_seed.php",
-            $this->createClass($className, $table)
-        );
+        Cli::printer("Enter container (empty for Ship): ", "magneta");
+        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+
+        if (!empty($container)) {
+
+            $namespace = 'App\Containers\\' . $container . '\Seeds';
+
+            $this->writeFile(
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/", "{$className}_seed.php"],
+                $this->createClass($className, $table, $namespace)
+            );
+
+
+        } else {
+
+            $namespace = "App\Ship\Seeds";
+
+            $this->writeFile(
+                [Rudra::config()->get('app.path') . "/app/Ship/Seeds/", "{$className}_seed.php"],
+                $this->createClass($className, $table, $namespace)
+            );
+        }
     }
 
     /**
@@ -34,14 +52,14 @@ class CreateSeedCommand
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $table)
+    private function createClass(string $className, string $table, string $namespace)
     {
         return <<<EOT
 <?php
 
-namespace Db\Seeds;
+namespace {$namespace};
 
-use Db\AbstractSeed;
+use App\Ship\Seeds\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
@@ -66,13 +84,19 @@ EOT;
      * ---------------------
      * Записывает данные в файл
      */
-    private function writeFile($path, $callable)
+    private function writeFile(array $path, string $data)
     {
-        if (!file_exists($path)) {
+        if (!is_dir($path[0])) {
+            mkdir($path[0], 0755, true);
+        }
+
+        $fullPath = $path[0] . $path[1];
+
+        if (!file_exists($fullPath)) {
             Cli::printer("The file ", "blue");
-            Cli::printer($path, "light_green");
+            Cli::printer($fullPath, "light_green");
             Cli::printer(" was created\n", "blue");
-            file_put_contents($path, $callable);
+            file_put_contents($fullPath, $data);
         }
     }
 }

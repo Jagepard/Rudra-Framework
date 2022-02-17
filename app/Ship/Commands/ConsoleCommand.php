@@ -9,7 +9,7 @@ class ConsoleCommand
     public function actionIndex()
     {
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |\n";
-        printf("\e[1;35m" . $mask . "\e[m", " ", "command", "controller", "action");
+        printf("\e[5;35m" . $mask . "\e[m", " ", "command", "controller", "action");
         $this->getTable(Cli::getRegistry());
     }
 
@@ -19,7 +19,7 @@ class ConsoleCommand
         $i    = 1;
 
         foreach ($data as $name => $routes) {
-            printf("\e[1;90m" . $mask . "\e[m", $i, $name, $routes[0], $routes[1] ?? "actionIndex");
+            printf("\e[5;36m" . $mask . "\e[0m", $i, $name, $routes[0], $routes[1] ?? "actionIndex");
             $i++;
         }
     }

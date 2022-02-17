@@ -24,13 +24,41 @@ class CreateMigrationCommand
         $className = ucfirst($table) . $date;
 
         if (!empty($container)) {
-            $this->createFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
-                $this->createContainersClass($className, $container, $table)
-            );
+
+            $namespace = 'App\Containers\\' . $container . '\Migrations';
+
+            if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                    $this->createMysqlMigration($className, $table, $namespace)
+                );
+            } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                    $this->createPgsqlMigration($className, $table, $namespace)
+                );
+            } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                    $this->createSqliteMigration($className, $table, $namespace)
+                );
+            }
+
+
         } else {
-            $this->createFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
-                $this->createShipClass($className, $table)
-            );
+
+            $namespace = "App\Ship\Migrations";
+
+            if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                    $this->createMysqlMigration($className, $table, $namespace)
+                );
+            } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                    $this->createPgsqlMigration($className, $table, $namespace)
+                );
+            } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
+                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                    $this->createSqliteMigration($className, $table, $namespace)
+                );
+            }
         }
     }
 
@@ -44,12 +72,12 @@ class CreateMigrationCommand
      * ------------------
      * Создает данные класса
      */
-    private function createContainersClass(string $className, string $container, string $table)
+    private function createMysqlMigration(string $className, string $table, string $namespace)
     {
         return <<<EOT
 <?php
 
-namespace App\Containers\\$container\\Migrations;
+namespace $namespace;
 
 use Rudra\Container\Facades\Rudra;
 
@@ -62,6 +90,8 @@ class {$className}_migration
         \$query = Rudra::get("DSN")->prepare("
             CREATE TABLE {\$table} (
             `id` INT NOT NULL AUTO_INCREMENT ,
+            `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
+            `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             , PRIMARY KEY (`id`)) ENGINE = InnoDB
         ");
 
@@ -81,12 +111,12 @@ EOT;
      * ------------------
      * Создает данные класса
      */
-    private function createShipClass(string $className, string $table)
+    private function createPgsqlMigration(string $className, string $table, string $namespace)
     {
         return <<<EOT
 <?php
 
-namespace App\Ship\\Migrations;
+namespace $namespace;
 
 use Rudra\Container\Facades\Rudra;
 
@@ -97,9 +127,52 @@ class {$className}_migration
         \$table = "$table";
 
         \$query = Rudra::get("DSN")->prepare("
+
             CREATE TABLE {\$table} (
-            `id` INT NOT NULL AUTO_INCREMENT ,
-            , PRIMARY KEY (`id`)) ENGINE = InnoDB
+                id serial PRIMARY KEY,
+                created_at TIMESTAMP NOT NULL,
+                updated_at TIMESTAMP NOT NULL
+            );
+        ");
+
+        \$query->execute();
+    }
+}
+EOT;
+    }
+
+        /**
+     * @param string $className
+     * @param string $container
+     * @param string $table
+     * @return string
+     *
+     * Creates class data
+     * ------------------
+     * Создает данные класса
+     */
+    private function createSqliteMigration(string $className, string $table, string $namespace)
+    {
+        return <<<EOT
+<?php
+
+namespace $namespace;
+
+use Rudra\Container\Facades\Rudra;
+
+class {$className}_migration
+{
+    public function up()
+    {
+        \$table = "$table";
+
+        \$query = Rudra::get("DSN")->prepare("
+
+            CREATE TABLE IF NOT EXISTS {\$table} (
+                id INTEGER PRIMARY KEY,
+                created_at TEXT NOT NULL,
+                updated_at TEXT NOT NULL
+            );
         ");
 
         \$query->execute();
@@ -116,7 +189,7 @@ EOT;
      * ---------------------
      * Записывает данные в файл
      */
-    private function createFile($path, $callable)
+    private function writeFile($path, $callable)
     {
         if (!is_dir($path[0])) {
             mkdir($path[0], 0755, true);
@@ -125,10 +198,10 @@ EOT;
         $fullPath = $path[0] . $path[1];
 
         if (!file_exists($fullPath)) {
-            Cli::printer("The file $fullPath was created\n", "blue");
+            Cli::printer("The file $fullPath was created\n", "light_green");
             file_put_contents($fullPath, $callable);
         } else {
-            Cli::printer("The file $fullPath is already exists", "light_green");
+            Cli::printer("The file $fullPath is already exists", "light_yellow");
         }
     }
 }
