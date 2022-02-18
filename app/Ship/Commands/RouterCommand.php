@@ -19,8 +19,8 @@ class RouterCommand
         $_SERVER["REQUEST_URI"]    = '';
 
         foreach (Rudra::config()->get('containers') as $container => $item) {
-            $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |\n";
-            Cli::printer(strtoupper($container) . "\n", "yellow");
+            $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
+            Cli::printer(strtoupper($container) . PHP_EOL, "yellow");
             printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
             $this->getTable($this->getRoutes($container));
         }
@@ -38,7 +38,7 @@ class RouterCommand
 
         Cli::printer("Enter container name: ", "magneta");
         $link = trim(Cli::reader());
-        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |\n";
+        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
         printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
         $this->getTable($this->getRoutes($link));
     }
@@ -52,7 +52,7 @@ class RouterCommand
      */
     protected function getTable(array $data)
     {
-        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |\n";
+        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
         $i    = 1;
 
         foreach ($data as $routes) {

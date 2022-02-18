@@ -10,7 +10,7 @@ class MigrateCommand
     public function actionIndex()
     {
         Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
             $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/")), 2);
@@ -27,10 +27,10 @@ class MigrateCommand
             $migrationName = $namespace . strstr($filename, '.', true);
 
             if (in_array($migrationName, $history)) {
-                Cli::printer("The $migrationName is already migrated\n", "light_yellow");
+                Cli::printer("The $migrationName is already migrated" . PHP_EOL, "light_yellow");
             } else {
                 (new $migrationName)->up();
-                Cli::printer("The $migrationName has migrate\n", "light_green");
+                Cli::printer("The $migrationName has migrate" . PHP_EOL, "light_green");
 
                 if (file_exists($historyPath)) {
                     $contents = file_get_contents($historyPath);

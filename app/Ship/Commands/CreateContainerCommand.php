@@ -15,13 +15,13 @@ class CreateContainerCommand
     public function actionIndex()
     {
         Cli::printer("Enter container name: ", "magneta");
-        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
         $className = $container . 'Controller';
 
         if (!empty($container)) {
 
             if (is_dir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"))) {
-                Cli::printer("The container $container already exists\n", "light_yellow");
+                Cli::printer("The container $container already exists" . PHP_EOL, "light_yellow");
                 return;
             }
 
@@ -36,7 +36,7 @@ class CreateContainerCommand
             );
 
             $this->createDirectories(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"));
-            Cli::printer("The container $container was created\n", "light_green");
+            Cli::printer("The container $container was created" . PHP_EOL, "light_green");
 
         } else {
             $this->actionIndex();
@@ -116,10 +116,10 @@ EOT;
         if (!file_exists($fullPath)) {
             Cli::printer("The file ", "light_green");
             Cli::printer($fullPath, "light_green");
-            Cli::printer(" was created\n", "light_green");
+            Cli::printer(" was created" . PHP_EOL, "light_green");
             file_put_contents($fullPath, $data);
         } else {
-            Cli::printer("The file $fullPath is already exists\n", "light_yellow");
+            Cli::printer("The file $fullPath is already exists" . PHP_EOL, "light_yellow");
         }
     }
 
