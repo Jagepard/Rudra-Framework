@@ -21,7 +21,7 @@ composer dumpautoload -o</code></pre>
         </p>
         <p class="col-md-8 fs-4">
         Setup your database in <code class="language-css">app/Ship/Config/local.php</code> for local database, <code class="language-css">app/Ship/Config/production.php</code>  for production:
-        <pre><code class="language-php">"DSN" => new PDO('sqlite:path_to/rudra.db')</code></pre>
+        <pre><code class="language-php">"DSN" => new \PDO('sqlite:path_to/rudra.db')</code></pre>
         <pre><code class="language-php">"DSN" => new \PDO('mysql:dbname=rudra;host=127.0.0.1', 'jagepard', 'password'),</code></pre>
         <pre><code class="language-php">"DSN" => new \PDO('pgsql:host=127.0.0.1;port=5432;dbname=rudra;', 'jagepard', 'password')</code></pre>
         </p>

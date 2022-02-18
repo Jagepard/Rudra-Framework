@@ -15,8 +15,7 @@ class CreateControllerCommand
     public function actionIndex()
     {
         Cli::printer("Enter controller name: ", "magneta");
-        $controllerPrefix = str_replace(PHP_EOL, "", Cli::reader());
-        $className        = ucfirst($controllerPrefix) . 'Controller';
+        $controllerPrefix = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -24,9 +23,11 @@ class CreateControllerCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Controllers/"), "{$className}.php"],
-                $this->createClass($className, $container)
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Controllers/"), "{$controllerPrefix}Controller.php"],
+                $this->createClass($controllerPrefix, $container)
             );
+
+            $this->addRoute($container, $controllerPrefix);
 
         } else {
             $this->actionIndex();
@@ -34,7 +35,7 @@ class CreateControllerCommand
     }
 
     /**
-     * @param string $className
+     * @param string $controllerPrefix
      * @param string $container
      * @return string
      *
@@ -42,8 +43,10 @@ class CreateControllerCommand
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $container)
+    private function createClass(string $controllerPrefix, string $container)
     {
+        $url = strtolower("$container/$controllerPrefix");
+
         return <<<EOT
 <?php
 
@@ -51,14 +54,14 @@ namespace App\Containers\\{$container}\Controllers;
 
 use App\Containers\\{$container}\\{$container}Controller;
 
-class {$className} extends {$container}Controller
+class {$controllerPrefix}Controller extends {$container}Controller
 {
     /**
-     * @Routing(url = 'your/url', method = 'GET')
+     * @Routing(url = '{$url}', method = 'GET')
      */
     public function actionIndex()
     {
-
+        dd(__CLASS__);
     }
 }
 EOT;
@@ -87,6 +90,24 @@ EOT;
             file_put_contents($fullPath, $data);
         } else {
             Cli::printer("The file $fullPath is already exists" . PHP_EOL, "light_yellow");
+        }
+    }
+
+    public function addRoute(string $container, string $controllerPrefix)
+    {
+        $path   = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php");
+        $routes = require_once $path;
+        $namespace = "\App\Containers\\{$container}\\Controllers\\{$controllerPrefix}Controller";
+
+        if (!in_array($namespace, $routes)) {
+            $contents = file_get_contents($path);
+            $contents = str_replace("];", '', $contents);
+            file_put_contents($path, $contents);
+            $contents = <<<EOT
+    $namespace::class,
+];
+EOT;
+            file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
         }
     }
 }
