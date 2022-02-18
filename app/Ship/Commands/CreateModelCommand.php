@@ -53,9 +53,15 @@ namespace App\Containers\\{$container}\Models;
 
 use Rudra\Model\Model;
 
+/**
+ * @method static yourMethod()
+ *
+ * @see {$className}Repository
+ */
 class {$className} extends Model
 {
     public static string \$table = "$table";
+    public static string \$directory = __DIR__;
 }  
 EOT;
     }
