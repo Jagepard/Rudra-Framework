@@ -14,14 +14,14 @@ class SeedCommand
         $container = ucfirst(str_replace("\n", "", Cli::reader()));
 
         if (!empty($container)) {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seeds/"), 2);
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seeds/")), 2);
             $namespace = "App\\Containers\\$container\\Seeds\\";
         } else {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Ship/Seeds/"), 2);
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seeds/")), 2);
             $namespace = "App\\Ship\\Seeds\\";
         }
  
-        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/Data/SeedsHistory.php";
+        $historyPath = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Data/SeedsHistory.php");
         $history     = require_once $historyPath;
 
         foreach ($fileList as $filename) {

@@ -24,7 +24,7 @@ class CreateListenerCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Listeners/", "{$className}.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Listeners/"), "{$className}.php"],
                 $this->createClass($className, $container)
             );
 

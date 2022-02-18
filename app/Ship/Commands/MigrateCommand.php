@@ -13,14 +13,14 @@ class MigrateCommand
         $container = ucfirst(str_replace("\n", "", Cli::reader()));
 
         if (!empty($container)) {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), 2);
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/")), 2);
             $namespace = "App\\Containers\\$container\\Migrations\\";
         } else {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), 2);
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/")), 2);
             $namespace = "App\\Ship\\Migrations\\";
         }
 
-        $historyPath = Rudra::config()->get('app.path') . "/app/Ship/Data/Migrationshistory.php";
+        $historyPath = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Data/Migrationshistory.php");
         $history     = require_once $historyPath;
 
         foreach ($fileList as $filename) {

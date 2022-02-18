@@ -28,15 +28,15 @@ class CreateMigrationCommand
             $namespace = 'App\Containers\\' . $container . '\Migrations';
 
             if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
                     $this->createMysqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
                     $this->createPgsqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
                     $this->createSqliteMigration($className, $table, $namespace)
                 );
             }
@@ -46,15 +46,15 @@ class CreateMigrationCommand
             $namespace = "App\Ship\Migrations";
 
             if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
                     $this->createMysqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
                     $this->createPgsqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
-                $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migrations/", "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
                     $this->createSqliteMigration($className, $table, $namespace)
                 );
             }
