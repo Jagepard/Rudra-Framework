@@ -66,10 +66,10 @@ class {$container}Controller extends ShipController
     public function init()
     {
         View::setup([
-            "base.path"      => dirname(__DIR__) . '/',
+            "base.path"      => dirname(__DIR__) . DIRECTORY_SEPARATOR,
             "engine"         => "native",
-            "view.path"      => "{$container}/UI/tmpl",
-            "cache.path"     => "{$container}/UI/cache",
+            "view.path"      => '$container' . DIRECTORY_SEPARATOR . 'UI' . DIRECTORY_SEPARATOR . 'tmpl',
+            "cache.path"     => '$container' . DIRECTORY_SEPARATOR . 'UI' . DIRECTORY_SEPARATOR . 'cache',
             "file.extension" => "phtml",
         ]);
 
