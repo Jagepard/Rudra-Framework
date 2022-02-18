@@ -9,9 +9,8 @@ class SeedCommand
 {
     public function actionIndex()
     {
-
         Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
             $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seeds/")), 2);
@@ -33,10 +32,10 @@ class SeedCommand
             }
 
             if (in_array($seedName, $history)) {
-                Cli::printer("The $seedName is already seeded\n", "yellow");
+                Cli::printer("The $seedName is already seeded" . PHP_EOL, "yellow");
             } else {
                 (new $seedName)->create();
-                Cli::printer("The $seedName was seed\n", "light_cyan");
+                Cli::printer("The $seedName was seed" . PHP_EOL, "light_cyan");
 
                 if (file_exists($historyPath)) {
                     $contents = file_get_contents($historyPath);

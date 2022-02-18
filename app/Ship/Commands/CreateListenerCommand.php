@@ -15,11 +15,11 @@ class CreateListenerCommand
     public function actionIndex()
     {
         Cli::printer("Enter listener name: ", "magneta");
-        $prefix    = str_replace("\n", "", Cli::reader());
+        $prefix    = str_replace(PHP_EOL, "", Cli::reader());
         $className = ucfirst($prefix) . 'Listener';
 
         Cli::printer("Enter container: ", "magneta");
-        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
 
@@ -75,10 +75,10 @@ EOT;
         if (!file_exists($fullPath)) {
             Cli::printer("The file ", "light_green");
             Cli::printer($fullPath, "light_green");
-            Cli::printer(" was created\n", "light_green");
+            Cli::printer(" was created" . PHP_EOL, "light_green");
             file_put_contents($fullPath, $data);
         } else {
-            Cli::printer("The file $fullPath is already exists\n", "light_yellow");
+            Cli::printer("The file $fullPath is already exists" . PHP_EOL, "light_yellow");
         }
     }
 }

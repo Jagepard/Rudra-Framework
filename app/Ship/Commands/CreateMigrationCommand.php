@@ -15,10 +15,10 @@ class CreateMigrationCommand
     public function actionIndex()
     {
         Cli::printer("Enter table name: ", "magneta");
-        $table = str_replace("\n", "", Cli::reader());
+        $table = str_replace(PHP_EOL, "", Cli::reader());
 
         Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace("\n", "", Cli::reader()));
+        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         $date      = date("_dmYHis");
         $className = ucfirst($table) . $date;
@@ -197,10 +197,10 @@ EOT;
         $fullPath = $path[0] . $path[1];
 
         if (!file_exists($fullPath)) {
-            Cli::printer("The file $fullPath was created\n", "light_green");
+            Cli::printer("The file $fullPath was created" . PHP_EOL, "light_green");
             file_put_contents($fullPath, $callable);
         } else {
-            Cli::printer("The file $fullPath is already exists\n", "light_yellow");
+            Cli::printer("The file $fullPath is already exists" . PHP_EOL, "light_yellow");
         }
     }
 }

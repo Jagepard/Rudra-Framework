@@ -8,14 +8,14 @@ class ConsoleCommand
 {
     public function actionIndex()
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |\n";
+        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         printf("\e[5;35m" . $mask . "\e[m", " ", "command", "controller", "action");
         $this->getTable(Cli::getRegistry());
     }
 
     protected function getTable(array $data)
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |\n";
+        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         $i    = 1;
 
         foreach ($data as $name => $routes) {
