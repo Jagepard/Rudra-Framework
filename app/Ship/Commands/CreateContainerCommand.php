@@ -20,22 +20,22 @@ class CreateContainerCommand
 
         if (!empty($container)) {
 
-            if (is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+            if (is_dir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"))) {
                 Cli::printer("The container $container already exists\n", "light_yellow");
                 return;
             }
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "{$className}.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "{$className}.php"],
                 $this->createContainersConroller($className, $container)
             );
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "routes.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "routes.php"],
                 $this->createRoutes()
             );
 
-            $this->createDirectories(Rudra::config()->get('app.path') . "/app/Containers/$container/");
+            $this->createDirectories(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"));
             Cli::printer("The container $container was created\n", "light_green");
 
         } else {
@@ -137,12 +137,12 @@ EOT;
             mkdir($path . 'UI', 0755, true);
         }
 
-        if (!is_dir($path . 'UI/cache')) {
-            mkdir($path . 'UI/cache', 0755, true);
+        if (!is_dir($path . 'UI' . DIRECTORY_SEPARATOR . 'cache')) {
+            mkdir($path . 'UI' . DIRECTORY_SEPARATOR . 'cache', 0755, true);
         }
 
-        if (!is_dir($path . 'UI/tmpl')) {
-            mkdir($path . 'UI/tmpl', 0755, true);
+        if (!is_dir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl')) {
+            mkdir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl', 0755, true);
         }
     }
 }

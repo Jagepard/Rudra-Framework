@@ -27,7 +27,7 @@ class CreateSeedCommand
             $namespace = 'App\Containers\\' . $container . '\Seeds';
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/", "{$className}_seed.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/"), "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace)
             );
 
@@ -37,7 +37,7 @@ class CreateSeedCommand
             $namespace = "App\Ship\Seeds";
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Ship/Seeds/", "{$className}_seed.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seeds/"), "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace)
             );
         }
