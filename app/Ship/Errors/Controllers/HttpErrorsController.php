@@ -24,14 +24,13 @@ class HttpErrorsController extends ErrorsController
     public function error404()
     {
         data(["content" => view("errors.404")]);
-
-        render("uikit", data());
+        render("layout", data());
     }
 
     public function error503()
     {
         data(["content" => view("errors.503")]);
-        render("uikit", data());
+        render("layout", data());
     }
 
     public function error500()

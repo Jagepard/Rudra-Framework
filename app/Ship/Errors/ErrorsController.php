@@ -13,7 +13,7 @@ class ErrorsController extends ShipController
             "base.path"      => dirname(__DIR__) . '/',
             "engine"         => "native",
             "view.path"      => "Errors/UI/tmpl",
-            "file.extension" => "tmpl.php",
+            "file.extension" => "phtml",
         ]);
 
         data([
