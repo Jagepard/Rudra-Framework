@@ -9,7 +9,7 @@ class MainController extends WebController
 {
     /**
      * @Routing(url = '')
-     * @Routing(url = '{name}')
+     * @Routing(url = 'name/{name}')
      * 
      * @Middleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
      * @Middleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
