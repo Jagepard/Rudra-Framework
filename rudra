@@ -18,6 +18,9 @@ Rudra::set([Console::class, Console::class]);
 
 (new \App\Ship\ShipController())->eventRegistration();
 
+Cli::addCommand("create:observer", [App\Ship\Commands\CreateObserverCommand::class]);
+Cli::addCommand("cr:ob", [App\Ship\Commands\CreateObserverCommand::class]);
+
 Cli::addCommand("create:repository", [App\Ship\Commands\CreateRepositoryCommand::class]);
 Cli::addCommand("cr:r", [App\Ship\Commands\CreateRepositoryCommand::class]);
 
