@@ -35,7 +35,7 @@ class SeedCommand
                 Cli::printer("The $seedName is already seeded" . PHP_EOL, "yellow");
             } else {
                 (new $seedName)->create();
-                Cli::printer("The $seedName was seed" . PHP_EOL, "light_cyan");
+                Cli::printer("The $seedName was seed" . PHP_EOL, "light_green");
 
                 if (file_exists($historyPath)) {
                     $contents = file_get_contents($historyPath);
