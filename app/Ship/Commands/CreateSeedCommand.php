@@ -22,13 +22,17 @@ class CreateSeedCommand
         Cli::printer("Enter container (empty for Ship): ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
+        Cli::printer("multiline Seed (yes): ", "magneta");
+        $multiline = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        $multiline = empty($multiline);
+
         if (!empty($container)) {
 
             $namespace = 'App\Containers\\' . $container . '\Seeds';
 
             $this->writeFile(
                 [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/"), "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace)
+                $this->createClass($className, $table, $namespace, $multiline)
             );
 
 
@@ -38,23 +42,51 @@ class CreateSeedCommand
 
             $this->writeFile(
                 [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seeds/"), "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace)
+                $this->createClass($className, $table, $namespace, $multiline)
             );
         }
     }
 
     /**
-     * @param string $className
-     * @param string $table
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $table, string $namespace)
+    private function createClass(string $className, string $table, string $namespace, bool $multiline = false)
     {
-        return <<<EOT
+        if ($multiline) {
+            return <<<EOT
+<?php
+
+namespace {$namespace};
+
+use App\Ship\Seeds\AbstractSeed;
+
+class {$className}_seed extends AbstractSeed
+{
+    public function create()
+    {
+        \$table = "$table";
+
+        \$fieldsArray = [
+            [
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ],
+            [
+                "created_at" => date('Y-m-d H:i:s'),
+                "updated_at" => date('Y-m-d H:i:s'),
+            ],
+        ];
+
+        foreach (\$fieldsArray as \$fields) {
+            \$this->execute(\$table, \$fields);
+        }
+    }
+}
+EOT;
+        } else {
+            return <<<EOT
 <?php
 
 namespace {$namespace};
@@ -67,19 +99,20 @@ class {$className}_seed extends AbstractSeed
     {
         \$table = "$table";
         \$fields = [
-            
+            "created_at" => date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'),
         ];
 
         \$this->execute(\$table, \$fields);
     }
 }
 EOT;
+        }
+
+
     }
 
     /**
-     * @param $path
-     * @param $callable
-     *
      * Writes data to a file
      * ---------------------
      * Записывает данные в файл
