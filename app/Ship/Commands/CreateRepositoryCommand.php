@@ -14,7 +14,7 @@ class CreateRepositoryCommand
      */
     public function actionIndex()
     {
-        Cli::printer("Enter repository name: ", "magneta");
+        Cli::printer("Enter table name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
         $className = ucfirst($prefix) . 'Repository';
 
