@@ -15,8 +15,8 @@ class CreateRepositoryCommand
     public function actionIndex()
     {
         Cli::printer("Enter table name: ", "magneta");
-        $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Repository';
+        $table     = str_replace(PHP_EOL, "", Cli::reader());
+        $className = ucfirst($table) . 'Repository';
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -25,7 +25,7 @@ class CreateRepositoryCommand
 
             $this->writeFile(
                 [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/"), "{$className}.php"],
-                $this->createClass($className, $container)
+                $this->createClass($className, $container, $table)
             );
 
         } else {
@@ -36,24 +36,28 @@ class CreateRepositoryCommand
     /**
      * @param string $className
      * @param string $container
+     * @param string $table
      * @return string
      *
      * Creates class data
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $container)
+    private function createClass(string $className, string $container, string $table)
     {
+        $model = ucfirst($table);
+
         return <<<EOT
 <?php
 
 namespace App\Containers\\{$container}\Repository;
 
 use Rudra\Model\QBFacade;
+use App\Containers\Web\Models\\$model;
 
 class {$className}
 {
-
+    public static string \$table = "test";
 }
 EOT;
     }
