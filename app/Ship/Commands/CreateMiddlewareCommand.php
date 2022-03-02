@@ -56,7 +56,7 @@ class {$className} implements MiddlewareInterface
 {
     public function __invoke(\$middlewares)
     {
-        \$this->info(__CLASS__);
+        dump(__CLASS__);
         \$this->next(\$middlewares);
     }
 
