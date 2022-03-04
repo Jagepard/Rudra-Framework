@@ -8,6 +8,7 @@ use Rudra\Container\Rudra;
 use Rudra\Redirect\Redirect;
 
 return [
+    'secret'      => '',
     'app.path'    => '/home/d/custom_projects/php/rudra/Rudra-Framework',
     'environment' => 'development',
     'cache.time'  => 'now',
