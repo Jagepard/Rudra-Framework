@@ -47,7 +47,8 @@ Cli::addCommand("cr:m", [App\Ship\Commands\CreateMigrationCommand::class]);
 
 Cli::addCommand("seed", [App\Ship\Commands\SeedCommand::class]);
 Cli::addCommand("migrate", [App\Ship\Commands\MigrateCommand::class]);
-Cli::addCommand("events", [App\Ship\Commands\EventsCommand::class]);
+Cli::addCommand("listeners", [App\Ship\Commands\ListenersCommand::class]);
+Cli::addCommand("observers", [App\Ship\Commands\ObserversCommand::class]);
 Cli::addCommand("bcrypt", [App\Ship\Commands\BcryptCommand::class]);
 Cli::addCommand("serve", [App\Ship\Commands\ServeCommand::class]);
 Cli::addCommand("run", [App\Ship\Commands\ServeCommand::class]);
