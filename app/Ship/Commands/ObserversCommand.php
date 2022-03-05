@@ -21,8 +21,8 @@ class ObserversCommand
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         $i    = 1;
 
-        foreach ($data as $name => $observer) {
-            printf("\e[5;36m" . $mask . "\e[m", $i, $event, $observer["subscriber"], $observer["method"]);
+        foreach ($data as $subscriber => $method) {
+            printf("\e[5;36m" . $mask . "\e[m", $i, $event, $subscriber, $method);
             $i++;
         }
     }
