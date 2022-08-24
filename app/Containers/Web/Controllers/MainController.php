@@ -26,6 +26,8 @@ class MainController extends WebController
        Dispatcher::dispatch('message', __CLASS__);
        $this->info("Hello $name");
 
+       Dispatcher::notify('one');
+
        render("layout", data());
     }
 }
