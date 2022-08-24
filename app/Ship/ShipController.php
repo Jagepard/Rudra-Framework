@@ -3,6 +3,7 @@
 namespace App\Ship;
 
 use App\Containers\Web\Listeners\MessageListener;
+use App\Containers\Web\Observers\TestObserver;
 use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
@@ -25,5 +26,6 @@ class ShipController extends Controller
     public function eventRegistration()
     {
         Dispatcher::addListener('message', [MessageListener::class, 'info']);
+        Dispatcher::attachObserver('one', [TestObserver::class, 'onEvent'], __CLASS__);
     }
 }

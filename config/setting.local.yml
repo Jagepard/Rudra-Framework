@@ -1,0 +1,17 @@
+secret: ''
+app.path: /home/d/projects/php/rudra.ecosystems/rudra_framework.components/Rudra-Framework
+environment: development
+cache.time: now
+roles:
+    admin: 0
+    editor: 1
+    moderator: 2
+    user: 3
+containers:
+    web: App\Containers\Web\
+http.errors:
+    404: [App\Ship\Errors\Controllers\HttpErrorsController, error404]
+    503: [App\Ship\Errors\Controllers\HttpErrorsController, error503]
+dbuser:
+    username: jagepard
+    password: password

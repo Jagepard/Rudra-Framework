@@ -1,0 +1,80 @@
+create:observer:
+  - App\Ship\Commands\CreateObserverCommand
+cr:ob:
+  - App\Ship\Commands\CreateObserverCommand
+  - actionIndex
+
+create:repository:
+  - App\Ship\Commands\CreateRepositoryCommand
+cr:r:
+  - App\Ship\Commands\CreateRepositoryCommand
+
+create:model:
+  - App\Ship\Commands\CreateModelCommand
+cr:ml:
+  - App\Ship\Commands\CreateModelCommand
+
+create:middleware:
+  - App\Ship\Commands\CreateMiddlewareCommand
+cr:mid:
+  - App\Ship\Commands\CreateMiddlewareCommand
+
+create:listener:
+  - App\Ship\Commands\CreateListenerCommand
+cr:l:
+  - App\Ship\Commands\CreateListenerCommand
+
+create:container:
+  - App\Ship\Commands\CreateContainerCommand
+cr:cr:
+  App\Ship\Commands\CreateContainerCommand
+
+create:controller:
+  - App\Ship\Commands\CreateControllerCommand
+cr:ctr:
+  - App\Ship\Commands\CreateControllerCommand
+
+create:seed:
+  - App\Ship\Commands\CreateSeedCommand
+cr:s:
+  - App\Ship\Commands\CreateSeedCommand
+
+create:migration:
+  - App\Ship\Commands\CreateMigrationCommand
+cr:m:
+  - App\Ship\Commands\CreateMigrationCommand
+
+seed:
+  - App\Ship\Commands\SeedCommand
+migrate:
+  - App\Ship\Commands\MigrateCommand
+listeners:
+  - App\Ship\Commands\ListenersCommand
+observers:
+  - App\Ship\Commands\ObserversCommand
+bcrypt:
+  - App\Ship\Commands\BcryptCommand
+serve:
+  - App\Ship\Commands\ServeCommand
+run:
+  - App\Ship\Commands\ServeCommand
+
+help:
+  - App\Ship\Commands\ConsoleCommand
+h:
+  - App\Ship\Commands\ConsoleCommand
+
+router:
+  - App\Ship\Commands\RouterCommand
+r:
+  - App\Ship\Commands\RouterCommand
+
+router:container:
+  - App\Ship\Commands\RouterCommand
+  - actionContainer
+rc:
+  - App\Ship\Commands\RouterCommand
+  - actionContainer
+
+toYml:
+  - App\Ship\Commands\ArrayToYml

@@ -35,7 +35,8 @@
         "ext-pdo"            : "*",
         "symfony/var-dumper" : "*",
         "phpmailer/phpmailer": "dev-master",
-        "maximebf/debugbar"  : "dev-master"
+        "maximebf/debugbar"  : "dev-master",
+        "symfony/yaml": "6.2.x-dev"
     },
     "require-dev"      : {
         "rudra/event-dispatcher": "9999999-dev",
