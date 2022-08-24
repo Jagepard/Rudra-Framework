@@ -1,65 +1,28 @@
 #!/usr/bin/php
 <?php
 
-if (php_sapi_name() !== 'cli') exit;
+if (php_sapi_name() !== "cli") exit;
 
-require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . "/vendor/autoload.php";
 
 use Rudra\Cli\Console;
+use App\Ship\ShipController;
+use Symfony\Component\Yaml\Yaml;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 
 parse_str(implode('&', array_slice($argv, 1)), $inputArgs);
 
-Rudra::config(require_once "./app/Ship/Config/local.php");
+Rudra::config(Yaml::parseFile("config/setting.local.yml"));
+Rudra::config()->set(require_once "app/Ship/Services.php");
 Rudra::binding(Rudra::config()->get("contracts"));
 Rudra::services(Rudra::config()->get("services"));
 Rudra::set([Console::class, Console::class]);
 
-(new \App\Ship\ShipController())->eventRegistration();
+(new ShipController())->eventRegistration();
 
-Cli::addCommand("create:observer", [App\Ship\Commands\CreateObserverCommand::class]);
-Cli::addCommand("cr:ob", [App\Ship\Commands\CreateObserverCommand::class]);
-
-Cli::addCommand("create:repository", [App\Ship\Commands\CreateRepositoryCommand::class]);
-Cli::addCommand("cr:r", [App\Ship\Commands\CreateRepositoryCommand::class]);
-
-Cli::addCommand("create:model", [App\Ship\Commands\CreateModelCommand::class]);
-Cli::addCommand("cr:ml", [App\Ship\Commands\CreateModelCommand::class]);
-
-Cli::addCommand("create:middleware", [App\Ship\Commands\CreateMiddlewareCommand::class]);
-Cli::addCommand("cr:mid", [App\Ship\Commands\CreateMiddlewareCommand::class]);
-
-Cli::addCommand("create:listener", [App\Ship\Commands\CreateListenerCommand::class]);
-Cli::addCommand("cr:l", [App\Ship\Commands\CreateListenerCommand::class]);
-
-Cli::addCommand("create:container", [App\Ship\Commands\CreateContainerCommand::class]);
-Cli::addCommand("cr:cr", [App\Ship\Commands\CreateContainerCommand::class]);
-
-Cli::addCommand("create:controller", [App\Ship\Commands\CreateControllerCommand::class]);
-Cli::addCommand("cr:ctr", [App\Ship\Commands\CreateControllerCommand::class]);
-
-Cli::addCommand("create:seed", [App\Ship\Commands\CreateSeedCommand::class]);
-Cli::addCommand("cr:s", [App\Ship\Commands\CreateSeedCommand::class]);
-
-Cli::addCommand("create:migration", [App\Ship\Commands\CreateMigrationCommand::class]);
-Cli::addCommand("cr:m", [App\Ship\Commands\CreateMigrationCommand::class]);
-
-Cli::addCommand("seed", [App\Ship\Commands\SeedCommand::class]);
-Cli::addCommand("migrate", [App\Ship\Commands\MigrateCommand::class]);
-Cli::addCommand("listeners", [App\Ship\Commands\ListenersCommand::class]);
-Cli::addCommand("observers", [App\Ship\Commands\ObserversCommand::class]);
-Cli::addCommand("bcrypt", [App\Ship\Commands\BcryptCommand::class]);
-Cli::addCommand("serve", [App\Ship\Commands\ServeCommand::class]);
-Cli::addCommand("run", [App\Ship\Commands\ServeCommand::class]);
-
-Cli::addCommand("help", [App\Ship\Commands\ConsoleCommand::class]);
-Cli::addCommand("h", [App\Ship\Commands\ConsoleCommand::class]);
-
-Cli::addCommand("router", [App\Ship\Commands\RouterCommand::class]);
-Cli::addCommand("r", [App\Ship\Commands\RouterCommand::class]);
-
-Cli::addCommand("router:container", [App\Ship\Commands\RouterCommand::class, "actionContainer"]);
-Cli::addCommand("rc", [App\Ship\Commands\RouterCommand::class,  "actionContainer"]);
+foreach (Yaml::parseFile("config/commands.yml") as $name => $command) {
+    Cli::addCommand($name, $command);
+}
 
 Cli::invoke($inputArgs);
