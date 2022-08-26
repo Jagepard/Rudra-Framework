@@ -15,3 +15,4 @@ http.errors:
 dbuser:
     username: jagepard
     password: password
+attributes: false
