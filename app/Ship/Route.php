@@ -34,8 +34,6 @@ class Route
     {
         $path = "../app/Containers/" . ucfirst($container) . "/routes";
 
-        if (file_exists($path . ".php")) {
-            return Router::annotationCollector(require_once $path . ".php");
-        }
+        return Router::annotationCollector(require_once $path . ".php", false, Rudra::config()->get("attributes"));
     }
 }
