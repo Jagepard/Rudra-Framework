@@ -21,17 +21,17 @@ class MainController extends WebController
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
-       ]);
+        ]);
 
-       Dispatcher::dispatch('message', __CLASS__);
-       $this->info("Hello $name");
+        Dispatcher::dispatch('message', __CLASS__);
+        $this->info("Hello $name");
 
-       Dispatcher::notify('one');
+        Dispatcher::notify('one');
 
         dump(PHP_VERSION);
-       dump(__METHOD__);
+        dump(__METHOD__);
 
-       render("layout", data());
+        render("layout", data());
     }
 
     #[Routing(url: '')]
