@@ -26,10 +26,10 @@ class MainController extends WebController
         Dispatcher::dispatch('message', __CLASS__);
         $this->info("Hello $name");
 
-        Dispatcher::notify('one');
+        // Dispatcher::notify('one');
 
-        dump(PHP_VERSION);
-        dump(__METHOD__);
+        // dump(PHP_VERSION);
+        // dump(__METHOD__);
 
         render("layout", data());
     }
