@@ -21,11 +21,16 @@ composer dumpautoload -o</code></pre>
         </p>
         <p class="col-md-8 fs-4">
         Setup your database in <code class="language-css">config/setting.local.yml</code> for local database, <code class="language-css">config/setting.production.yml</code>  for production:
-        <pre><code class="language-php">"DSN" => new \PDO('sqlite:path_to/rudra.db')</code></pre>
-        <pre><code class="language-php">"DSN" => new \PDO('mysql:dbname=rudra;host=127.0.0.1', 'jagepard', 'password'),</code></pre>
-        <pre><code class="language-php">"DSN" => new \PDO('pgsql:host=127.0.0.1;port=5432;dbname=rudra;', 'jagepard', 'password')</code></pre>
+        <pre><code class="language-php">dsn: sqlite:/path/to/rudra.sqlite</code></pre>
+        <pre><code class="language-php">dsn: mysql:dbname=rudra_mysql;host=127.0.0.1</code></pre>
+        <pre><code class="language-php">dsn: pgsql:host=127.0.0.1;port=5432;dbname=rudra_postgres</code></pre>
         </p>
         <p class="col-md-8 fs-4">
+
+        Specify database user details:
+        <pre><code class="language-php">username: jagepard</code></pre>
+        <pre><code class="language-php">password: password</code></pre>
+
         And run development server:
         <pre><code class="language-css">php rudra serve</code></pre>
         or
