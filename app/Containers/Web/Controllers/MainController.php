@@ -28,7 +28,6 @@ class MainController extends WebController
 
         Dispatcher::notify('one');
 
-        dump(PHP_VERSION);
         dump(__METHOD__);
 
         render("layout", data());
@@ -50,7 +49,7 @@ class MainController extends WebController
         $this->info("Hello $name");
 
         Dispatcher::notify('one');
-        dump(PHP_VERSION);
+
         dump(__METHOD__);
 
         render("layout", data());
