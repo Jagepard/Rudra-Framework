@@ -16,10 +16,10 @@ parse_str(implode('&', array_slice($argv, 1)), $inputArgs);
 Rudra::config(Yaml::parseFile("config/setting.local.yml"));
 Rudra::config()->set(require_once "app/Ship/Services.php");
 Rudra::binding(Rudra::config()->get("contracts"));
-Rudra::services(Rudra::config()->get("services"));
+Rudra::serviceList(Rudra::config()->get("services"));
 Rudra::set([Console::class, Console::class]);
 
-(new ShipController())->eventRegistration();
+(new ShipController(Rudra::run()))->eventRegistration();
 
 foreach (Yaml::parseFile("config/commands.yml") as $name => $command) {
     Cli::addCommand($name, $command);
