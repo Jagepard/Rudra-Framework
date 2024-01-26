@@ -47,6 +47,25 @@ class CreateControllerCommand
     {
         $url = strtolower("$container/$controllerPrefix");
 
+        if (Rudra::config()->get("attributes")) {
+            return <<<EOT
+            <?php
+            
+            namespace App\Containers\\{$container}\Controllers;
+            
+            use App\Containers\\{$container}\\{$container}Controller;
+            
+            class {$controllerPrefix}Controller extends {$container}Controller
+            {
+                #[Routing(url: '{$url}', method: 'GET')]
+                public function actionIndex()
+                {
+                    dd(__CLASS__);
+                }
+            }
+            EOT;
+        }
+
         return <<<EOT
 <?php
 
