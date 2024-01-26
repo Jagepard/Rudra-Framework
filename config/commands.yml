@@ -63,6 +63,8 @@ help:
   - App\Ship\Commands\ConsoleCommand
 h:
   - App\Ship\Commands\ConsoleCommand
+'' :
+  - App\Ship\Commands\ConsoleCommand
 
 router:
   - App\Ship\Commands\RouterCommand
