@@ -75,7 +75,13 @@ class RouterCommand
         $path = "app/Containers/" . ucfirst($container) . "/routes";
 
         if (file_exists($path . ".php")) {
-            return Router::annotationCollector(require_once $path . ".php", true);
+            $routes = Router::annotationCollector(require $path . ".php", true);
+            
+            if (count($routes) === 0) {
+                return Router::annotationCollector(require $path . ".php", true, true);
+            }
+
+            return $routes;
         }
     }
 }
