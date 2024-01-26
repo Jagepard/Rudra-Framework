@@ -27,7 +27,7 @@ cr:l:
 create:container:
   - App\Ship\Commands\CreateContainerCommand
 cr:cr:
-  App\Ship\Commands\CreateContainerCommand
+  - App\Ship\Commands\CreateContainerCommand
 
 create:controller:
   - App\Ship\Commands\CreateControllerCommand
