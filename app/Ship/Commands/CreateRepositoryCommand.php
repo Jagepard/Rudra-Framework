@@ -57,7 +57,7 @@ use App\Containers\Web\Models\\$model;
 
 class {$className}
 {
-    public static string \$table = "test";
+    public static string \$table = "$table";
 }
 EOT;
     }
