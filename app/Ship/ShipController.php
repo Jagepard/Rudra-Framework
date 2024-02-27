@@ -13,7 +13,7 @@ class ShipController extends Controller
 {
     use HelperTrait;
 
-    public function generalPreCall()
+    public function shipInit()
     {
         if (Rudra::config()->get("environment") === "development") {
             Rudra::get("debugbar")['time']->stopMeasure('routing');
@@ -21,10 +21,7 @@ class ShipController extends Controller
                 "debugbar" => Rudra::get("debugbar")->getJavascriptRenderer(),
             ]);
         }
-    }
 
-    public function eventRegistration()
-    {
         Dispatcher::addListener('message', [MessageListener::class, 'info']);
         Dispatcher::attachObserver('one', [TestObserver::class, 'onEvent'], __CLASS__);
     }
