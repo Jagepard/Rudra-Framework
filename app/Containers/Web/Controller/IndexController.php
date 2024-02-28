@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Containers\Web\Controllers;
+namespace App\Containers\Web\Controller;
 
 use App\Containers\Web\WebController;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
-class MainController extends WebController
+class IndexController extends WebController
 {
     /**
      * @Routing(url = '')

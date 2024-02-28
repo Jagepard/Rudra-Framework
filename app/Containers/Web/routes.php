@@ -1,5 +1,5 @@
 <?php
 
 return [
-    \App\Containers\Web\Controllers\MainController::class,
+    \App\Containers\Web\Controller\IndexController::class,
 ];
