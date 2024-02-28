@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Migrations;
+namespace App\Ship\Migration;
 
 use Rudra\Container\Facades\Rudra;
 

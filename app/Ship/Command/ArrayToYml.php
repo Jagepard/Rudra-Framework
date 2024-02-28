@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Exception;
 use Symfony\Component\Yaml\Yaml;
