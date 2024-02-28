@@ -23,7 +23,7 @@ class CreateControllerCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Controllers/"), "{$controllerPrefix}Controller.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Controller/"), "{$controllerPrefix}Controller.php"],
                 $this->createClass($controllerPrefix, $container)
             );
 
@@ -63,13 +63,14 @@ class CreateControllerCommand
                     dd(__CLASS__);
                 }
             }
+
             EOT;
         }
 
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Controllers;
+namespace App\Containers\\{$container}\Controller;
 
 use App\Containers\\{$container}\\{$container}Controller;
 
@@ -83,6 +84,7 @@ class {$controllerPrefix}Controller extends {$container}Controller
         dd(__CLASS__);
     }
 }
+
 EOT;
     }
 
@@ -116,7 +118,7 @@ EOT;
     {
         $path   = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php");
         $routes = require_once $path;
-        $namespace = "\App\Containers\\{$container}\\Controllers\\{$controllerPrefix}Controller";
+        $namespace = "\App\Containers\\{$container}\\Controller\\{$controllerPrefix}Controller";
 
         if (!in_array($namespace, $routes)) {
             $contents = file_get_contents($path);
@@ -125,6 +127,7 @@ EOT;
             $contents = <<<EOT
     $namespace::class,
 ];
+
 EOT;
             file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
         }

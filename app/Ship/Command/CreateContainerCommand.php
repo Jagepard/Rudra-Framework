@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -35,6 +35,7 @@ class CreateContainerCommand
                 $this->createRoutes()
             );
 
+            $this->addConfig($container);
             $this->createDirectories(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"));
             Cli::printer("The container $container was created" . PHP_EOL, "light_green");
 
@@ -63,7 +64,7 @@ use Rudra\View\ViewFacade as View;
 
 class {$container}Controller extends ShipController
 {
-    public function init()
+    public function containerInit()
     {
         View::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
 
@@ -72,6 +73,7 @@ class {$container}Controller extends ShipController
         ]);
     }
 }
+
 EOT;
     }
 
@@ -86,8 +88,8 @@ EOT;
 <?php
 
 return [
-
 ];
+
 EOT;
     }
 
@@ -138,5 +140,15 @@ EOT;
         if (!is_dir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl')) {
             mkdir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl', 0755, true);
         }
+    }
+
+    public function addConfig(string $container)
+    {
+        $path      = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/config/setting.local.yml");
+        $namespace = strtolower($container) . ": App\Containers\\{$container}\\";
+        $contents  = <<<EOT
+        \r\n    $namespace
+EOT;
+        file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
     }
 }

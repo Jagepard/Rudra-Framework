@@ -2,8 +2,8 @@
 
 namespace App\Ship;
 
-use App\Containers\Web\Listeners\MessageListener;
-use App\Containers\Web\Observers\TestObserver;
+use App\Containers\Web\Listener\MessageListener;
+use App\Containers\Web\Observer\TestObserver;
 use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;

@@ -7,8 +7,6 @@ roles:
     editor: 1
     moderator: 2
     user: 3
-containers:
-    web: App\Containers\Web\
 http.errors:
     404: [App\Ship\Errors\Controllers\HttpErrorsController, error404]
     503: [App\Ship\Errors\Controllers\HttpErrorsController, error503]
@@ -19,3 +17,5 @@ database:
     username: jagepard
     password: password
 attributes: true
+containers:
+    web: App\Containers\Web\

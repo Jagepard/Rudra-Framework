@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Web\Listeners;
+namespace App\Containers\Web\Listener;
 
 use App\Ship\Utils\HelperTrait;
 
