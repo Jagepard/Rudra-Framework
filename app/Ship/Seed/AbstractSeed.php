@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Seeds;
+namespace App\Ship\Seed;
 
 use Rudra\Container\Facades\Request;
 use Rudra\Container\Facades\Rudra;

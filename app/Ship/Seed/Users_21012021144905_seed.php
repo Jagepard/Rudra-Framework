@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Seeds;
+namespace App\Ship\Seed;
 
 use Rudra\Auth\AuthFacade as Auth;
 

@@ -2,18 +2,16 @@
 
 namespace App\Ship\Command;
 
-use Rudra\Cli\ConsoleFacade as Cli;
+use App\Ship\Utils\DatabaseLogger;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Cli\ConsoleFacade as Cli;
 
-class MigrateCommand
+class MigrateCommand extends DatabaseLogger
 {
-    private \PDO $dsn;
-    private string $table;
-
     public function __construct()
     {
-        $this->dsn   = Rudra::get("DSN");
         $this->table = "rudra_migrations";
+        parent::__construct();
     }
 
     public function actionIndex()
@@ -36,61 +34,13 @@ class MigrateCommand
         foreach ($fileList as $filename) {
             $migrationName = $namespace . strstr($filename, '.', true);
 
-            if ($this->checkMigration($migrationName)) {
+            if ($this->checkLog($migrationName)) {
                 Cli::printer("The $migrationName is already migrated" . PHP_EOL, "light_yellow");
             } else {
                 (new $migrationName)->up();
                 Cli::printer("The $migrationName has migrate" . PHP_EOL, "light_green");
-                $this->writeMigration($migrationName);
+                $this->writeLog($migrationName);
             }
         }
-    }
-
-    private function up()
-    {
-        $query = $this->dsn->prepare("
-            CREATE TABLE {$this->table} (
-            `id` INT NOT NULL AUTO_INCREMENT ,
-            `name` VARCHAR(255) NOT NULL , 
-            `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-            `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-                PRIMARY KEY (`id`)
-            ) ENGINE = InnoDB DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci
-        ");
-
-        $query->execute();
-    }
-
-    private function isTable()
-    {
-        $query = $this->dsn->query("
-            SHOW TABLES LIKE '{$this->table}';
-        ");
-
-        return $query->fetchColumn();
-    }
-
-    private function writeMigration(string $name)
-    {
-        $query = $this->dsn->prepare("
-            INSERT INTO {$this->table} (`name`)
-            VALUES (:name)"
-        );
-
-        $query->execute([':name' => $name]);
-    }
-
-    private function checkMigration(string $name)
-    {
-        $stmt = $this->dsn->prepare("
-            SELECT * FROM {$this->table}
-            WHERE name = :name
-        ");
-
-        $stmt->execute([
-            ':name' => $name,
-        ]);
-
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
     }
 }
