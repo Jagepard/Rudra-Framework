@@ -1,52 +1,50 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
-use Rudra\Cli\ConsoleFacade as Cli;
+use App\Ship\Utils\DatabaseLogger;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Cli\ConsoleFacade as Cli;
 
-class SeedCommand
+class SeedCommand extends DatabaseLogger
 {
+    public function __construct()
+    {
+        $this->table = "rudra_seeds";
+        parent::__construct();
+    }
+
     public function actionIndex()
     {
         Cli::printer("Enter container (empty for Ship): ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
-            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seeds/")), 2);
-            $namespace = "App\\Containers\\$container\\Seeds\\";
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seed/")), 2);
+            $namespace = "App\\Containers\\$container\\Seed\\";
         } else {
-            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seeds/")), 2);
-            $namespace = "App\\Ship\\Seeds\\";
+            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seed/")), 2);
+            $namespace = "App\\Ship\\Seed\\";
         }
- 
-        $historyPath = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Data/SeedsHistory.php");
-        $history     = require_once $historyPath;
+
+        if (!$this->isTable()) {
+            $this->up();
+        }
 
         foreach ($fileList as $filename) {
 
             $seedName = $namespace . strstr($filename, '.', true);
 
-            if ($seedName === 'App\Ship\Seeds\AbstractSeed') {
+            if ($seedName === 'App\Ship\Seed\AbstractSeed') {
                 continue;
             }
 
-            if (in_array($seedName, $history)) {
-                Cli::printer("The $seedName is already seeded" . PHP_EOL, "yellow");
+            if ($this->checkLog($seedName)) {
+                Cli::printer("The $seedName is already seeded" . PHP_EOL, "light_yellow");
             } else {
                 (new $seedName)->create();
                 Cli::printer("The $seedName was seed" . PHP_EOL, "light_green");
-
-                if (file_exists($historyPath)) {
-                    $contents = file_get_contents($historyPath);
-                    $contents = str_replace("];", '', $contents);
-                    file_put_contents($historyPath, $contents);
-                    $contents = <<<EOT
-    "$seedName",
-];
-EOT;
-                    file_put_contents($historyPath, $contents, FILE_APPEND | LOCK_EX);
-                }
+                $this->writeLog($seedName);
             }
         }
     }

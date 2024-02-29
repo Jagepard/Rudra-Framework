@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -28,20 +28,20 @@ class CreateSeedCommand
 
         if (!empty($container)) {
 
-            $namespace = 'App\Containers\\' . $container . '\Seeds';
+            $namespace = 'App\Containers\\' . $container . '\Seed';
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Seeds/"), "{$className}_seed.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/"), "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace, $multiline)
             );
 
 
         } else {
 
-            $namespace = "App\Ship\Seeds";
+            $namespace = "App\Ship\Seed";
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seeds/"), "{$className}_seed.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seed/"), "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace, $multiline)
             );
         }
@@ -60,7 +60,7 @@ class CreateSeedCommand
 
 namespace {$namespace};
 
-use App\Ship\Seeds\AbstractSeed;
+use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
@@ -83,7 +83,7 @@ class {$className}_seed extends AbstractSeed
             \$this->execute(\$table, \$fields);
         }
     }
-}
+}\r\n
 EOT;
         } else {
             return <<<EOT
@@ -91,7 +91,7 @@ EOT;
 
 namespace {$namespace};
 
-use App\Ship\Seeds\AbstractSeed;
+use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
@@ -105,7 +105,7 @@ class {$className}_seed extends AbstractSeed
 
         \$this->execute(\$table, \$fields);
     }
-}
+}\r\n
 EOT;
         }
 
