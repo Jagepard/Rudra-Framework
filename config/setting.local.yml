@@ -8,8 +8,12 @@ roles:
     moderator: 2
     user: 3
 http.errors:
-    404: [App\Ship\Errors\Controllers\HttpErrorsController, error404]
-    503: [App\Ship\Errors\Controllers\HttpErrorsController, error503]
+    404:
+        controller: App\Ship\Errors\Controller\HttpErrorsController 
+        action: error404
+    503: 
+        controller: App\Ship\Errors\Controller\HttpErrorsController
+        action: error503
 database:
     dsn: mysql:dbname=test;host=127.0.0.1
     # dsn: pgsql:host=127.0.0.1;port=5432;dbname=rudra_postgres;
@@ -18,4 +22,4 @@ database:
     password: password
 attributes: true
 containers:
-    web: App\Containers\Web\
+    web: App\Containers\Web\        

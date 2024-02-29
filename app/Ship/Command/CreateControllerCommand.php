@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -51,7 +51,7 @@ class CreateControllerCommand
             return <<<EOT
             <?php
             
-            namespace App\Containers\\{$container}\Controllers;
+            namespace App\Containers\\{$container}\Controller;
             
             use App\Containers\\{$container}\\{$container}Controller;
             
@@ -125,9 +125,8 @@ EOT;
             $contents = str_replace("];", '', $contents);
             file_put_contents($path, $contents);
             $contents = <<<EOT
-    $namespace::class,
+\t$namespace::class,
 ];
-
 EOT;
             file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
         }

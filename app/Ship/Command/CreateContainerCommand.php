@@ -72,8 +72,7 @@ class {$container}Controller extends ShipController
             "title" => __CLASS__,
         ]);
     }
-}
-
+}\r\n
 EOT;
     }
 
@@ -88,8 +87,7 @@ EOT;
 <?php
 
 return [
-];
-
+];\r\n
 EOT;
     }
 

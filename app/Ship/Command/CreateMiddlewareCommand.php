@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -64,7 +64,7 @@ class {$className} implements MiddlewareInterface
     {
         Router::handleMiddleware(\$middlewares);
     }
-}
+}\r\n
 EOT;
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -25,36 +25,36 @@ class CreateMigrationCommand
 
         if (!empty($container)) {
 
-            $namespace = 'App\Containers\\' . $container . '\Migrations';
+            $namespace = 'App\Containers\\' . $container . '\Migration';
 
             if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/"), "{$className}_migration.php"],
                     $this->createMysqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/"), "{$className}_migration.php"],
                     $this->createPgsqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/"), "{$className}_migration.php"],
                     $this->createSqliteMigration($className, $table, $namespace)
                 );
             }
 
         } else {
 
-            $namespace = "App\Ship\Migrations";
+            $namespace = "App\Ship\Migration";
 
             if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migration/"), "{$className}_migration.php"],
                     $this->createMysqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migration/"), "{$className}_migration.php"],
                     $this->createPgsqlMigration($className, $table, $namespace)
                 );
             } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
-                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migrations/"), "{$className}_migration.php"],
+                $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migration/"), "{$className}_migration.php"],
                     $this->createSqliteMigration($className, $table, $namespace)
                 );
             }
@@ -97,7 +97,7 @@ class {$className}_migration
 
         \$query->execute();
     }
-}
+}\r\n
 EOT;
     }
 
@@ -137,7 +137,7 @@ class {$className}_migration
 
         \$query->execute();
     }
-}
+}\r\n
 EOT;
     }
 
@@ -177,7 +177,7 @@ class {$className}_migration
 
         \$query->execute();
     }
-}
+}\r\n
 EOT;
     }
 

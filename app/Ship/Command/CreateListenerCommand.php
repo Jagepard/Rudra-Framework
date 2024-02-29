@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -24,7 +24,7 @@ class CreateListenerCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Listeners/"), "{$className}.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Listener/"), "{$className}.php"],
                 $this->createClass($className, $container)
             );
 
@@ -47,12 +47,12 @@ class CreateListenerCommand
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Listeners;
+namespace App\Containers\\{$container}\Listener;
 
 class {$className}
 {
 
-}
+}\r\n
 EOT;
     }
 

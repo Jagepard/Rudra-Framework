@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Errors\Controllers;
+namespace App\Ship\Errors\Controller;
 
 use App\Ship\Errors\ErrorsController;
 use Rudra\Exceptions\RouterException;
