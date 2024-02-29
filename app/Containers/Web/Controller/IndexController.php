@@ -34,7 +34,7 @@ class IndexController extends WebController
     }
 
     #[Routing(url: '')]
-    #[Routing(url: 'name/:name')]
+    #[Routing(url: 'name/:[\d]{1,3}')]
     #[Middleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
     #[Middleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
