@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -24,8 +24,18 @@ class CreateModelCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Models/"), "{$className}.php"],
-                $this->createClass($className, $container)
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Entity/"), "{$className}.php"],
+                $this->createEntity($className, $container)
+            );
+
+            $this->writeFile(
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Model/"), "{$className}.php"],
+                $this->createModel($className, $container)
+            );
+
+            $this->writeFile(
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/"), "{$className}.php"],
+                $this->createRepository($className, $container)
             );
 
         } else {
@@ -42,27 +52,80 @@ class CreateModelCommand
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $container)
+    private function createEntity(string $className, string $container)
     {
         $table = strtolower($className);
 
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Models;
+namespace App\Containers\\{$container}\Entity;
 
-use Rudra\Model\Model;
+use Rudra\Model\Entity;
 
 /**
- * @method static yourMethod()
- *
- * @see {$className}Repository
+ * @see App\Containers\\$container\Repository\\{$className}Repository
  */
-class {$className} extends Model
+class {$className} extends Entity
 {
     public static string \$table = "$table";
     public static string \$directory = __DIR__;
-}  
+}\r\n
+EOT;
+    }
+
+    /**
+     * @param string $className
+     * @param string $container
+     * @return string
+     *
+     * Creates class data
+     * ------------------
+     * Создает данные класса
+     */
+    private function createModel(string $className, string $container)
+    {
+        $table = strtolower($className);
+
+        return <<<EOT
+<?php
+
+namespace App\Containers\\{$container}\Entity;
+
+use Rudra\Model\Model;
+
+class {$className} extends Model
+{
+
+}\r\n
+EOT;
+    }
+
+    /**
+     * @param string $className
+     * @param string $container
+     * @return string
+     *
+     * Creates class data
+     * ------------------
+     * Создает данные класса
+     */
+    private function createRepository(string $className, string $container)
+    {
+        $table = strtolower($className);
+
+        return <<<EOT
+<?php
+
+namespace App\Containers\\{$container}\Repository;
+
+use Rudra\Model\QBFacade;
+use Rudra\Model\Repository;
+
+class {$className} extends Repository
+{
+
+}\r\n
 EOT;
     }
 

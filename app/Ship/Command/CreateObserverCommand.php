@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -24,7 +24,7 @@ class CreateObserverCommand
         if (!empty($container)) {
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Observers/"), "{$className}.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Observer/"), "{$className}.php"],
                 $this->createClass($className, $container)
             );
 
@@ -47,7 +47,7 @@ class CreateObserverCommand
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Observers;
+namespace App\Containers\\{$container}\Observer;
 
 use Rudra\EventDispatcher\ObserverInterface;
 
@@ -57,7 +57,7 @@ class {$className} implements ObserverInterface
     {
 
     }
-}
+}\r\n
 EOT;
     }
 
