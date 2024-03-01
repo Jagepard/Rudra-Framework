@@ -4,11 +4,6 @@ cr:ob:
   - App\Ship\Command\CreateObserverCommand
   - actionIndex
 
-create:repository:
-  - App\Ship\Command\CreateRepositoryCommand
-cr:r:
-  - App\Ship\Command\CreateRepositoryCommand
-
 create:model:
   - App\Ship\Command\CreateModelCommand
 cr:ml:

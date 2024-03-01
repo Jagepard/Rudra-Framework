@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Ship\Commands;
+namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
@@ -56,8 +56,7 @@ class RouterCommand
         $i    = 1;
 
         foreach ($data as $routes) {
-            //dump($routes); continue;
-            printf("\e[5;36m" . $mask . "\e[m", $i, $routes[0][0], $routes[0][1], $routes[0][2][0], $routes[0][2][1] ?? "actionIndex");
+            printf("\e[5;36m" . $mask . "\e[m", $i, $routes[0]['url'], $routes[0]['method'], $routes[0]['controller'], $routes[0]['action'] ?? "actionIndex");
             $i++;
         }
     }
@@ -70,16 +69,12 @@ class RouterCommand
      * -------------------------------
      * Собирает файлы маршрутов из модулей
      */
-    protected function getRoutes(string $container) //: array
+    protected function getRoutes(string $container) : array
     {
         $path = "app/Containers/" . ucfirst($container) . "/routes";
 
         if (file_exists($path . ".php")) {
-            $routes = Router::annotationCollector(require $path . ".php", true);
-            
-            if (count($routes) === 0) {
-                return Router::annotationCollector(require $path . ".php", true, true);
-            }
+            $routes = Router::annotationCollector(require $path . ".php", true, Rudra::config()->get("attributes"));
 
             return $routes;
         }
