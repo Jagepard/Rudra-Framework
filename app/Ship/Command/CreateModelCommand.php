@@ -91,7 +91,7 @@ EOT;
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Entity;
+namespace App\Containers\\{$container}\Model;
 
 use Rudra\Model\Model;
 
