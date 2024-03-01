@@ -35,7 +35,7 @@ class CreateModelCommand extends FileCreator
             );
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/"), "{$className}.php"],
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/"), "{$className}Repository.php"],
                 $this->createRepository($className, $container)
             );
 
@@ -123,7 +123,7 @@ namespace App\Containers\\{$container}\Repository;
 use Rudra\Model\QBFacade;
 use Rudra\Model\Repository;
 
-class {$className} extends Repository
+class {$className}Repository extends Repository
 {
 
 }\r\n
