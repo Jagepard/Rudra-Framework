@@ -22,6 +22,11 @@ class ShipController extends Controller
             ]);
         }
 
+        $this->eventRegistration();
+    }
+
+    public function eventRegistration()
+    {
         Dispatcher::addListener('message', [MessageListener::class, 'info']);
         Dispatcher::attachObserver('one', [TestObserver::class, 'onEvent'], __CLASS__);
     }
