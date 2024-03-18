@@ -7,10 +7,10 @@ use App\Containers\Web\Observer\TestObserver;
 use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
-use Rudra\Controller\ConainersControllerInterface;
+use Rudra\Controller\ContainersControllerInterface;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
-class ShipController extends Controller implements ConainersControllerInterface
+class ShipController extends Controller implements ContainersControllerInterface
 {
     use HelperTrait;
 
