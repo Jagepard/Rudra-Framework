@@ -7,9 +7,10 @@ use App\Containers\Web\Observer\TestObserver;
 use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Controller\ConainersControllerInterface;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
-class ShipController extends Controller
+class ShipController extends Controller implements ConainersControllerInterface
 {
     use HelperTrait;
 
@@ -25,7 +26,7 @@ class ShipController extends Controller
         $this->eventRegistration();
     }
 
-    public function eventRegistration()
+    public function eventRegistration(): void
     {
         Dispatcher::addListener('message', [MessageListener::class, 'info']);
         Dispatcher::attachObserver('one', [TestObserver::class, 'onEvent'], __CLASS__);

@@ -19,7 +19,7 @@ Rudra::binding(Rudra::config()->get("contracts"));
 Rudra::services(Rudra::config()->get("services"));
 Rudra::set([Console::class, Console::class]);
 
-(new ShipController(Rudra::run()))->eventRegistration();
+(new ShipController())->eventRegistration();
 
 foreach (Yaml::parseFile("config/commands.yml") as $name => $command) {
     Cli::addCommand($name, $command);
