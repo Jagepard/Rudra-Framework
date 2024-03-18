@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Web\Entity;
+namespace App\Containers\Web\Model;
 
 use Rudra\Model\Model;
 
