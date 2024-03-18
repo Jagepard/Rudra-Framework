@@ -1,42 +1,41 @@
-create:observer:
+make:observer:
   - App\Ship\Command\CreateObserverCommand
-cr:ob:
+make:ob:
   - App\Ship\Command\CreateObserverCommand
-  - actionIndex
 
-create:model:
+make:model:
   - App\Ship\Command\CreateModelCommand
-cr:ml:
+make:ml:
   - App\Ship\Command\CreateModelCommand
 
-create:middleware:
+make:middleware:
   - App\Ship\Command\CreateMiddlewareCommand
-cr:mid:
+make:mid:
   - App\Ship\Command\CreateMiddlewareCommand
 
-create:listener:
+make:listener:
   - App\Ship\Command\CreateListenerCommand
-cr:l:
+make:l:
   - App\Ship\Command\CreateListenerCommand
 
-create:container:
+make:container:
   - App\Ship\Command\CreateContainerCommand
-cr:cr:
+make:make:
   - App\Ship\Command\CreateContainerCommand
 
-create:controller:
+make:controller:
   - App\Ship\Command\CreateControllerCommand
-cr:ctr:
+make:ctr:
   - App\Ship\Command\CreateControllerCommand
 
-create:seed:
+make:seed:
   - App\Ship\Command\CreateSeedCommand
-cr:s:
+make:s:
   - App\Ship\Command\CreateSeedCommand
 
-create:migration:
+make:migration:
   - App\Ship\Command\CreateMigrationCommand
-cr:m:
+make:m:
   - App\Ship\Command\CreateMigrationCommand
 
 seed:
@@ -61,11 +60,16 @@ h:
 '' :
   - App\Ship\Command\ConsoleCommand
 
+debug:router:
+  - App\Ship\Command\RouterCommand
 router:
   - App\Ship\Command\RouterCommand
 r:
   - App\Ship\Command\RouterCommand
 
+debug:router:container:
+  - App\Ship\Command\RouterCommand
+  - actionContainer
 router:container:
   - App\Ship\Command\RouterCommand
   - actionContainer
