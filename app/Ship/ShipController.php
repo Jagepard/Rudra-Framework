@@ -2,15 +2,15 @@
 
 namespace App\Ship;
 
-use App\Containers\Web\Listener\MessageListener;
-use App\Containers\Web\Observer\TestObserver;
 use App\Ship\Utils\HelperTrait;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
-use Rudra\Controller\ContainersControllerInterface;
+use App\Containers\Web\Observer\TestObserver;
+use Rudra\Controller\ShipControllerInterface;
+use App\Containers\Web\Listener\MessageListener;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
-class ShipController extends Controller implements ContainersControllerInterface
+class ShipController extends Controller implements ShipControllerInterface
 {
     use HelperTrait;
 

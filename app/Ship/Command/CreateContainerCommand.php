@@ -62,10 +62,11 @@ namespace App\Containers\\{$container};
 
 use App\Ship\ShipController;
 use Rudra\View\ViewFacade as View;
+use Rudra\Controller\ContainerControllerInterface;
 
-class {$container}Controller extends ShipController
+class {$container}Controller extends ShipController implements ContainerControllerInterface
 {
-    public function containerInit()
+    public function containerInit(): void
     {
         View::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
 
