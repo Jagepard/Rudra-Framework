@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 
 if (php_sapi_name() !== "cli") exit;
@@ -14,6 +14,7 @@ use Rudra\Cli\ConsoleFacade as Cli;
 parse_str(implode('&', array_slice($argv, 1)), $inputArgs);
 
 Rudra::config(Yaml::parseFile("config/setting.local.yml"));
+Rudra::config()->set(["app.path" => realpath(__DIR__)]);
 Rudra::config()->set(require_once "app/Ship/Services.php");
 Rudra::binding(Rudra::config()->get("contracts"));
 Rudra::services(Rudra::config()->get("services"));

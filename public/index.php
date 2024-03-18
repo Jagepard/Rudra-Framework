@@ -17,6 +17,7 @@ Rudra::run()->config()->set(["url" => (php_sapi_name() == "cli-server")
     ? "http://127.0.0.1:8000"
     : Rudra::run()->request()->server()->get("REQUEST_SCHEME") . "://" . Rudra::run()->request()->server()->get("SERVER_NAME")]);
 
+Rudra::run()->config()->set(["app.path" => realpath('..')]);
 Rudra::run()->config()->set(require_once "../app/Ship/Services.php");
 Rudra::run()->binding(Rudra::run()->config()->get("contracts"));
 Rudra::run()->services(Rudra::run()->config()->get("services"));

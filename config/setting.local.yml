@@ -1,5 +1,4 @@
 secret: ''
-app.path: /home/d/projects/php/rudra.ecosystems/rudra_framework.components/Rudra-Framework
 environment: development
 cache.time: now
 roles:
@@ -22,4 +21,4 @@ database:
     password: password
 attributes: true
 containers:
-    web: App\Containers\Web\
+    web: App\Containers\Web\                
