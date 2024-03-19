@@ -13,7 +13,7 @@ class CreateListenerCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter listener name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
@@ -35,15 +35,15 @@ class CreateListenerCommand extends FileCreator
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createClass(string $className, string $container)
+    private function createClass(string $className, string $container): string
     {
         return <<<EOT
 <?php

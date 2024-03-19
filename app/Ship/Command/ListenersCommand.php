@@ -6,14 +6,14 @@ use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
 
 class ListenersCommand
 {
-    public function actionIndex()
+    public function actionIndex(): void
     {
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         printf("\e[1;35m" . $mask . "\e[m", " ", "event", "listener", "action");
         $this->getTable(EventDispatcher::getListeners());
     }
 
-    protected function getTable(array $data)
+    protected function getTable(array $data): void
     {
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         $i    = 1;

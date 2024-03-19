@@ -6,7 +6,7 @@ use Rudra\EventDispatcher\ObserverInterface;
 
 class TestObserver implements ObserverInterface
 {
-    public function onEvent($id)
+    public function onEvent($id): void
     {
         dump(__CLASS__ . $id);
     }

@@ -2,8 +2,8 @@
 
 namespace App\Ship\Seed;
 
-use Rudra\Container\Facades\Request;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Container\Facades\Request;
 
 abstract class AbstractSeed
 {
@@ -17,7 +17,7 @@ abstract class AbstractSeed
 
     abstract public function create();
 
-    protected function createStmtString(array $fields)
+    protected function createStmtString(array $fields): array
     {
         $insert = [];
         $execute = [];
@@ -30,7 +30,7 @@ abstract class AbstractSeed
         return [implode(",", $insert), implode(",", $execute)];
     }
 
-    protected function execute(string $table, array $fields)
+    protected function execute(string $table, array $fields): void
     {
         $stmtString = $this->createStmtString($fields);
 

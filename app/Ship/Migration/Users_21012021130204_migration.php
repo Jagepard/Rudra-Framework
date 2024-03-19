@@ -6,7 +6,7 @@ use Rudra\Container\Facades\Rudra;
 
 class Users_21012021130204_migration
 {
-    public function up()
+    public function up(): void
     {
         $table = "users";
 

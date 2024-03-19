@@ -8,7 +8,7 @@ use Rudra\Container\Facades\Request;
 
 class BcryptCommand
 {
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Request::server()->set([
             "REMOTE_ADDR"     => "127.0.0.1",

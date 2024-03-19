@@ -13,7 +13,7 @@ class CreateMigrationCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Migration
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter table name: ", "magneta");
         $table = str_replace(PHP_EOL, "", Cli::reader());
@@ -63,16 +63,16 @@ class CreateMigrationCommand extends FileCreator
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @param string $table
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $table
+     * @param string $namespace
+     * @return string
      */
-    private function createMysqlMigration(string $className, string $table, string $namespace)
+    private function createMysqlMigration(string $className, string $table, string $namespace): string
     {
         return <<<EOT
 <?php
@@ -83,7 +83,7 @@ use Rudra\Container\Facades\Rudra;
 
 class {$className}_migration
 {
-    public function up()
+    public function up(): void
     {
         \$table = "$table";
 
@@ -103,16 +103,16 @@ EOT;
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @param string $table
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $table
+     * @param string $namespace
+     * @return string
      */
-    private function createPgsqlMigration(string $className, string $table, string $namespace)
+    private function createPgsqlMigration(string $className, string $table, string $namespace): string
     {
         return <<<EOT
 <?php
@@ -123,7 +123,7 @@ use Rudra\Container\Facades\Rudra;
 
 class {$className}_migration
 {
-    public function up()
+    public function up(): void
     {
         \$table = "$table";
 
@@ -142,17 +142,17 @@ class {$className}_migration
 EOT;
     }
 
-        /**
-     * @param string $className
-     * @param string $container
-     * @param string $table
-     * @return string
-     *
+    /**
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $table
+     * @param string $namespace
+     * @return string
      */
-    private function createSqliteMigration(string $className, string $table, string $namespace)
+    private function createSqliteMigration(string $className, string $table, string $namespace): string
     {
         return <<<EOT
 <?php
@@ -163,7 +163,7 @@ use Rudra\Container\Facades\Rudra;
 
 class {$className}_migration
 {
-    public function up()
+    public function up(): void
     {
         \$table = "$table";
 

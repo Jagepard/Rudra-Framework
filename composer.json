@@ -29,7 +29,7 @@
         }
     },
     "require"          : {
-        "php"                : ">=7.4",
+        "php"                : ">=8.0",
         "filp/whoops"        : "^2.9",
         "ext-fileinfo"       : "*",
         "ext-pdo"            : "*",

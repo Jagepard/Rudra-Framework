@@ -5,7 +5,7 @@ namespace App\Containers\Web\Entity;
 use Rudra\Model\Entity;
 
 /**
- * @see App\Containers\Web\Repository\UsersRepository
+ * @see \App\Containers\Web\Repository\UsersRepository
  */
 class Users extends Entity
 {

@@ -2,20 +2,20 @@
 
 namespace App\Ship\Utils;
 
-use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 
 class FileCreator
 {
     /**
-     * @param $path
-     * @param $callable
-     *
      * Writes data to a file
      * ---------------------
      * Записывает данные в файл
+     *
+     * @param array $path
+     * @param string $data
+     * @return void
      */
-    protected function writeFile(array $path, string $data)
+    protected function writeFile(array $path, string $data): void
     {
         if (!is_dir($path[0])) {
             mkdir($path[0], 0755, true);

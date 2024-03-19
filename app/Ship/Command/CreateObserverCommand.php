@@ -13,7 +13,7 @@ class CreateObserverCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter observer name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
@@ -35,15 +35,15 @@ class CreateObserverCommand extends FileCreator
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createClass(string $className, string $container)
+    private function createClass(string $className, string $container): string
     {
         return <<<EOT
 <?php
