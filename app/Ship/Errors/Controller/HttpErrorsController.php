@@ -4,11 +4,13 @@ namespace App\Ship\Errors\Controller;
 
 use App\Ship\Errors\ErrorsController;
 use Rudra\Exceptions\RouterException;
-use Rudra\View\ViewFacade as View;
 
 class HttpErrorsController extends ErrorsController
 {
-    public function handle404($data, string $type = 'db', array $page = [])
+    /**
+     * @throws RouterException
+     */
+    public function handle404($data, string $type = 'db', array $page = []): void
     {
         if ($type == 'db') {
             if (count($data) < 1 || !$data) {
@@ -21,18 +23,22 @@ class HttpErrorsController extends ErrorsController
         }
     }
 
-    public function error404()
+    public function error404(): void
     {
         data(["content" => view("errors.404")]);
         render("layout", data());
     }
 
-    public function error503()
+    public function error503(): void
     {
         data(["content" => view("errors.503")]);
         render("layout", data());
     }
 
+    /**
+     * @deprecated
+     * @return mixed
+     */
     public function error500()
     {
         $this->redirect()->responseCode('503');

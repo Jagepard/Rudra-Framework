@@ -10,14 +10,14 @@ class FirstMiddleware implements MiddlewareInterface
 {
     use HelperTrait;
 
-    public function __invoke($middlewares)
+    public function __invoke($middlewares): void
     {
         $this->info(__CLASS__);
         $this->next($middlewares);
     }
 
-    public function next(array $middlewares): void
+    public function next(array $chainOfMiddlewares): void
     {
-        Router::handleMiddleware($middlewares);
+        Router::handleMiddleware($chainOfMiddlewares);
     }
 }

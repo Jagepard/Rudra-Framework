@@ -9,12 +9,12 @@ class SecondMiddleware implements MiddlewareInterface
 {
     use HelperTrait;
 
-    public function __invoke(array $middleware): void
+    public function __invoke(array $chainOfMiddlewares): void
     {
         $this->info(__CLASS__);
     }
 
-    public function next(array $middlewares): void
+    public function next(array $chainOfMiddlewares): void
     {
 
     }

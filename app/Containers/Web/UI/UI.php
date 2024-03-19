@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Containers\Web\UI;
 
 use Rudra\Container\Facades\Rudra;

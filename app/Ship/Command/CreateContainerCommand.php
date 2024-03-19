@@ -13,7 +13,7 @@ class CreateContainerCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter container name: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -28,7 +28,7 @@ class CreateContainerCommand extends FileCreator
 
             $this->writeFile(
                 [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "{$className}.php"],
-                $this->createContainersConroller($className, $container)
+                $this->createContainersController($className, $container)
             );
 
             $this->writeFile(
@@ -46,14 +46,15 @@ class CreateContainerCommand extends FileCreator
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createContainersConroller(string $className, string $container)
+    private function createContainersController(string $className, string $container): string
     {
         return <<<EOT
 <?php
@@ -61,14 +62,14 @@ class CreateContainerCommand extends FileCreator
 namespace App\Containers\\{$container};
 
 use App\Ship\ShipController;
-use Rudra\View\ViewFacade as View;
+use Rudra\UI\ViewFacade as UI;
 use Rudra\Controller\ContainerControllerInterface;
 
 class {$container}Controller extends ShipController implements ContainerControllerInterface
 {
     public function containerInit(): void
     {
-        View::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
+        UI::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
 
         data([
             "title" => __CLASS__,
@@ -83,7 +84,7 @@ EOT;
      * ------------------
      * Создает файл маршрутизатора
      */
-    private function createRoutes()
+    private function createRoutes(): string
     {
         return <<<EOT
 <?php
@@ -94,14 +95,14 @@ EOT;
     }
 
     /**
-     * @param $path
-     * @param $callable
-     *
      * Create UI directories
      * ---------------------
      * Создает каталоги для UI
+     *
+     * @param string $path
+     * @return void
      */
-    private function createDirectories(string $path)
+    private function createDirectories(string $path): void
     {
         if (!is_dir($path . 'UI')) {
             mkdir($path . 'UI', 0755, true);
@@ -116,7 +117,7 @@ EOT;
         }
     }
 
-    public function addConfig(string $container)
+    public function addConfig(string $container): void
     {
         $path      = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/config/setting.local.yml");
         $namespace = strtolower($container) . ": App\Containers\\{$container}\\";

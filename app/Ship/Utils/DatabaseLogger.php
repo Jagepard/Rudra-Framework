@@ -7,13 +7,14 @@ use Rudra\Container\Facades\Rudra;
 class DatabaseLogger
 {
     protected \PDO $dsn;
+    protected string $table;
 
     public function __construct()
     {
         $this->dsn = Rudra::get("DSN");
     }
 
-    protected function up()
+    protected function up(): void
     {
         $query = $this->dsn->prepare("
             CREATE TABLE {$this->table} (
@@ -37,7 +38,7 @@ class DatabaseLogger
         return $query->fetchColumn();
     }
 
-    protected function writeLog(string $name)
+    protected function writeLog(string $name): void
     {
         $query = $this->dsn->prepare("
             INSERT INTO {$this->table} (`name`)

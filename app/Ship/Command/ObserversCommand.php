@@ -6,7 +6,7 @@ use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
 
 class ObserversCommand
 {
-    public function actionIndex()
+    public function actionIndex(): void
     {
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         printf("\e[1;35m" . $mask . "\e[m", " ", "event", "observer", "action");
@@ -16,7 +16,7 @@ class ObserversCommand
         }
     }
 
-    protected function getTable($event, array $data)
+    protected function getTable($event, array $data): void
     {
         $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
         $i    = 1;

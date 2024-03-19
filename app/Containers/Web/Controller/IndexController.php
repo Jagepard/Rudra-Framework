@@ -17,7 +17,7 @@ class IndexController extends WebController
      * @AfterMiddleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
      * @AfterMiddleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
      */
-    public function annotations(string $name = 'John')
+    public function annotations(string $name = 'John'): void
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
@@ -39,7 +39,7 @@ class IndexController extends WebController
     #[Middleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
-    public function attributes(string $name = 'John')
+    public function attributes(string $name = 'John'): void
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),

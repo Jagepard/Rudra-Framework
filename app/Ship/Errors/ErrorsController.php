@@ -7,9 +7,9 @@ use Rudra\View\ViewFacade as View;
 
 class ErrorsController extends ShipController
 {
-    public function containerInit()
+    public function containerInit(): void
     {
-        View::setup(dirname(__DIR__) . '/', "Errors/View/tmpl");
+        View::setup(dirname(__DIR__) . '/', "Errors/UI/tmpl", "Errors/UI/cache");
 
         data([
             "title" => "Rudra Framework",

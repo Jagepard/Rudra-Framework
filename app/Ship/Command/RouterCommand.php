@@ -2,8 +2,8 @@
 
 namespace App\Ship\Command;
 
-use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Router\RouterFacade as Router;
 
 class RouterCommand
@@ -13,7 +13,7 @@ class RouterCommand
      * ------------------
      * Возвращает все маршруты
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         $_SERVER["REQUEST_METHOD"] = 'GET';
         $_SERVER["REQUEST_URI"]    = '';
@@ -31,7 +31,7 @@ class RouterCommand
      * -------------------------------
      * Возвращает маршрут модуля
      */
-    public function actionContainer()
+    public function actionContainer(): void
     {
         $_SERVER["REQUEST_METHOD"] = 'GET';
         $_SERVER["REQUEST_URI"]    = '';
@@ -44,13 +44,13 @@ class RouterCommand
     }
 
     /**
-     * @param array $data
-     *
      * Forms a table
      * -------------
      * Формирует таблицу
+     *
+     * @param array $data
      */
-    protected function getTable(array $data)
+    protected function getTable(array $data): void
     {
         $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
         $i    = 1;
@@ -62,21 +62,21 @@ class RouterCommand
     }
 
     /**
-     * @param string $container
-     * @return mixed
-     *
      * Builds route files from modules
      * -------------------------------
      * Собирает файлы маршрутов из модулей
+     *
+     * @param string $container
+     * @return array
      */
-    protected function getRoutes(string $container) : array
+    protected function getRoutes(string $container): array
     {
         $path = "app/Containers/" . ucfirst($container) . "/routes";
 
         if (file_exists($path . ".php")) {
-            $routes = Router::annotationCollector(require $path . ".php", true, Rudra::config()->get("attributes"));
-
-            return $routes;
+            return Router::annotationCollector(require $path . ".php", true, Rudra::config()->get("attributes"));
         }
+
+        return [];
     }
 }

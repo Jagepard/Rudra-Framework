@@ -13,7 +13,7 @@ class CreateControllerCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter controller name: ", "magneta");
         $controllerPrefix = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -36,15 +36,15 @@ class CreateControllerCommand extends FileCreator
     }
 
     /**
-     * @param string $controllerPrefix
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $controllerPrefix
+     * @param string $container
+     * @return string
      */
-    private function createClass(string $controllerPrefix, string $container)
+    private function createClass(string $controllerPrefix, string $container): string
     {
         $url = strtolower("$container/$controllerPrefix");
 
@@ -59,7 +59,7 @@ class CreateControllerCommand extends FileCreator
             class {$controllerPrefix}Controller extends {$container}Controller
             {
                 #[Routing(url: '{$url}', method: 'GET')]
-                public function actionIndex()
+                public function actionIndex(): void
                 {
                     dd(__CLASS__);
                 }
@@ -80,7 +80,7 @@ class {$controllerPrefix}Controller extends {$container}Controller
     /**
      * @Routing(url = '{$url}', method = 'GET')
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         dd(__CLASS__);
     }
@@ -89,7 +89,12 @@ class {$controllerPrefix}Controller extends {$container}Controller
 EOT;
     }
 
-    public function addRoute(string $container, string $controllerPrefix)
+    /**
+     * @param string $container
+     * @param string $controllerPrefix
+     * @return void
+     */
+    public function addRoute(string $container, string $controllerPrefix): void
     {
         $path   = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php");
         $routes = require_once $path;

@@ -3,7 +3,6 @@
 namespace App\Containers\Web;
 
 use App\Ship\ShipController;
-use App\Containers\Web\Models\Web;
 use Rudra\View\ViewFacade as View;
 use Rudra\Controller\ContainerControllerInterface;
 
@@ -14,7 +13,7 @@ class WebController extends ShipController implements ContainerControllerInterfa
         View::setup(dirname(__DIR__) . '/', "Web/UI/tmpl", "Web/UI/cache");
 
         data([
-            "title" => "Rudra Framework",
+            "title" => "Rudra Framework:: Web Container",
         ]);
     }
 }

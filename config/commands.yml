@@ -20,7 +20,7 @@ make:l:
 
 make:container:
   - App\Ship\Command\CreateContainerCommand
-make:make:
+make:cr:
   - App\Ship\Command\CreateContainerCommand
 
 make:controller:
@@ -44,7 +44,11 @@ migrate:
   - App\Ship\Command\MigrateCommand
 listeners:
   - App\Ship\Command\ListenersCommand
+debug:listeners:
+  - App\Ship\Command\ListenersCommand
 observers:
+  - App\Ship\Command\ObserversCommand
+debug:observers:
   - App\Ship\Command\ObserversCommand
 bcrypt:
   - App\Ship\Command\BcryptCommand
@@ -77,5 +81,5 @@ rc:
   - App\Ship\Command\RouterCommand
   - actionContainer
 
-toYml:
+to:yml:
   - App\Ship\Command\ArrayToYml

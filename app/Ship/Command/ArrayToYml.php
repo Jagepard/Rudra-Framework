@@ -8,7 +8,7 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class ArrayToYml
 {
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Put the file containing the array into a directory\n", "green");
         Cli::printer("Enter filename with php Array: ", "magneta");

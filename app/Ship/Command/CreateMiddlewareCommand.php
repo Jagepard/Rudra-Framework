@@ -13,7 +13,7 @@ class CreateMiddlewareCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter middleware name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
@@ -43,7 +43,7 @@ class CreateMiddlewareCommand extends FileCreator
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $container)
+    private function createClass(string $className, string $container): string
     {
         return <<<EOT
 <?php
@@ -55,15 +55,15 @@ use Rudra\Router\RouterFacade as Router;
 
 class {$className} implements MiddlewareInterface
 {
-    public function __invoke(\$middlewares)
+    public function __invoke(\$chainOfMiddlewares)
     {
         dump(__CLASS__);
-        \$this->next(\$middlewares);
+        \$this->next(\$chainOfMiddlewares);
     }
 
-    public function next(array \$middlewares): void
+    public function next(array \$chainOfMiddlewares): void
     {
-        Router::handleMiddleware(\$middlewares);
+        Router::handleMiddleware(\$chainOfMiddlewares);
     }
 }\r\n
 EOT;

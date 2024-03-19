@@ -14,7 +14,7 @@ class SeedCommand extends DatabaseLogger
         parent::__construct();
     }
 
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter container (empty for Ship): ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

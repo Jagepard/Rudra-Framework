@@ -13,7 +13,7 @@ class CreateModelCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter table name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
@@ -45,15 +45,15 @@ class CreateModelCommand extends FileCreator
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createEntity(string $className, string $container)
+    private function createEntity(string $className, string $container): string
     {
         $table = strtolower($className);
 
@@ -65,7 +65,7 @@ namespace App\Containers\\{$container}\Entity;
 use Rudra\Model\Entity;
 
 /**
- * @see App\Containers\\$container\Repository\\{$className}Repository
+ * @see \App\Containers\\$container\Repository\\{$className}Repository
  */
 class {$className} extends Entity
 {
@@ -76,15 +76,15 @@ EOT;
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createModel(string $className, string $container)
+    private function createModel(string $className, string $container): string
     {
         $table = strtolower($className);
 
@@ -103,15 +103,15 @@ EOT;
     }
 
     /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
      * Creates class data
      * ------------------
      * Создает данные класса
+     *
+     * @param string $className
+     * @param string $container
+     * @return string
      */
-    private function createRepository(string $className, string $container)
+    private function createRepository(string $className, string $container): string
     {
         $table = strtolower($className);
 

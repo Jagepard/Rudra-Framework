@@ -13,7 +13,7 @@ class CreateSeedCommand extends FileCreator
      * -----------------------------
      * Создает файл с данными Seed
      */
-    public function actionIndex()
+    public function actionIndex(): void
     {
         Cli::printer("Enter table name: ", "magneta");
         $table     = str_replace(PHP_EOL, "", Cli::reader());
@@ -53,7 +53,7 @@ class CreateSeedCommand extends FileCreator
      * ------------------
      * Создает данные класса
      */
-    private function createClass(string $className, string $table, string $namespace, bool $multiline = false)
+    private function createClass(string $className, string $table, string $namespace, bool $multiline = false): string
     {
         if ($multiline) {
             return <<<EOT
@@ -65,7 +65,7 @@ use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
-    public function create()
+    public function create(): void
     {
         \$table = "$table";
 
@@ -96,7 +96,7 @@ use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
-    public function create()
+    public function create(): void
     {
         \$table = "$table";
         \$fields = [
