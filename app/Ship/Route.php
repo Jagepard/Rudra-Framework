@@ -30,7 +30,7 @@ class Route
         }
     }
 
-    protected function getRoutes(string $container)//: array
+    protected function getRoutes(string $container): ?array
     {
         $path = "../app/Containers/" . ucfirst($container) . "/routes";
 
