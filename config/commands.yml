@@ -38,6 +38,16 @@ make:migration:
 make:m:
   - App\Ship\Command\CreateMigrationCommand
 
+make:interface:
+  - App\Ship\Command\CreateInterfaceCommand
+make:int:
+  - App\Ship\Command\CreateInterfaceCommand
+
+make:factory:
+  - App\Ship\Command\CreateFactoryCommand
+make:f:
+  - App\Ship\Command\CreateFactoryCommand
+
 seed:
   - App\Ship\Command\SeedCommand
 migrate:

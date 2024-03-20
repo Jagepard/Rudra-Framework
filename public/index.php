@@ -31,7 +31,17 @@ if (Rudra::config()->get("environment") === "development") {
 
 session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());
 
-Rudra::get(Route::class)->run();
+// autowire
+// ini_set('zend.exception_ignore_args', 0);
+try {
+    Rudra::get(Route::class)->run();
+} catch (ArgumentCountError $e) {
+    $trace = $e->getTrace()[0];
+    Rudra::autowire(new $trace['class'], $trace['function']);
+} catch (TypeError $e) {
+    $trace = $e->getTrace()[0];
+    Rudra::autowire(new $trace['class'], $trace['function'], $trace['args']);
+}
 
 /*
  | php rudra serve to run built-in web server
