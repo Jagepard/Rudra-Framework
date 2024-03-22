@@ -2,12 +2,12 @@
 
 namespace App\Containers\Web\Controller;
 
-use App\Containers\Web\Interface\TestInterface;
-use App\Containers\Web\WebController;
-use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
-
-use Rudra\Container\Interfaces\RudraInterface;
 use stdClass;
+use App\Containers\Web\WebController;
+use App\Containers\Web\Factory\StdFactory;
+use Rudra\Container\Interfaces\RudraInterface;
+use App\Containers\Web\Interface\TestInterface;
+use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends WebController
 {
@@ -60,8 +60,8 @@ class IndexController extends WebController
     }
 
     #[Routing(url: 'autowire')]
-    public function autowire(RudraInterface $rudra, stdClass $std, TestInterface $test): void
+    public function autowire(RudraInterface $rudra, stdClass $std, TestInterface $test, StdFactory $factory): void
     {
-        dd($rudra, $std, $test);
+        dd($rudra, $std, $test, $factory);
     }
 }
