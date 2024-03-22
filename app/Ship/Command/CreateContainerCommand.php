@@ -36,6 +36,11 @@ class CreateContainerCommand extends FileCreator
                 $this->createRoutes()
             );
 
+            $this->writeFile(
+                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "config.php"],
+                $this->createConfig()
+            );
+
             $this->addConfig($container);
             $this->createDirectories(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"));
             Cli::printer("The container $container was created" . PHP_EOL, "light_green");
@@ -62,14 +67,20 @@ class CreateContainerCommand extends FileCreator
 namespace App\Containers\\{$container};
 
 use App\Ship\ShipController;
-use Rudra\UI\ViewFacade as UI;
+use Rudra\Container\Facades\Rudra;
+use Rudra\View\ViewFacade as View;
 use Rudra\Controller\ContainerControllerInterface;
 
 class {$container}Controller extends ShipController implements ContainerControllerInterface
 {
     public function containerInit(): void
     {
-        UI::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
+        \$config = require_once "config.php";
+
+        Rudra::binding()->set(\$config['contracts']);
+        Rudra::waiting()->set(\$config['services']);
+
+        View::setup(dirname(__DIR__) . '/', "Web/UI/tmpl", "Web/UI/cache");
 
         data([
             "title" => __CLASS__,
@@ -90,6 +101,27 @@ EOT;
 <?php
 
 return [
+];\r\n
+EOT;
+    }
+
+    /**
+     * Creates config file
+     * -------------------
+     * Создает файл конфигурации
+     */
+    private function createConfig(): string
+    {
+        return <<<EOT
+<?php
+
+return [
+    'contracts'   => [
+
+    ],
+    'services'    => [
+
+    ]
 ];\r\n
 EOT;
     }
