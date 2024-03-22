@@ -1,4 +1,4 @@
-<?php
+<?php // ini_set('zend.exception_ignore_args', 0);
 
 require "../vendor/autoload.php";
 
@@ -31,16 +31,10 @@ if (Rudra::config()->get("environment") === "development") {
 
 session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());
 
-// autowire
-// ini_set('zend.exception_ignore_args', 0);
 try {
     Rudra::get(Route::class)->run();
-} catch (ArgumentCountError $e) {
-    $trace = $e->getTrace()[0];
-    Rudra::autowire(new $trace['class'], $trace['function']);
-} catch (TypeError $e) {
-    $trace = $e->getTrace()[0];
-    Rudra::autowire(new $trace['class'], $trace['function'], $trace['args']);
+} catch (\Throwable $e) {
+    Rudra::autowire($e);
 }
 
 /*
