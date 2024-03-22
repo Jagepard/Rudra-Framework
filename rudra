@@ -15,9 +15,9 @@ parse_str(implode('&', array_slice($argv, 1)), $inputArgs);
 
 Rudra::config(Yaml::parseFile("config/setting.local.yml"));
 Rudra::config()->set(["app.path" => realpath(__DIR__)]);
-Rudra::config()->set(require_once "app/Ship/Services.php");
+Rudra::config()->set(require_once "app/Ship/config.php");
 Rudra::binding(Rudra::config()->get("contracts"));
-Rudra::services(Rudra::config()->get("services"));
+Rudra::waiting(Rudra::config()->get("services"));
 Rudra::set([Console::class, Console::class]);
 
 (new ShipController())->eventRegistration();
