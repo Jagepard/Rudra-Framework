@@ -18,9 +18,9 @@ Rudra::config()->set(["url" => (php_sapi_name() == "cli-server")
     : Rudra::request()->server()->get("REQUEST_SCHEME") . "://" . Rudra::request()->server()->get("SERVER_NAME")]);
 
 Rudra::config()->set(["app.path" => realpath('..')]);
-Rudra::config()->set(require_once "../app/Ship/Services.php");
+Rudra::config()->set(require_once "../app/Ship/config.php");
 Rudra::binding(Rudra::config()->get("contracts"));
-Rudra::services(Rudra::config()->get("services"));
+Rudra::waiting(Rudra::config()->get("services"));
 
 if (Rudra::config()->get("environment") === "development") {
     Rudra::get("debugbar")->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("DSN"))));
