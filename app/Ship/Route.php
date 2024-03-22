@@ -13,13 +13,12 @@ class Route
      */
     public function run()
     {
-        if (Rudra::config()->get('environment') === 'development') {
+        if (config('environment') === 'development') {
             Rudra::get("debugbar")['time']->stopMeasure('index');
             Rudra::get("debugbar")['time']->startMeasure('routing');
         }
 
         $this->collect(Rudra::config()->get('containers'));
-
         throw new RouterException("404");
     }
 
@@ -33,7 +32,6 @@ class Route
     protected function getRoutes(string $container): ?array
     {
         $path = "../app/Containers/" . ucfirst($container) . "/routes";
-
         return Router::annotationCollector(require_once $path . ".php", false, Rudra::config()->get("attributes"));
     }
 }
