@@ -10,9 +10,8 @@ use App\Containers\Web\Interface\TestInterface;
 return [
     'contracts'   => [
         RudraInterface::class => Rudra::run(),
-        stdClass::class       => StdFactory::class,
-        TestInterface::class  => TestFactory::class
     ],
+
     'services'    => [
         "DSN" => [PDO::class, [
             Rudra::run()->config()->get('database')['dsn'], 
