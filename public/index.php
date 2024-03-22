@@ -33,9 +33,13 @@ session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());
 
 try {
     Rudra::get(Route::class)->run();
-} catch (\Throwable $e) {
-    Rudra::autowire($e);
-}
+} catch (ArgumentCountError $e) {
+    $trace = $e->getTrace()[0];
+    Rudra::autowire(new $trace['class'], $trace['function']);
+} catch (TypeError $e) {
+    $trace = $e->getTrace()[0];
+    Rudra::autowire(new $trace['class'], $trace['function'], $trace['args']);
+} 
 
 /*
  | php rudra serve to run built-in web server
