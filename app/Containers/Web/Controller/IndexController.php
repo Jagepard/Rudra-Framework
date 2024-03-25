@@ -7,6 +7,7 @@ use App\Containers\Web\WebController;
 use App\Containers\Web\Factory\StdFactory;
 use Rudra\Container\Interfaces\RudraInterface;
 use App\Containers\Web\Interface\TestInterface;
+use Rudra\Container\Facades\Rudra;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends WebController
@@ -55,6 +56,8 @@ class IndexController extends WebController
         Dispatcher::notify('one');
 
         dump(__METHOD__);
+        dump(Rudra::get('factory'));
+        dump(Rudra::get('callable'));
 
         render("layout", data());
     }
