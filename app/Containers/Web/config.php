@@ -6,10 +6,18 @@ use App\Containers\Web\Interface\TestInterface;
 
 return [
     'contracts'   => [
-        stdClass::class      => StdFactory::class,
+        // stdClass::class      => StdFactory::class,
+        stdClass::class      => 'callable',
         TestInterface::class => TestFactory::class
     ],
-    'services'    => [
 
+    'services'    => [
+        'factory'  => StdFactory::class,
+        'callable' => function (){
+            $std = new stdClass;
+            $std->method = __METHOD__ . '->callable';
+    
+            return $std;
+        },
     ]
 ];
