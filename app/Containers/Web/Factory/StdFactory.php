@@ -9,7 +9,7 @@ class StdFactory
     public function create()
     {
         $std = new stdClass;
-        $std->method = __METHOD__ . '->autowired';
+        $std->method = __METHOD__ . '::Created by Factory';
 
         return $std;
     }

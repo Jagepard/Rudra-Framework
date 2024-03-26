@@ -12,6 +12,12 @@ use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends WebController
 {
+    public function __construct(stdClass $std)
+    {
+        $std->name = __METHOD__ . '::Dependency Injection';
+        dump($std);
+    }
+
     /**
      * @Routing(url = '')
      * @Routing(url = 'name/{name}')
@@ -44,7 +50,7 @@ class IndexController extends WebController
     #[Middleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
-    public function attributes(string $name = 'John'): void
+    public function attributes(stdClass $std, string $name = 'John'): void
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
@@ -52,10 +58,9 @@ class IndexController extends WebController
 
         Dispatcher::dispatch('message', __CLASS__);
         $this->info("Hello $name");
-
         Dispatcher::notify('one');
 
-        dump(__METHOD__);
+        dump($std);
         dump(Rudra::get('factory'));
         dump(Rudra::get('callable'));
 

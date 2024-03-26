@@ -35,10 +35,10 @@ try {
     Rudra::get(Route::class)->run();
 } catch (ArgumentCountError $e) {
     $trace = $e->getTrace()[0];
-    Rudra::autowire(new $trace['class'], $trace['function']);
+    Rudra::autowire(Rudra::get($trace['class']), $trace['function']);
 } catch (TypeError $e) {
     $trace = $e->getTrace()[0];
-    Rudra::autowire(new $trace['class'], $trace['function'], $trace['args']);
+    Rudra::autowire(Rudra::new($trace['class']), $trace['function'], $trace['args']);
 } 
 
 /*
