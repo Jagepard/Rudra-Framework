@@ -2,6 +2,7 @@
 
 namespace App\Ship\Migration;
 
+use Rudra\Model\QBFacade;
 use Rudra\Container\Facades\Rudra;
 
 class Users_21012021130204_migration
@@ -10,19 +11,19 @@ class Users_21012021130204_migration
     {
         $table = "users";
 
-        $query = Rudra::get("DSN")->prepare("
-            CREATE TABLE {$table} ( 
-            `id` INT NOT NULL AUTO_INCREMENT ,
-            `name` VARCHAR(255) NOT NULL , 
-            `email` VARCHAR(255) NOT NULL , 
-            `password` VARCHAR(255) NOT NULL ,
-            `role` VARCHAR(255) NOT NULL ,
-            `status` VARCHAR(255) NOT NULL ,
-            `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-            `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP ,
-             PRIMARY KEY (`id`)) ENGINE = InnoDB
-         ");
+        $qString = QBFacade::create($table)
+            ->integer('id', '', true)
+            ->string('name')
+            ->string('email', 'NOT NULL UNIQUE')
+            ->string('password')
+            ->string('role')
+            ->integer('status', 'DEFAULT 1')
+            ->created_at()
+            ->updated_at()
+            ->pk('id')
+            ->close()
+            ->get();
 
-        $query->execute();
+        Rudra::get("DSN")->prepare("$qString")->execute();
     }
 }
