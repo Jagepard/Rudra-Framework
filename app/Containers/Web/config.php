@@ -7,13 +7,13 @@ use App\Containers\Web\Interface\TestInterface;
 return [
     'contracts'   => [
         // stdClass::class      => StdFactory::class,
-        // stdClass::class      => 'callable',
-        stdClass::class      => function (){
-            $std = new stdClass;
-            $std->method = __METHOD__ . '::Dependency Injection';
+        stdClass::class      => 'callable',
+        // stdClass::class      => function (){
+        //     $std = new stdClass;
+        //     $std->method = __METHOD__ . '::Dependency Injection';
     
-            return $std;
-        },
+        //     return $std;
+        // },
         TestInterface::class => TestFactory::class
     ],
 

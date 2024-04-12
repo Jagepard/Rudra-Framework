@@ -2,11 +2,11 @@
 
 namespace App\Ship\Command;
 
-use App\Ship\Utils\DatabaseLogger;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
+use App\Ship\Utils\Database\LoggerAdapter;
 
-class MigrateCommand extends DatabaseLogger
+class MigrateCommand extends LoggerAdapter
 {
     public function __construct()
     {
