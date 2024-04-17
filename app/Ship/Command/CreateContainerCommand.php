@@ -80,7 +80,7 @@ class {$container}Controller extends ShipController implements ContainerControll
         Rudra::binding()->set(\$config['contracts']);
         Rudra::waiting()->set(\$config['services']);
 
-        View::setup(dirname(__DIR__) . '/', "Web/UI/tmpl", "Web/UI/cache");
+        View::setup(dirname(__DIR__) . '/', "$container/UI/tmpl", "$container/UI/cache");
 
         data([
             "title" => __CLASS__,
