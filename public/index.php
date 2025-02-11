@@ -37,6 +37,7 @@ try {
     $trace = $e->getTrace()[0];
     Rudra::autowire(Rudra::get($trace['class']), $trace['function']);
 } catch (TypeError $e) {
+    // in php.ini set zend.exception_ignore_args = Off
     $trace = $e->getTrace()[0];
     Rudra::autowire(Rudra::new($trace['class']), $trace['function'], $trace['args']);
 } 
