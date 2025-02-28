@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Containers\Errors\Controller;
+namespace App\Ship\Errors\Controller;
 
 use Rudra\Exceptions\RouterException;
-use App\Containers\Errors\ErrorsController;
+use App\Ship\Errors\ErrorsController;
 
 class HttpErrorsController extends ErrorsController
 {

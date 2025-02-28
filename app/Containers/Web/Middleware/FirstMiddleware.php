@@ -2,9 +2,9 @@
 
 namespace App\Containers\Web\Middleware;
 
-use App\Containers\Tools\HelperTrait;
 use Rudra\Router\MiddlewareInterface;
 use Rudra\Router\RouterFacade as Router;
+use App\Containers\Web\Tools\HelperTrait;
 
 class FirstMiddleware implements MiddlewareInterface
 {

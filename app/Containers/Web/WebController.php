@@ -5,7 +5,7 @@ namespace App\Containers\Web;
 use App\Ship\ShipController;
 use Rudra\Container\Facades\Rudra;
 use Rudra\View\ViewFacade as View;
-use App\Containers\Tools\HelperTrait;
+use App\Containers\Web\Tools\HelperTrait;
 use Rudra\Controller\ContainerControllerInterface;
 
 class WebController extends ShipController implements ContainerControllerInterface
