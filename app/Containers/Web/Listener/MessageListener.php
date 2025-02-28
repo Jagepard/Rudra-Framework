@@ -2,7 +2,7 @@
 
 namespace App\Containers\Web\Listener;
 
-use App\Ship\Utils\HelperTrait;
+use App\Containers\Tools\HelperTrait;
 
 class MessageListener
 {
