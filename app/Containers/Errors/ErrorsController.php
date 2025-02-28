@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Ship\Errors;
+namespace App\Containers\Errors;
 
 use App\Ship\ShipController;
 use Rudra\View\ViewFacade as View;
 
-class ErrorsController extends ShipController
-{
+class ErrorsController extends ShipController{
     public function containerInit(): void
     {
         View::setup(dirname(__DIR__) . '/', "Errors/UI/tmpl", "Errors/UI/cache");

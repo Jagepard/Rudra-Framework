@@ -2,7 +2,7 @@
 
 namespace App\Containers\Web\Middleware;
 
-use App\Ship\Utils\HelperTrait;
+use App\Containers\Tools\HelperTrait;
 use Rudra\Router\MiddlewareInterface;
 use Rudra\Router\RouterFacade as Router;
 
