@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Errors;
+namespace App\Ship\Errors;
 
 use App\Ship\ShipController;
 use Rudra\View\ViewFacade as View;
