@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Containers\Web\Middleware;
+namespace App\Containers\Demo\Middleware;
 
 use Rudra\Router\MiddlewareInterface;
 use Rudra\Router\RouterFacade as Router;
-use App\Containers\Web\Tools\HelperTrait;
+use App\Containers\Demo\Tools\HelperTrait;
 
 class FirstMiddleware implements MiddlewareInterface
 {

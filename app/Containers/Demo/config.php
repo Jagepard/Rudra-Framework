@@ -1,8 +1,8 @@
 <?php
 
-use App\Containers\Web\Factory\StdFactory;
-use App\Containers\Web\Factory\TestFactory;
-use App\Containers\Web\Interface\TestInterface;
+use App\Containers\Demo\Factory\StdFactory;
+use App\Containers\Demo\Factory\TestFactory;
+use App\Containers\Demo\Interface\TestInterface;
 
 return [
     'contracts'   => [

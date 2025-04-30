@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Web\Repository;
+namespace App\Containers\Demo\Repository;
 
 use Rudra\Model\QBFacade;
 use Rudra\Model\Repository;

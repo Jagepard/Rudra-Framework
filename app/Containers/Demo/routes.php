@@ -12,5 +12,5 @@ if (php_sapi_name() != "cli") {
 }
 
 return [
-    \App\Containers\Web\Controller\IndexController::class,
+    \App\Containers\Demo\Controller\IndexController::class,
 ];

@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Containers\Web\Middleware;
+namespace App\Containers\Demo\Middleware;
 
 use Rudra\Router\MiddlewareInterface;
-use App\Containers\Web\Tools\HelperTrait;
+use App\Containers\Demo\Tools\HelperTrait;
 
 class SecondMiddleware implements MiddlewareInterface
 {

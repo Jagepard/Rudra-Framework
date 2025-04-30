@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Web\Factory;
+namespace App\Containers\Demo\Factory;
 
 use stdClass;
 

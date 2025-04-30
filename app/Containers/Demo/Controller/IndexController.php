@@ -1,16 +1,16 @@
 <?php
 
-namespace App\Containers\Web\Controller;
+namespace App\Containers\Demo\Controller;
 
 use stdClass;
-use App\Containers\Web\WebController;
-use App\Containers\Web\Factory\StdFactory;
+use App\Containers\Demo\DemoController;
+use App\Containers\Demo\Factory\StdFactory;
 use Rudra\Container\Interfaces\RudraInterface;
-use App\Containers\Web\Interface\TestInterface;
+use App\Containers\Demo\Interface\TestInterface;
 use Rudra\Container\Facades\Rudra;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
-class IndexController extends WebController
+class IndexController extends DemoController
 {
     public function __construct(stdClass $std)
     {
@@ -20,10 +20,10 @@ class IndexController extends WebController
 
     #[Routing(url: '')]
     #[Routing(url: 'name/:[\d]{1,3}')]
-    #[Middleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
-    #[Middleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
-    #[AfterMiddleware(name: 'App\Containers\Web\Middleware\FirstMiddleware')]
-    #[AfterMiddleware(name: 'App\Containers\Web\Middleware\SecondMiddleware')]
+    #[Middleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
+    #[Middleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
+    #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
+    #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
     public function attributes(stdClass $std, string $name = 'John'): void
     {
         data([
@@ -51,11 +51,11 @@ class IndexController extends WebController
      * @Routing(url = '')
      * @Routing(url = 'name/{name}')
      * 
-     * @Middleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
-     * @Middleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
+     * @Middleware(name = 'App\Containers\Demo\Middleware\FirstMiddleware')
+     * @Middleware(name = 'App\Containers\Demo\Middleware\SecondMiddleware')
      * 
-     * @AfterMiddleware(name = 'App\Containers\Web\Middleware\FirstMiddleware')
-     * @AfterMiddleware(name = 'App\Containers\Web\Middleware\SecondMiddleware')
+     * @AfterMiddleware(name = 'App\Containers\Demo\Middleware\FirstMiddleware')
+     * @AfterMiddleware(name = 'App\Containers\Demo\Middleware\SecondMiddleware')
      */
     public function annotations(string $name = 'John'): void
     {

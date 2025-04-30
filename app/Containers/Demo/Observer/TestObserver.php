@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Containers\Web\Observer;
+namespace App\Containers\Demo\Observer;
 
 use Rudra\EventDispatcher\ObserverInterface;
 
