@@ -4,9 +4,9 @@ namespace App\Ship;
 
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
-use App\Containers\Web\Observer\TestObserver;
+use App\Containers\Demo\Observer\TestObserver;
 use Rudra\Controller\ShipControllerInterface;
-use App\Containers\Web\Listener\MessageListener;
+use App\Containers\Demo\Listener\MessageListener;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 /**

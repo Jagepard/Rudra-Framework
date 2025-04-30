@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Containers\Web\Factory;
+namespace App\Containers\Demo\Factory;
 
-use App\Containers\Web\Interface\TestInterface;
+use App\Containers\Demo\Interface\TestInterface;
 
 class TestFactory implements TestInterface
 {

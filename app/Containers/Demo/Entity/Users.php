@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Containers\Web\Entity;
+namespace App\Containers\Demo\Entity;
 
 use Rudra\Model\Entity;
 
 /**
- * @see \App\Containers\Web\Repository\UsersRepository
+ * @see \App\Containers\Demo\Repository\UsersRepository
  */
 class Users extends Entity
 {

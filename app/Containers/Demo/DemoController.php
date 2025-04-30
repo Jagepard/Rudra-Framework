@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Containers\Web;
+namespace App\Containers\Demo;
 
 use App\Ship\ShipController;
 use Rudra\Container\Facades\Rudra;
 use Rudra\View\ViewFacade as View;
-use App\Containers\Web\Tools\HelperTrait;
+use App\Containers\Demo\Tools\HelperTrait;
 use Rudra\Controller\ContainerControllerInterface;
 
-class WebController extends ShipController implements ContainerControllerInterface
+class DemoController extends ShipController implements ContainerControllerInterface
 {
     use HelperTrait;
 
@@ -19,10 +19,10 @@ class WebController extends ShipController implements ContainerControllerInterfa
         Rudra::binding()->set($config['contracts']);
         Rudra::waiting()->set($config['services']);
 
-        View::setup(dirname(__DIR__) . '/', "Web/UI/tmpl", "Web/UI/cache");
+        View::setup(dirname(__DIR__) . '/', "Demo/UI/tmpl", "Demo/UI/cache");
 
         data([
-            "title" => "Rudra Framework:: Web Container",
+            "title" => "Rudra Framework:: Demo Container",
         ]);
     }
 }
