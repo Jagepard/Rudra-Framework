@@ -3,11 +3,11 @@
 namespace App\Containers\Demo\Controller;
 
 use stdClass;
+use Rudra\Container\Facades\Rudra;
 use App\Containers\Demo\DemoController;
 use App\Containers\Demo\Factory\StdFactory;
 use Rudra\Container\Interfaces\RudraInterface;
 use App\Containers\Demo\Interface\TestInterface;
-use Rudra\Container\Facades\Rudra;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends DemoController
