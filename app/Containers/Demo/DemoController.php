@@ -19,7 +19,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
         Rudra::binding()->set($config['contracts']);
         Rudra::waiting()->set($config['services']);
 
-        View::setup(dirname(__DIR__) . '/', "Demo/UI/tmpl", "Demo/UI/cache");
+        View::setup(dirname(__DIR__) . "/Demo/UI/tmpl", "Demo_");
 
         data([
             "title" => "Rudra Framework:: Demo Container",
