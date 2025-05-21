@@ -18,7 +18,7 @@ return [
     ],
 
     'services'    => [
-        'factory'  => StdFactory::class,
+        // 'factory'  => StdFactory::class,
         'callable' => function (){
             $std = new stdClass;
             $std->method = __METHOD__ . '::Created from waiting';
