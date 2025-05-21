@@ -24,7 +24,7 @@ class IndexController extends DemoController
     #[Middleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
-    public function attributes(stdClass $std, string $name = 'John'): void
+    public function attributes(stdClass $std, stdClass $asd,stdClass $asw,string $name = 'John'): void
     {
         data([
             "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
@@ -34,9 +34,18 @@ class IndexController extends DemoController
         $this->info("Hello $name");
         Dispatcher::notify('one');
 
-        dump($std);
-        dump(Rudra::get('factory'));
-        dump(Rudra::get('callable'));
+        // dump($std);
+        // dump(Rudra::get('factory'));
+        // dump(Rudra::get('callable'));
+
+        Rudra::set(['one',  [new StdFactory()]]);
+        dump(Rudra::get('one'));
+
+        Rudra::set(['two',  [fn() => (new StdFactory())->create()]]);
+        dump(Rudra::get('two'));
+
+        Rudra::set(['three',  [StdFactory::class]]);
+        dump(Rudra::get('three'));
 
         render("layout", data());
     }
