@@ -35,12 +35,9 @@ class Route
     protected function collect(array $namespaces): void
     {
         foreach ($namespaces as $container => $item) {
-            $routes = $this->getRoutes($container);
-
-            // Объединяем все маршруты в один массив
+            $routes     = $this->getRoutes($container);
             $flatRoutes = array_merge(...$routes);
 
-            // Регистрируем маршруты
             foreach ($flatRoutes as $route) {
                 Router::set($route);
             }
@@ -49,11 +46,17 @@ class Route
 
     protected function getRoutes(string $container): array
     {
-        $cacheDir = "../app/cache";
-        $cacheFile = $cacheDir . "/routes_" . $container . ".php";
+        $cacheDir  = "../app/cache";
+        $routesDir = $cacheDir . "/routes";
+
+        $cacheFile = $routesDir . "/routes_" . $container . ".php";
 
         if (!is_dir($cacheDir)) {
             mkdir($cacheDir, 0755, true);
+        }
+
+        if (!is_dir($routesDir)) {
+            mkdir($routesDir, 0755, true);
         }
 
         if (file_exists($cacheFile)) {
@@ -71,5 +74,4 @@ class Route
 
         return $routes;
     }
-    
 }
