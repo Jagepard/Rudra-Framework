@@ -27,7 +27,7 @@ class IndexController extends DemoController
     public function attributes(stdClass $std, stdClass $asd,stdClass $asw,string $name = 'John'): void
     {
         data([
-            "content" => cache(['mainpage', '+1 day']) ?? view(["index", 'mainpage']),
+            "content" => cache(['mainpage', $this->cache_time['templates']]) ?? view(["index", 'mainpage']),
         ]);
 
         Dispatcher::dispatch('message', __CLASS__);
