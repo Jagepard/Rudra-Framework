@@ -26,6 +26,7 @@ class Route
         }
 
         $this->collect(config('containers'));
+        throw new RouterException("404");
 
         if (config('environment') !== 'test') {
             exit();
