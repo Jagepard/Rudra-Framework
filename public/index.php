@@ -1,4 +1,4 @@
-<?php
+<?php // ini_set('zend.exception_ignore_args', 0);
 
 require "../vendor/autoload.php";
 

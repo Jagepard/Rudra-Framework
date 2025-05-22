@@ -65,7 +65,6 @@ use Rudra\Model\Entity;
 class {$className} extends Entity
 {
     public static string \$table = "$table";
-    public static string \$directory = __DIR__;
 }\r\n
 EOT;
     }
