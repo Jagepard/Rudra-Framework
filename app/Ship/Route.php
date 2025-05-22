@@ -25,7 +25,7 @@ class Route
             }
         }
 
-        $this->collect(Rudra::config()->get('containers'));
+        $this->collect(config('containers'));
 
         if (config('environment') !== 'test') {
             exit();
@@ -47,9 +47,10 @@ class Route
     protected function getRoutes(string $container): array
     {
         $cacheDir  = "../app/cache";
+        $cacheTime = config('cache.time', 'routes');
         $routesDir = $cacheDir . "/routes";
-
         $cacheFile = $routesDir . "/routes_" . $container . ".php";
+        $cacheLifetime = strtotime($cacheTime) - time();
 
         if (!is_dir($cacheDir)) {
             mkdir($cacheDir, 0755, true);
@@ -60,7 +61,12 @@ class Route
         }
 
         if (file_exists($cacheFile)) {
-            return include $cacheFile;
+            $cacheTime   = filemtime($cacheFile);
+            $currentTime = time();
+
+            if ($currentTime - $cacheTime < $cacheLifetime) {
+                return include $cacheFile;
+            }
         }
 
         $path = "../app/Containers/" . ucfirst($container) . "/routes";
@@ -69,6 +75,7 @@ class Route
             throw new \RuntimeException("Routes file not found for container: " . $container);
         }
 
+        // Генерация маршрутов и сохранение их в кеш
         $routes = Router::annotationCollector(require_once $path . ".php", true, Rudra::config()->get("attributes"));
         file_put_contents($cacheFile, "<?php\nreturn " . var_export($routes, true) . ";");
 

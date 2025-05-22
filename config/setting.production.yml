@@ -1,6 +1,11 @@
 secret: ''
 environment: production
-cache.time: now
+cache.time:
+    routes: +1 day
+    templates: +1 day
+    database: +1 day
+    menus: +30 day
+    contacts: +30 day
 roles:
     admin: 0
     editor: 1

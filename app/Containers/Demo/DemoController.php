@@ -12,10 +12,14 @@ class DemoController extends ShipController implements ContainerControllerInterf
 {
     use HelperTrait;
 
+    protected array $cache_time;
+
     public function containerInit(): void
     {
         $config = require_once "config.php";
-
+        $cache_time = config('cache.time');
+        $this->cache_time = $cache_time;
+        
         Rudra::binding()->set($config['contracts']);
         Rudra::waiting()->set($config['services']);
 
