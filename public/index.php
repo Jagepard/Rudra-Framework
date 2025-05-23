@@ -1,4 +1,4 @@
-<?php // ini_set('zend.exception_ignore_args', 0);
+<?php
 
 require "../vendor/autoload.php";
 
@@ -23,14 +23,15 @@ Rudra::binding(Rudra::config()->get("contracts"));
 Rudra::waiting(Rudra::config()->get("services"));
 
 if (Rudra::config()->get("environment") === "development") {
-    Rudra::get("debugbar")->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("DSN"))));
+    $debugbar = Rudra::get("debugbar");
+    $debugbar->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("DSN"))));
 
     if (php_sapi_name() == "cli-server") {
-        Rudra::get("debugbar")->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
+        $debugbar->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
     }
 
-    Rudra::get("debugbar")["time"]->startMeasure("application");
-    Rudra::get("debugbar")["time"]->startMeasure("index");
+    $debugbar["time"]->startMeasure("application");
+    $debugbar["time"]->startMeasure("index");
 } 
 
 session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());

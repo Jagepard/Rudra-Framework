@@ -48,6 +48,9 @@ make:factory:
 make:f:
   - App\Ship\Command\CreateFactoryCommand
 
+cache:clear:
+  - App\Ship\Command\CacheClearCommand
+
 seed:
   - App\Ship\Command\SeedCommand
 migrate:
