@@ -11,9 +11,7 @@ use Rudra\Controller\ContainerControllerInterface;
 class DemoController extends ShipController implements ContainerControllerInterface
 {
     use HelperTrait;
-
-    protected array $cache_time;
-
+    
     public function containerInit(): void
     {
         $config = require_once "config.php";
