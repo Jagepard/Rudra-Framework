@@ -19,7 +19,10 @@ class IndexController extends DemoController
     }
 
     #[Routing(url: '')]
-    #[Routing(url: 'name/:[\d]{1,3}')]
+    #[Routing(url: 'name/name')]
+    #[Routing(url: 'named3/:[\d]{1,3}')]
+    #[Routing(url: 'namestr/:[a-z]{1,3}')]
+    #[Routing(url: 'name/:name')]
     #[Middleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
     #[Middleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
@@ -27,7 +30,7 @@ class IndexController extends DemoController
     public function attributes(stdClass $std, stdClass $asd,stdClass $asw,string $name = 'John'): void
     {
         data([
-            "content" => cache(['mainpage', $this->cache_time['templates']]) ?? view(["index", 'mainpage']),
+            "content" => cache(['mainpage']) ?? view(["index", 'mainpage']),
         ]);
 
         Dispatcher::dispatch('message', __CLASS__);
