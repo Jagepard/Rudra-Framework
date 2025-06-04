@@ -39,7 +39,7 @@ class IndexController extends DemoController
 
         // dump($std);
         // dump(Rudra::get('factory'));
-        // dump(Rudra::get('callable'));
+        dump(Rudra::get('callable'));
 
         Rudra::set(['one',  [new StdFactory()]]);
         dump(Rudra::get('one'));
