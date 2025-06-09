@@ -21,7 +21,8 @@
     ],
     "support": {
         "email": "jagepard@yandex.ru",
-        "skype": "jagepard.ru"
+        "issues": "https://github.com/Jagepard/Rudra-Framework/issues",    
+        "source": "https://github.com/Jagepard/Rudra-Framework"    
     },
     "autoload": {
         "psr-4": {
@@ -36,27 +37,27 @@
         "symfony/var-dumper": "*",
         "phpmailer/phpmailer": "dev-master",
         "symfony/yaml": "5.4.*",
-        "php-debugbar/php-debugbar": "^2.1"
-    },
-    "require-dev": {
-        "rudra/event-dispatcher": "9999999-dev",
-        "rudra/validation": "9999999-dev",
-        "rudra/cli": "dev-main",
-        "rudra/pagination": "dev-master",
-        "rudra/oauth-client": "dev-master",
-        "rudra/exception": "dev-master",
-        "rudra/controller": "dev-master",
-        "rudra/router": "dev-master",
-        "rudra/container": "dev-master",
-        "rudra/redirect": "dev-master",
-        "rudra/annotation": "dev-master",
-        "rudra/view": "dev-master",
-        "rudra/model": "dev-master",
-        "rudra/auth": "dev-master"
+        "php-debugbar/php-debugbar": "^2.1",
+        "rudra/event-dispatcher": "self.version",
+        "rudra/validation": "self.version",
+        "rudra/cli": "self.version",
+        "rudra/pagination": "self.version",
+        "rudra/oauth-client": "self.version",
+        "rudra/exception": "self.version",
+        "rudra/controller": "self.version",
+        "rudra/router": "self.version",
+        "rudra/container": "self.version",
+        "rudra/redirect": "self.version",
+        "rudra/annotation": "self.version",
+        "rudra/view": "self.version",
+        "rudra/model": "self.version",
+        "rudra/auth": "self.version"
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
         "optimize-autoloader": true,
-        "prefer-stable": true
+        "sort-packages": true,
+        "platform-check": false
     }
 }
