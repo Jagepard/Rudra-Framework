@@ -56,23 +56,19 @@ class CreateMigrationCommand extends FileCreator
 
 namespace $namespace;
 
-use Rudra\Model\QBFacade;
+use Rudra\Model\Schema;
 use Rudra\Container\Facades\Rudra;
 
 class {$className}_migration
 {
     public function up(): void
     {
-        \$table = "$table";
-
-        Rudra::get("DSN")->prepare(QBFacade::create(\$table)
-            ->integer('id', '', true)
-            ->created_at()
-            ->updated_at()
-            ->pk('id')
-            ->close()
-            ->get()
-        )->execute();
+        Schema::create('users', function (\$table) {
+            \$table->integer('id', '', true)
+                ->created_at()
+                ->updated_at()
+                ->pk('id');
+        })->execute();
     }
 }\r\n
 EOT;
