@@ -23,9 +23,13 @@ class CreateListenerCommand extends FileCreator
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Listener/"), "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Listener/", "{$className}.php"],
                 $this->createClass($className, $container)
             );
 

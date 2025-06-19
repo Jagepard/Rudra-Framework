@@ -24,12 +24,10 @@ class FileCreator
         $fullPath = $path[0] . $path[1];
 
         if (!file_exists($fullPath)) {
-            Cli::printer("The file ", "light_green");
-            Cli::printer($fullPath, "light_green");
-            Cli::printer(" was created" . PHP_EOL, "light_green");
+            Cli::printer("✅ File $fullPath was created" . PHP_EOL, "light_green");
             file_put_contents($fullPath, $data);
         } else {
-            Cli::printer("The file $fullPath is already exists" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  File $fullPath already exists" . PHP_EOL, "light_yellow");
         }
     }
 }

@@ -40,10 +40,10 @@ class SeedCommand extends LoggerAdapter
             }
 
             if ($this->checkLog($seedName)) {
-                Cli::printer("The $seedName is already seeded" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $seedName was seeded" . PHP_EOL, "light_yellow");
             } else {
                 (new $seedName)->create();
-                Cli::printer("The $seedName was seed" . PHP_EOL, "light_green");
+                Cli::printer("✅  $seedName seeded successfully" . PHP_EOL, "light_green");
                 $this->writeLog($seedName);
             }
         }

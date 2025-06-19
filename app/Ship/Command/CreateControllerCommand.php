@@ -22,14 +22,17 @@ class CreateControllerCommand extends FileCreator
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
-
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
+            
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Controller/"), "{$controllerPrefix}Controller.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Controller/", "{$controllerPrefix}Controller.php"],
                 $this->createClass($controllerPrefix, $container)
             );
 
             $this->addRoute($container, $controllerPrefix);
-
         } else {
             $this->actionIndex();
         }
@@ -96,7 +99,7 @@ EOT;
      */
     public function addRoute(string $container, string $controllerPrefix): void
     {
-        $path   = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php");
+        $path   = Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php";
         $routes = require_once $path;
         $namespace = "\App\Containers\\{$container}\\Controller\\{$controllerPrefix}Controller";
 

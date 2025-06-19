@@ -28,21 +28,22 @@ class CreateSeedCommand extends FileCreator
         $multiline = empty($multiline);
 
         if (!empty($container)) {
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
 
             $namespace = 'App\Containers\\' . $container . '\Seed';
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/"), "{$className}_seed.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/", "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace, $multiline)
             );
-
-
         } else {
-
             $namespace = "App\Ship\Seed";
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seed/"), "{$className}_seed.php"],
+                [Rudra::config()->get('app.path') . "/app/Ship/Seed/", "{$className}_seed.php"],
                 $this->createClass($className, $table, $namespace, $multiline)
             );
         }

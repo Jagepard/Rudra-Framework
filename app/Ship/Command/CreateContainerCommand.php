@@ -20,30 +20,29 @@ class CreateContainerCommand extends FileCreator
         $className = $container . 'Controller';
 
         if (!empty($container)) {
-
-            if (is_dir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"))) {
-                Cli::printer("The container $container already exists" . PHP_EOL, "light_yellow");
+            if (is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, "light_yellow");
                 return;
             }
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "{$className}.php"],
                 $this->createContainersController($className, $container)
             );
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "routes.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "routes.php"],
                 $this->createRoutes()
             );
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"), "config.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "config.php"],
                 $this->createConfig()
             );
 
             $this->addConfig($container);
-            $this->createDirectories(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/"));
-            Cli::printer("The container $container was created" . PHP_EOL, "light_green");
+            $this->createDirectories(Rudra::config()->get('app.path') . "/app/Containers/$container/");
+            Cli::printer("✅ Container '$container' was created" . PHP_EOL, "light_green");
 
         } else {
             $this->actionIndex();
@@ -116,10 +115,10 @@ EOT;
 <?php
 
 return [
-    'contracts'   => [
+    'contracts' => [
 
     ],
-    'services'    => [
+    'services'  => [
 
     ]
 ];\r\n
@@ -140,18 +139,14 @@ EOT;
             mkdir($path . 'UI', 0755, true);
         }
 
-        if (!is_dir($path . 'UI' . DIRECTORY_SEPARATOR . 'cache')) {
-            mkdir($path . 'UI' . DIRECTORY_SEPARATOR . 'cache', 0755, true);
-        }
-
-        if (!is_dir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl')) {
-            mkdir($path . 'UI' . DIRECTORY_SEPARATOR . 'tmpl', 0755, true);
+        if (!is_dir($path . 'UI/tmpl')) {
+            mkdir($path . 'UI/tmpl', 0755, true);
         }
     }
 
     public function addConfig(string $container): void
     {
-        $path      = str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/config/setting.local.yml");
+        $path      = Rudra::config()->get('app.path') . "/config/setting.local.yml";
         $namespace = strtolower($container) . ": App\Containers\\{$container}\\";
         $contents  = <<<EOT
         \r\n    $namespace
