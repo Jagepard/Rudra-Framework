@@ -19,10 +19,15 @@ class RouterCommand
         $_SERVER["REQUEST_URI"]    = '';
 
         foreach (Rudra::config()->get('containers') as $container => $item) {
-            $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
+            $mask  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
+            $frame = "\e[1;34m+-----+-----------------------------------------------+--------+-------------------------------------------------------------------+---------------------------+\e[m" . PHP_EOL;
             Cli::printer(strtoupper($container) . PHP_EOL, "yellow");
-            printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
-            $this->getTable($this->getRoutes($container));
+
+            echo $frame;
+            printf("\e[1;95m" . $mask . "\e[m", "#", "Route", "Method", "Controller", "Action");
+            echo $frame;
+            $this->getTable($this->getRoutes($container), $mask);
+            echo $frame;
         }
     }
 
@@ -36,38 +41,48 @@ class RouterCommand
         $_SERVER["REQUEST_METHOD"] = 'GET';
         $_SERVER["REQUEST_URI"]    = '';
 
-        Cli::printer("Enter container name: ", "magneta");
-        $link = trim(Cli::reader());
-        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
-        printf("\e[5;35m" . $mask . "\e[m", " ", "route", "method", "controller", "action");
-        $this->getTable($this->getRoutes($link));
+        Cli::printer("Enter container name: ", "magenta");
+        $link  = trim(Cli::reader());
+        $mask  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
+        $frame = "\e[1;34m+-----+---------------------------------------------+--------+-------------------------------------------------------------------+--------------------------+\e[m" . PHP_EOL;
+
+        echo $frame;
+        printf("\e[1;95m" . $mask . "\e[m", "#", "Route", "Method", "Controller", "Action");
+        echo $frame;
+        $this->getTable($this->getRoutes($link), $mask);
+        echo $frame;
     }
 
     /**
-     * Forms a table
-     * -------------
-     * Формирует таблицу
-     *
-     * @param array $data
+     * Generates a color-alternating route table
+     * -----------------------------------------
+     * Формирует таблицу маршрутов с чередованием цветов
      */
-    protected function getTable(array $data): void
+    protected function getTable(array $data, string $mask): void
     {
-        $mask = "|%-3.3s|%-45.45s|%-7.7s|%-65.65s|%-25.25s| x |" . PHP_EOL;
-        $i    = 1;
+        $i = 1;
+        $colors = ["\e[0;36m", "\e[0;32m"]; // color-alternating
 
         foreach ($data as $routes) {
-            printf("\e[5;36m" . $mask . "\e[m", $i, $routes[0]['url'], $routes[0]['method'], $routes[0]['controller'], $routes[0]['action'] ?? "actionIndex");
-            $i++;
+            foreach ($routes as $route) {
+                $color = $colors[($i - 1) % 2];
+                printf(
+                    $color . $mask . "\e[m",
+                    $i,
+                    $route['url'],
+                    $route['method'],
+                    $route['controller'],
+                    $route['action'] ?? 'actionIndex'
+                );
+                $i++;
+            }
         }
     }
 
     /**
-     * Builds route files from modules
-     * -------------------------------
+     * Collects route files from modules
+     * ---------------------------------
      * Собирает файлы маршрутов из модулей
-     *
-     * @param string $container
-     * @return array
      */
     protected function getRoutes(string $container): array
     {

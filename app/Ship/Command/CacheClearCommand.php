@@ -10,7 +10,7 @@ class CacheClearCommand
 {
     public function actionIndex(): void
     {
-        Cli::printer("Enter cache type (empty for all): ", "magneta");
+        Cli::printer("Enter cache type [database, routes, templates](empty for all): ", "magneta");
         $type = str_replace(PHP_EOL, "", Cli::reader());
 
         $folderPath = !empty($type)
@@ -19,12 +19,12 @@ class CacheClearCommand
 
         if ($this->deleteDirectory($folderPath)) {
             Cli::printer(!empty($type)
-                ? "Cache $type was cleared" . PHP_EOL
-                : "Cache was cleared" . PHP_EOL, "light_green");
+                ? "✅ Cache $type was cleared" . PHP_EOL
+                : "✅ Cache was cleared" . PHP_EOL, "light_green");
         } else {
             Cli::printer(!empty($type)
-                ? "Cache type '$type' does not exist." . PHP_EOL
-                : "Cache directory does not exist." . PHP_EOL, "red");
+                ? "❌ Cache type '$type' does not exist." . PHP_EOL
+                : "⚠️  The directory does not exist or the cache was cleared." . PHP_EOL, !empty($type) ? "red" : "yellow");
         }
     }
 

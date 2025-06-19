@@ -8,18 +8,30 @@ class ListenersCommand
 {
     public function actionIndex(): void
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
-        printf("\e[1;35m" . $mask . "\e[m", " ", "event", "listener", "action");
-        $this->getTable(EventDispatcher::getListeners());
+        $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
+        $frame = "\e[1;34m+-----+-----------------+---------------------------------------------------+-----------------+\e[m" . PHP_EOL;
+
+        echo $frame;
+        printf("\e[1;95m" . $mask . "\e[m", "#", "Event", "Listener", "Action");
+        echo $frame;
+        $this->getTable(EventDispatcher::getListeners(), $mask);
+        echo $frame;
     }
 
-    protected function getTable(array $data): void
+    protected function getTable(array $data, string $mask): void
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
-        $i    = 1;
+        $i = 1;
+        $colors = ["\e[0;36m", "\e[0;32m"]; // чередующиеся цвета строк
 
         foreach ($data as $name => $listeners) {
-            printf("\e[5;36m" . $mask . "\e[m", $i, $name, $listeners["listener"], $listeners["method"]);
+            $color = $colors[($i - 1) % 2];
+            printf(
+                $color . $mask . "\e[m",
+                $i,
+                $name,
+                $listeners["listener"],
+                $listeners["method"] ?? 'actionIndex'
+            );
             $i++;
         }
     }

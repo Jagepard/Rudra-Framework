@@ -23,17 +23,20 @@ class CreateModelCommand extends FileCreator
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Entity/"), "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Entity/", "{$className}.php"],
                 $this->createEntity($className, $container)
             );
 
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/"), "{$className}Repository.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/", "{$className}Repository.php"],
                 $this->createRepository($className, $container)
             );
-
         } else {
             $this->actionIndex();
         }
@@ -87,7 +90,6 @@ EOT;
 
 namespace App\Containers\\{$container}\Repository;
 
-use Rudra\Model\QBFacade;
 use Rudra\Model\Repository;
 
 class {$className}Repository extends Repository

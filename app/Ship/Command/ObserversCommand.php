@@ -8,22 +8,31 @@ class ObserversCommand
 {
     public function actionIndex(): void
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
-        printf("\e[1;35m" . $mask . "\e[m", " ", "event", "observer", "action");
+        $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
+        $frame = "\e[1;34m+-----+-----------------+---------------------------------------------------+-----------------+\e[m" . PHP_EOL;
 
-        foreach (EventDispatcher::getObservers() as $event => $observer) {
-            $this->getTable($event, $observer);
-        }
+        echo $frame;
+        printf("\e[1;95m" . $mask . "\e[m", "#", "Event", "Observer", "Method");
+        echo $frame;
+        $this->getTable(EventDispatcher::getObservers(), $mask);
+        echo $frame;
     }
 
-    protected function getTable($event, array $data): void
+    protected function getTable(array $data, string $mask): void
     {
-        $mask = "|%-5.5s |%-20.20s|%-45.45s|%-20.20s| x |" . PHP_EOL;
-        $i    = 1;
+        $i = 1;
+        $colors = ["\e[0;36m", "\e[0;32m"];
 
-        foreach ($data as $subscriber => $method) {
-            printf("\e[5;36m" . $mask . "\e[m", $i, $event, $subscriber, $method);
-            $i++;
+        foreach ($data as $event => $observers) {
+            foreach ($observers as $observer) {
+                $color = $colors[($i - 1) % 2];
+                printf($color . $mask . "\e[m", $i,
+                    $event,
+                    $observer['class'],
+                    $observer['method']
+                );
+                $i++;
+            }
         }
     }
 }

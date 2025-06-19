@@ -23,9 +23,13 @@ class CreateFactoryCommand extends FileCreator
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         if (!empty($container)) {
-
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
+            
             $this->writeFile(
-                [str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/$container/Factory/"), "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Factory/", "{$className}.php"],
                 $this->createClass($className, $container)
             );
 
@@ -50,7 +54,9 @@ class CreateFactoryCommand extends FileCreator
 
 namespace App\Containers\\{$container}\Factory;
 
-class {$className}
+use Rudra\Container\Interfaces\FactoryInterface;
+
+class {$className} implements FactoryInterface
 {
     public function create()
     {

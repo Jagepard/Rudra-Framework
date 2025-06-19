@@ -18,6 +18,6 @@ class BcryptCommand
         Cli::printer("Enter password: ", "magneta");
         $password = trim(fgets(fopen("php://stdin", "r")));
 
-        Cli::printer(Auth::bcrypt($password) . PHP_EOL, "cyan", );
+        Cli::printer(Auth::bcrypt($password) . PHP_EOL, "light_green", );
     }
 }

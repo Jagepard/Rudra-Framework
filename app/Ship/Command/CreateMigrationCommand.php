@@ -25,15 +25,20 @@ class CreateMigrationCommand extends FileCreator
         $className = ucfirst($table) . $date;
 
         if (!empty($container)) {
+            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                return;
+            }
+
             $namespace = 'App\Containers\\' . $container . '\Migration';
 
-            $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/"), "{$className}_migration.php"],
+            $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/", "{$className}_migration.php"],
                 $this->createMigration($className, $table, $namespace)
             );
         } else {
             $namespace = "App\Ship\Migration";
 
-            $this->writeFile([str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Migration/"), "{$className}_migration.php"],
+            $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migration/", "{$className}_migration.php"],
                 $this->createMigration($className, $table, $namespace)
             );
         }
@@ -63,7 +68,7 @@ class {$className}_migration
 {
     public function up(): void
     {
-        Schema::create('users', function (\$table) {
+        Schema::create('$table', function (\$table) {
             \$table->integer('id', '', true)
                 ->created_at()
                 ->updated_at()
