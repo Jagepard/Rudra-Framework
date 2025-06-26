@@ -54,20 +54,15 @@ class CreateMiddlewareCommand extends FileCreator
 
 namespace App\Containers\\{$container}\Middleware;
 
-use Rudra\Router\MiddlewareInterface;
-use Rudra\Router\RouterFacade as Router;
-
-class {$className} implements MiddlewareInterface
+class {$className}
 {
-    public function __invoke(\$chainOfMiddlewares)
+    public function __invoke(\$next, ...\$params)
     {
         dump(__CLASS__);
-        \$this->next(\$chainOfMiddlewares);
-    }
 
-    public function next(array \$chainOfMiddlewares): void
-    {
-        Router::handleMiddleware(\$chainOfMiddlewares);
+        if (\$next) {
+            \$next();
+        }
     }
 }\r\n
 EOT;
