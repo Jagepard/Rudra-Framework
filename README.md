@@ -5,7 +5,7 @@
 # Rudra-Framework
 
 ```
-composer create-project --prefer-dist rudra/framework=dev-master newapp
+composer create-project --prefer-dist rudra/framework newapp
 cd newapp
 composer dumpautoload -o
 ```
