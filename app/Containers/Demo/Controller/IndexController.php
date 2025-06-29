@@ -12,8 +12,18 @@ use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends DemoController
 {
+    /**
+     * Serves solely for demonstrating Dependency Injection (DI).
+     * Without calling parent::__construct(), it breaks the application logic.
+     * -------------------------
+     * Служит только для демонстрации внедрения зависимостей (DI).
+     * Без вызова parent::__construct(); ломает логику приложения.
+     *
+     * @param  stdClass $std
+     */
     public function __construct(stdClass $std)
     {
+        parent::__construct();
         $std->name = __METHOD__ . '::Dependency Injection';
         dump($std);
     }
