@@ -1,4 +1,4 @@
-secret: ''
+secret: '1234567891011121' # Need to be changed
 environment: development
 cache.time:
     routes: now
