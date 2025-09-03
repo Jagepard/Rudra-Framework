@@ -11,6 +11,35 @@ use Rudra\Controller\ContainerControllerInterface;
 class DemoController extends ShipController implements ContainerControllerInterface
 {
     use HelperTrait;
+
+    public string $thema = 
+        // "Brite"
+        // "Cerulean"
+        // "Cosmo"
+        // "Cyborg"
+        // "Darkly"
+        // "Flatly"
+        // "Journal"
+        // "Litera"
+        "Lumen"
+        // "Lux"
+        // "Materia"
+        // "Minty"
+        // "Morph"
+        // "Pulse"
+        // "Quartz"
+        // "Sandstone"
+        // "Simplex"
+        // "Sketchy"
+        // "Slate"
+        // "Solar"
+        // "Spacelab"
+        // "Superhero"
+        // "United"
+        // "Vapor"
+        // "Yeti"
+        // "Zephyr"
+    ;
     
     public function containerInit(): void
     {
@@ -23,6 +52,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
 
         data([
             "title" => "Rudra Framework:: Demo Container",
+            "thema" => $this->thema,
         ]);
     }
 }
