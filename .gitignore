@@ -1,7 +1,7 @@
 /.idea/
 /.vscode/
-/tests/build/
+/nbproject/
 /vendor/
+/node_modules/
 /composer.lock
-/.phpunit.cache/
-/.phpunit.result.cache
+/app/cache/

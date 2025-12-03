@@ -27,7 +27,7 @@ class FileCreator
             Cli::printer("✅ File $fullPath was created" . PHP_EOL, "light_green");
             file_put_contents($fullPath, $data);
         } else {
-            Cli::printer("⚠️  File $fullPath already exists" . PHP_EOL, "light_yellow");
+            Cli::printer("ℹ️  File $fullPath already exists" . PHP_EOL, "light_yellow");
         }
     }
 }
