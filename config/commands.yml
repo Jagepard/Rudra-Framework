@@ -1,51 +1,22 @@
-make:observer:
-  - App\Ship\Command\CreateObserverCommand
-make:ob:
-  - App\Ship\Command\CreateObserverCommand
-
-make:model:
-  - App\Ship\Command\CreateModelCommand
-make:ml:
-  - App\Ship\Command\CreateModelCommand
-
-make:middleware:
-  - App\Ship\Command\CreateMiddlewareCommand
-make:mid:
-  - App\Ship\Command\CreateMiddlewareCommand
-
-make:listener:
-  - App\Ship\Command\CreateListenerCommand
-make:l:
-  - App\Ship\Command\CreateListenerCommand
-
 make:container:
   - App\Ship\Command\CreateContainerCommand
-make:cr:
-  - App\Ship\Command\CreateContainerCommand
-
 make:controller:
   - App\Ship\Command\CreateControllerCommand
-make:ctr:
-  - App\Ship\Command\CreateControllerCommand
-
+make:model:
+  - App\Ship\Command\CreateModelCommand
+make:middleware:
+  - App\Ship\Command\CreateMiddlewareCommand
+make:listener:
+  - App\Ship\Command\CreateListenerCommand
+make:observer:
+  - App\Ship\Command\CreateObserverCommand
 make:seed:
   - App\Ship\Command\CreateSeedCommand
-make:s:
-  - App\Ship\Command\CreateSeedCommand
-
 make:migration:
   - App\Ship\Command\CreateMigrationCommand
-make:m:
-  - App\Ship\Command\CreateMigrationCommand
-
 make:interface:
   - App\Ship\Command\CreateInterfaceCommand
-make:int:
-  - App\Ship\Command\CreateInterfaceCommand
-
 make:factory:
-  - App\Ship\Command\CreateFactoryCommand
-make:f:
   - App\Ship\Command\CreateFactoryCommand
 
 cache:clear:
@@ -55,16 +26,7 @@ seed:
   - App\Ship\Command\SeedCommand
 migrate:
   - App\Ship\Command\MigrateCommand
-listeners:
-  - App\Ship\Command\ListenersCommand
-debug:listeners:
-  - App\Ship\Command\ListenersCommand
-observers:
-  - App\Ship\Command\ObserversCommand
-debug:observers:
-  - App\Ship\Command\ObserversCommand
-bcrypt:
-  - App\Ship\Command\BcryptCommand
+
 serve:
   - App\Ship\Command\ServeCommand
 run:
@@ -72,27 +34,21 @@ run:
 
 help:
   - App\Ship\Command\ConsoleCommand
-h:
-  - App\Ship\Command\ConsoleCommand
 '' :
   - App\Ship\Command\ConsoleCommand
 
 debug:router:
   - App\Ship\Command\RouterCommand
-router:
-  - App\Ship\Command\RouterCommand
-r:
-  - App\Ship\Command\RouterCommand
-
 debug:router:container:
   - App\Ship\Command\RouterCommand
   - actionContainer
-router:container:
-  - App\Ship\Command\RouterCommand
-  - actionContainer
-rc:
-  - App\Ship\Command\RouterCommand
-  - actionContainer
+debug:listeners:
+  - App\Ship\Command\ListenersCommand
+debug:observers:
+  - App\Ship\Command\ObserversCommand
+
+bcrypt:
+  - App\Ship\Command\BcryptCommand
 
 to:yml:
   - App\Ship\Command\ArrayToYml
