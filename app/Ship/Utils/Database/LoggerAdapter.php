@@ -30,6 +30,7 @@ class LoggerAdapter
             ->integer('id', '', true)
             ->string('name')
             ->created_at()
+            ->updated_at()
             ->pk('id')
             ->close()
             ->get();
@@ -42,10 +43,20 @@ class LoggerAdapter
         return $this->driver->isTable();
     }
 
-    public function writeLog(string $name): void
+    public function writeLog(string $namespace): void
     {
-        $this->driver->writeLog($name);
+        $query = Rudra::get("DSN")->prepare("
+            INSERT INTO {$this->table} (name, created_at, updated_at)
+            VALUES (:name, :created_at, :updated_at)
+        ");
+
+        $query->execute([
+            ':name'        => $namespace,
+            ":created_at"  => date('Y-m-d H:i:s'),
+            ":updated_at"  => date('Y-m-d H:i:s'),
+        ]);
     }
+
 
     public function checkLog(string $name)
     {

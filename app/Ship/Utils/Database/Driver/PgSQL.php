@@ -20,17 +20,4 @@ class PgSQL
 
         return $query->fetchColumn();
     }
-
-    public function writeLog(string $name): void
-    {
-        $query = Rudra::get("DSN")->prepare("
-            INSERT INTO {$this->table} (name, created_at)
-            VALUES (:name, :created_at)"
-        );
-
-        $query->execute([
-            ':name' => $name,
-            ':created_at' => date('d-M-Y H:i:s')
-        ]);
-    }
 }
