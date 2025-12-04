@@ -16,14 +16,4 @@ class MySQL
 
         return $query->fetchColumn();
     }
-
-    public function writeLog(string $name): void
-    {
-        $query = Rudra::get("DSN")->prepare("
-            INSERT INTO {$this->table} (`name`)
-            VALUES (:name)"
-        );
-
-        $query->execute([':name' => $name]);
-    }
 }
