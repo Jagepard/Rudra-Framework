@@ -15,6 +15,8 @@ class Users_21012021144905_seed extends AbstractSeed
             "password" => Auth::bcrypt('password'),
             "role"     => "admin",
             "status"   => 1,
+            "created_at" => date('Y-m-d H:i:s'),
+            "updated_at" => date('Y-m-d H:i:s'),
         ];
 
         $this->execute($table, $fields);
