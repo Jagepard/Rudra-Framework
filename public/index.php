@@ -25,6 +25,7 @@ Rudra::waiting(Rudra::config()->get("services"));
 if (Rudra::config()->get("environment") === "development") {
     $debugbar = Rudra::get("debugbar");
     $debugbar->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("DSN"))));
+    $debugbar->addCollector(new App\Ship\Utils\SecurityCollector());
 
     if (php_sapi_name() == "cli-server") {
         $debugbar->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
