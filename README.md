@@ -7,5 +7,10 @@
 ```
 composer create-project --prefer-dist rudra/framework newapp
 cd newapp
-composer dumpautoload -o
+```
+
+Для установки dev версии
+```
+composer create-project --prefer-dist --stability=dev rudra/framework newapp
+cd newapp
 ```
