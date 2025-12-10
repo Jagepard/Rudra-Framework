@@ -50,5 +50,8 @@ debug:observers:
 bcrypt:
   - App\Ship\Command\BcryptCommand
 
+secret:
+  - App\Ship\Command\SecretCommand
+
 to:yml:
   - App\Ship\Command\ArrayToYml
