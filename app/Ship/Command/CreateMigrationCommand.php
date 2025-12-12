@@ -69,7 +69,7 @@ class {$className}_migration
     public function up(): void
     {
         Schema::create('$table', function (\$table) {
-            \$table->integer('id', '', true)
+            \$table->integer('id', autoincrement: true)
                 ->created_at()
                 ->updated_at()
                 ->pk('id');
