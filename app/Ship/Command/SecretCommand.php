@@ -15,6 +15,6 @@ class SecretCommand
             "HTTP_USER_AGENT" => "Mozilla",
         ]);
 
-        Cli::printer(bin2hex(random_bytes(16)) . PHP_EOL, "light_green", );
+        Cli::printer(bin2hex(random_bytes(8)) . PHP_EOL, "light_green");
     }
 }

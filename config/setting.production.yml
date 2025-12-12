@@ -1,4 +1,4 @@
-secret: '1234567891011121' # Need to be changed
+secret: '1234567891011121' # Need to be changed - php rudra secret
 environment: production
 cache.time:
     routes: now
