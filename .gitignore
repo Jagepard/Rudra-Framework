@@ -5,3 +5,4 @@
 /node_modules/
 /composer.lock
 /app/cache/
+app_env.php
