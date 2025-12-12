@@ -19,6 +19,8 @@ if ($env === false || $env === '') {
     $env = file_exists($envFile) ? require $envFile : 'local';
 }
 
+$configFile = "config/setting.{$env}.yml";
+
 Rudra::config(Yaml::parseFile($configFile));
 Rudra::config()->set(["app.path" => realpath(__DIR__)]);
 Rudra::config()->set(require_once "app/Ship/config.php");
