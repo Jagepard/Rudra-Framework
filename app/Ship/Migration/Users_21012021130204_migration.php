@@ -10,7 +10,7 @@ class Users_21012021130204_migration
     public function up(): void
     {
         Schema::create('users', function ($table) {
-            $table->integer('id', '', true)
+            $table->integer('id', autoincrement: true)
                 ->string('name')
                 ->string('email', 'NOT NULL UNIQUE')
                 ->string('password')
