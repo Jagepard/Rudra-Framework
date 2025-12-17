@@ -54,9 +54,7 @@ class CreateFactoryCommand extends FileCreator
 
 namespace App\Containers\\{$container}\Factory;
 
-use Rudra\Container\Interfaces\FactoryInterface;
-
-class {$className} implements FactoryInterface
+class {$className}
 {
     public function create()
     {
