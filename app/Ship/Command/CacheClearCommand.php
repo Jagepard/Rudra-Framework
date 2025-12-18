@@ -10,12 +10,12 @@ class CacheClearCommand
 {
     public function actionIndex(): void
     {
-        Cli::printer("Enter cache type [database, routes, templates](empty for all): ", "magneta");
+        Cli::printer("Enter cache type [database, routes, templates, twig](empty for all): ", "magneta");
         $type = str_replace(PHP_EOL, "", Cli::reader());
 
         $folderPath = !empty($type)
-            ? dirname(__DIR__, 2) . "/cache/$type"
-            : dirname(__DIR__, 2) . "/cache";
+            ? dirname(__DIR__, 3) . "/storage/cache/$type"
+            : dirname(__DIR__, 3) . "/storage/cache";
 
         if ($this->deleteDirectory($folderPath)) {
             Cli::printer(!empty($type)
