@@ -4,5 +4,5 @@
 /vendor/
 /node_modules/
 /composer.lock
-/app/cache/
+/app/storage/
 app_env.php
