@@ -15,11 +15,11 @@ class LoggerAdapter
 
     public function __construct()
     {
-        if (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
+        if (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
             $this->driver = new MySQL($this->table);
-        } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
+        } elseif (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
             $this->driver = new PgSQL($this->table);
-        } elseif (Rudra::get("DSN")->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
+        } elseif (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
             $this->driver = new SQLite($this->table);
         }
     }
@@ -35,7 +35,7 @@ class LoggerAdapter
             ->close()
             ->get();
 
-        Rudra::get("DSN")->prepare("$query")->execute();
+        Rudra::get('connection')->prepare("$query")->execute();
     }
 
     public function isTable()
@@ -45,7 +45,7 @@ class LoggerAdapter
 
     public function writeLog(string $namespace): void
     {
-        $query = Rudra::get("DSN")->prepare("
+        $query = Rudra::get('connection')->prepare("
             INSERT INTO {$this->table} (name, created_at, updated_at)
             VALUES (:name, :created_at, :updated_at)
         ");
@@ -60,7 +60,7 @@ class LoggerAdapter
 
     public function checkLog(string $name)
     {
-        $stmt = Rudra::get("DSN")->prepare(QBFacade::select()
+        $stmt = Rudra::get('connection')->prepare(QBFacade::select()
             ->from($this->table)
             ->where('name = :name')
             ->get()

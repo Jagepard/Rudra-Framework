@@ -10,7 +10,7 @@ return [
     ],
 
     'services'  => [
-        "DSN" => [PDO::class, [
+        'connection' => [PDO::class, [
             config('database', 'dsn'),
             config('database', 'username'),
             config('database', 'password')
