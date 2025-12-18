@@ -10,7 +10,7 @@ class MySQL
 
     public function isTable()
     {
-        $query = Rudra::get("DSN")->query("
+        $query = Rudra::get('connection')->query("
             SHOW TABLES LIKE '{$this->table}';
         ");
 

@@ -34,7 +34,7 @@ abstract class AbstractSeed
     {
         $stmtString = $this->createStmtString($fields);
 
-        $query = Rudra::get("DSN")->prepare("
+        $query = Rudra::get('connection')->prepare("
                 INSERT INTO {$table} ({$stmtString[0]}) 
                 VALUES ({$stmtString[1]})");
 

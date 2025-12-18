@@ -10,7 +10,7 @@ class PgSQL
 
     public function isTable()
     {
-        $query = Rudra::get("DSN")->query("
+        $query = Rudra::get('connection')->query("
         SELECT EXISTS (
             SELECT FROM information_schema.tables 
             WHERE  table_schema = 'public'

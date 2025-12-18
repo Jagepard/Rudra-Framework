@@ -10,7 +10,7 @@ class SQLite
 
     public function up(): void
     {
-        Rudra::get("DSN")->prepare("
+        Rudra::get('connection')->prepare("
             CREATE TABLE {$this->table} (
                 id INTEGER PRIMARY KEY,
                 name TEXT NOT NULL,
@@ -22,7 +22,7 @@ class SQLite
 
     public function isTable()
     {
-        $query = Rudra::get("DSN")->query("
+        $query = Rudra::get('connection')->query("
             SELECT name FROM sqlite_master WHERE type='table' AND name='{$this->table}';
         ");
 
