@@ -6,7 +6,7 @@ use App\Ship\Utils\FileCreator;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 
-class CreateObserverCommand extends FileCreator
+class MakeListener extends FileCreator
 {
     /**
      * Creates a file with Seed data
@@ -15,9 +15,9 @@ class CreateObserverCommand extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter observer name: ", "magneta");
+        Cli::printer("Enter listener name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Observer';
+        $className = ucfirst($prefix) . 'Listener';
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -29,7 +29,7 @@ class CreateObserverCommand extends FileCreator
             }
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Observer/", "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Listener/", "{$className}.php"],
                 $this->createClass($className, $container)
             );
 
@@ -52,16 +52,11 @@ class CreateObserverCommand extends FileCreator
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Observer;
+namespace App\Containers\\{$container}\Listener;
 
-use Rudra\EventDispatcher\ObserverInterface;
-
-class {$className} implements ObserverInterface
+class {$className}
 {
-    public function onEvent()
-    {
 
-    }
 }\r\n
 EOT;
     }

@@ -6,7 +6,7 @@ use App\Ship\Utils\FileCreator;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 
-class CreateControllerCommand extends FileCreator
+class MakeController extends FileCreator
 {
     /**
      * Creates a file with Seed data
