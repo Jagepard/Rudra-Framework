@@ -17,7 +17,7 @@ class MakeContainer extends FileCreator
     {
         Cli::printer("Enter container name: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
-        $className = $container . 'Controller';
+        $className = trim($container . 'Controller');
 
         if (!empty($container)) {
             if (is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {

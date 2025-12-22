@@ -17,7 +17,7 @@ class MakeMiddleware extends FileCreator
     {
         Cli::printer("Enter middleware name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Middleware';
+        $className = trim(ucfirst($prefix) . 'Middleware');
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

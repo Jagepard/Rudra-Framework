@@ -17,7 +17,7 @@ class MakeModel extends FileCreator
     {
         Cli::printer("Enter table name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix);
+        $className = trim(ucfirst($prefix));
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

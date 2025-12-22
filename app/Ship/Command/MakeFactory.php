@@ -17,7 +17,7 @@ class MakeFactory extends FileCreator
     {
         Cli::printer("Enter factory name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Factory';
+        $className = trim(ucfirst($prefix) . 'Factory');
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

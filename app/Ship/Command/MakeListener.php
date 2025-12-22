@@ -17,7 +17,7 @@ class MakeListener extends FileCreator
     {
         Cli::printer("Enter listener name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Listener';
+        $className = trim(ucfirst($prefix) . 'Listener');
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

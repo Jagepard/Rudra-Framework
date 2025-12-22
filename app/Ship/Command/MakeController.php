@@ -16,7 +16,7 @@ class MakeController extends FileCreator
     public function actionIndex(): void
     {
         Cli::printer("Enter controller name: ", "magneta");
-        $controllerPrefix = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        $controllerPrefix = trim(ucfirst(str_replace(PHP_EOL, "", Cli::reader())));
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

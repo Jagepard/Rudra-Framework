@@ -5,9 +5,11 @@ namespace App\Containers\Demo\Controller;
 use stdClass;
 use Rudra\Container\Facades\Rudra;
 use App\Containers\Demo\DemoController;
-use App\Containers\Demo\Factory\StdFactory;
 use Rudra\Container\Interfaces\RudraInterface;
-use App\Containers\Demo\Interface\TestInterface;
+use App\Containers\Demo\Contract\CacheInterface;
+use App\Containers\Demo\Service\SomeDemoService;
+use App\Containers\Demo\Contract\SmsSenderInterface;
+use App\Containers\Demo\Contract\UserRepositoryInterface;
 use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 class IndexController extends DemoController
@@ -37,61 +39,28 @@ class IndexController extends DemoController
     #[Middleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\FirstMiddleware')]
     #[AfterMiddleware(name: 'App\Containers\Demo\Middleware\SecondMiddleware')]
-    public function attributes(stdClass $std, stdClass $asd,stdClass $asw,string $name = 'John'): void
+    public function attributes(string $name = 'John'): void
     {
-        data([
-            "content" => cache(['mainpage']) ?? view(["index", 'mainpage']),
-        ]);
-
         Dispatcher::dispatch('message', __CLASS__);
         $this->info("Hello $name");
         Dispatcher::notify('one');
 
-        // dump($std);
-        // dump(Rudra::get('factory'));
-        dump(Rudra::get('callable'));
-
-        Rudra::set(['one',  [new StdFactory()]]);
-        dump(Rudra::get('one'));
-
-        Rudra::set(['two',  [fn() => (new StdFactory())->create()]]);
-        dump(Rudra::get('two'));
-
-        Rudra::set(['three',  [StdFactory::class]]);
-        dump(Rudra::get('three'));
+        data([
+            "content" => cache(['mainpage']) ?? view(["index", 'mainpage']),
+        ]);
 
         render("layout", data());
     }
 
     #[Routing(url: 'autowire')]
-    public function autowire(RudraInterface $rudra, stdClass $std, TestInterface $test, StdFactory $factory): void
+    public function autowire(RudraInterface $rudra, UserRepositoryInterface $user, SmsSenderInterface $smsSender, CacheInterface $cache): void
     {
-        dd($rudra, $std, $test, $factory);
-    }
+        $service = Rudra::get(SomeDemoService::class);
 
-    /**
-     * @Routing(url = '')
-     * @Routing(url = 'name/{name}')
-     * 
-     * @Middleware(name = 'App\Containers\Demo\Middleware\FirstMiddleware')
-     * @Middleware(name = 'App\Containers\Demo\Middleware\SecondMiddleware')
-     * 
-     * @AfterMiddleware(name = 'App\Containers\Demo\Middleware\FirstMiddleware')
-     * @AfterMiddleware(name = 'App\Containers\Demo\Middleware\SecondMiddleware')
-     */
-    public function annotations(string $name = 'John'): void
-    {
-        data([
-            "content" => cache(['mainpage', 'now']) ?? view(["index", 'mainpage']),
-        ]);
+        dump($service);
 
-        Dispatcher::dispatch('message', __CLASS__);
-        $this->info("Hello $name");
+        $service->greet(1);
 
-        Dispatcher::notify('one');
-
-        dump(__METHOD__);
-
-        render("layout", data());
+        dd($rudra, $user, $smsSender, $cache);
     }
 }
