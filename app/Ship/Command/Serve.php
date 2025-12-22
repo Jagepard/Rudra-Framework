@@ -4,7 +4,7 @@ namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 
-class ServeCommand
+class Serve
 {
     public function actionIndex(): void
     {

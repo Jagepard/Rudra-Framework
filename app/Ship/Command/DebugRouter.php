@@ -6,7 +6,7 @@ use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Router\RouterFacade as Router;
 
-class RouterCommand
+class DebugRouter
 {
     /**
      * Returns all routes

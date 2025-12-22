@@ -1,57 +1,59 @@
 make:container:
-  - App\Ship\Command\CreateContainerCommand
+  - App\Ship\Command\MakeContainer
 make:controller:
-  - App\Ship\Command\CreateControllerCommand
+  - App\Ship\Command\MakeController
 make:model:
-  - App\Ship\Command\CreateModelCommand
+  - App\Ship\Command\MakeModel
 make:middleware:
-  - App\Ship\Command\CreateMiddlewareCommand
+  - App\Ship\Command\MakeMiddleware
 make:listener:
-  - App\Ship\Command\CreateListenerCommand
+  - App\Ship\Command\MakeListener
 make:observer:
-  - App\Ship\Command\CreateObserverCommand
+  - App\Ship\Command\MakeObserver
 make:seed:
-  - App\Ship\Command\CreateSeedCommand
+  - App\Ship\Command\MakeSeed
 make:migration:
-  - App\Ship\Command\CreateMigrationCommand
+  - App\Ship\Command\MakeMigration
 make:interface:
-  - App\Ship\Command\CreateInterfaceCommand
+  - App\Ship\Command\MakeInterface
 make:factory:
-  - App\Ship\Command\CreateFactoryCommand
+  - App\Ship\Command\MakeFactory
 
 cache:clear:
-  - App\Ship\Command\CacheClearCommand
+  - App\Ship\Command\CacheClear
 
 seed:
-  - App\Ship\Command\SeedCommand
+  - App\Ship\Command\Seed
 migrate:
-  - App\Ship\Command\MigrateCommand
+  - App\Ship\Command\Migrate
 
 serve:
-  - App\Ship\Command\ServeCommand
+  - App\Ship\Command\Serve
 run:
-  - App\Ship\Command\ServeCommand
+  - App\Ship\Command\Serve
 
 help:
-  - App\Ship\Command\ConsoleCommand
+  - App\Ship\Command\Help
 '' :
-  - App\Ship\Command\ConsoleCommand
+  - App\Ship\Command\Help
 
 debug:router:
-  - App\Ship\Command\RouterCommand
+  - App\Ship\Command\DebugRouter
 debug:router:container:
-  - App\Ship\Command\RouterCommand
+  - App\Ship\Command\DebugRouter
   - actionContainer
 debug:listeners:
-  - App\Ship\Command\ListenersCommand
+  - App\Ship\Command\DebugListeners
 debug:observers:
-  - App\Ship\Command\ObserversCommand
+  - App\Ship\Command\DebugObservers
 
 bcrypt:
-  - App\Ship\Command\BcryptCommand
+  - App\Ship\Command\Bcrypt
 
 secret:
-  - App\Ship\Command\SecretCommand
+  - App\Ship\Command\Secret
 
+convert:array-to-yml:
+  - App\Ship\Command\ArrayToYml
 to:yml:
   - App\Ship\Command\ArrayToYml

@@ -4,7 +4,7 @@ namespace App\Ship\Command;
 
 use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
 
-class ObserversCommand
+class DebugObservers
 {
     public function actionIndex(): void
     {

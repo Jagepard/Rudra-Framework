@@ -6,7 +6,7 @@ use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Auth\AuthFacade as Auth;
 use Rudra\Container\Facades\Request;
 
-class BcryptCommand
+class Bcrypt
 {
     public function actionIndex(): void
     {
