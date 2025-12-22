@@ -6,7 +6,7 @@ use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 use App\Ship\Utils\Database\LoggerAdapter;
 
-class SeedCommand extends LoggerAdapter
+class Seed extends LoggerAdapter
 {
     public function __construct()
     {

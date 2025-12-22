@@ -17,7 +17,7 @@ class MakeObserver extends FileCreator
     {
         Cli::printer("Enter observer name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Observer';
+        $className = trim(ucfirst($prefix) . 'Observer');
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));

@@ -14,8 +14,8 @@ make:seed:
   - App\Ship\Command\MakeSeed
 make:migration:
   - App\Ship\Command\MakeMigration
-make:interface:
-  - App\Ship\Command\MakeInterface
+make:contract:
+  - App\Ship\Command\MakeContract
 make:factory:
   - App\Ship\Command\MakeFactory
 

@@ -22,7 +22,7 @@ class MakeMigration extends FileCreator
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
 
         $date      = date("_dmYHis");
-        $className = ucfirst($table) . $date;
+        $className = trim(ucfirst($table) . $date);
 
         if (!empty($container)) {
             if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {

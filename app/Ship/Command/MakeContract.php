@@ -6,7 +6,7 @@ use App\Ship\Utils\FileCreator;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 
-class MakeInterface extends FileCreator
+class MakeContract extends FileCreator
 {
     /**
      * Creates a file with Seed data
@@ -17,7 +17,7 @@ class MakeInterface extends FileCreator
     {
         Cli::printer("Enter interface name: ", "magneta");
         $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = ucfirst($prefix) . 'Interface';
+        $className = trim(ucfirst($prefix) . 'Interface');
 
         Cli::printer("Enter container: ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
@@ -29,7 +29,7 @@ class MakeInterface extends FileCreator
             }
 
             $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Interface/", "{$className}.php"],
+                [Rudra::config()->get('app.path') . "/app/Containers/$container/Contract/", "{$className}.php"],
                 $this->createClass($className, $container)
             );
 
@@ -52,7 +52,7 @@ class MakeInterface extends FileCreator
         return <<<EOT
 <?php
 
-namespace App\Containers\\{$container}\Interface;
+namespace App\Containers\\{$container}\Contract;
 
 interface {$className}
 {

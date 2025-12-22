@@ -18,7 +18,7 @@ class MakeSeed extends FileCreator
         Cli::printer("Enter table name: ", "magneta");
         $table     = str_replace(PHP_EOL, "", Cli::reader());
         $date      = date("_dmYHis");
-        $className = ucfirst($table . $date);
+        $className = trim(ucfirst($table . $date));
 
         Cli::printer("Enter container (empty for Ship): ", "magneta");
         $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
