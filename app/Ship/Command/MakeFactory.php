@@ -54,7 +54,9 @@ class MakeFactory extends FileCreator
 
 namespace App\Containers\\{$container}\Factory;
 
-class {$className}
+use Rudra\Container\Interfaces\FactoryInterface;
+
+class {$className} implements FactoryInterface
 {
     public function create()
     {

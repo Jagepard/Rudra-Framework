@@ -53,14 +53,11 @@ class IndexController extends DemoController
     }
 
     #[Routing(url: 'autowire')]
-    public function autowire(RudraInterface $rudra, UserRepositoryInterface $user, SmsSenderInterface $smsSender, CacheInterface $cache): void
+    public function autowire(RudraInterface $rudra, UserRepositoryInterface $user, SmsSenderInterface $smsSender, CacheInterface $cache, SomeDemoService $service): void
     {
-        $service = Rudra::get(SomeDemoService::class);
-
-        dump($service);
-
+        $service  = Rudra::get(SomeDemoService::class);
         $service->greet(1);
 
-        dd($rudra, $user, $smsSender, $cache);
+        dd($rudra, $user, $smsSender, $cache, $service);
     }
 }
