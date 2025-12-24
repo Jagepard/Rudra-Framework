@@ -17,8 +17,8 @@ http.errors:
         controller: App\Ship\Errors\Controller\HttpErrorsController
         action: error503
 database:
-    # dsn: mysql:dbname=test;host=127.0.0.1
-    dsn: pgsql:host=127.0.0.1;port=5432;dbname=rudra_postgres;
+    dsn: mysql:dbname=yourdatabase;host=127.0.0.1
+    # dsn: pgsql:host=127.0.0.1;port=5432;dbname=yourdatabase;
     # dsn: sqlite:/home/d/Public/Development/Rudra-Framework/Rudra-Framework/app/Ship/Data/rudra.sqlite
     username: jagepard
     password: password
