@@ -11,12 +11,29 @@ use App\Containers\Demo\Stub\ArrayCache;
 use App\Containers\Demo\Service\TwilioSmsSender;
 use App\Containers\Demo\Service\RedisCache;
 
+use App\Containers\Demo\Contract\AsFactoryObjectInterface;
+use App\Containers\Demo\Contract\AsFactoryStringInterface;
+use App\Containers\Demo\Contract\AsClosureInterface;
+use App\Containers\Demo\Contract\AsStringInterface;
+use App\Containers\Demo\Contract\AsObjectInterface;
+use App\Containers\Demo\Factory\AsObjectFactory;
+use App\Containers\Demo\Factory\AsStringFactory;
+use App\Containers\Demo\Stub\AsClosure;
+use App\Containers\Demo\Stub\AsString;
+use App\Containers\Demo\Stub\AsObject;
+
 return [
     // === Сценарий: продакшен-реализации ===
     'contracts' => [
         UserRepositoryInterface::class => 'user_repo_factory',
         SmsSenderInterface::class      => 'twilio_sender',
         CacheInterface::class          => 'redis_cache',
+
+        AsStringInterface::class => AsString::class,
+        AsObjectInterface::class => new AsObject(),
+        AsFactoryStringInterface::class => AsStringFactory::class,
+        AsFactoryObjectInterface::class => new AsObjectFactory(),
+        AsClosureInterface::class => fn() => new AsClosure(),
     ],
 
     // === Сценарий: заглушки (раскомментируйте для тестов) ===
@@ -29,8 +46,9 @@ return [
     'services' => [
         // Продакшен
         'user_repo_factory' => UserRepositoryFactory::class,
-        'twilio_sender'     => fn() => new TwilioSmsSender(),
-        'redis_cache'       => fn() => new RedisCache(),
+        // 'user_repo_factory' => new UserRepositoryFactory(),
+        'twilio_sender'     => TwilioSmsSender::class,
+        'redis_cache'       => new RedisCache(),
 
         // Заглушки (всегда доступны)
         'fake_user_repo'    => fn() => new FakeUserRepository(),

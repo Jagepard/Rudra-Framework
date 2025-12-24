@@ -2,11 +2,18 @@
 
 namespace App\Containers\Demo\Controller;
 
+use App\Containers\Demo\Contract\AsClosureInterface;
+use App\Containers\Demo\Contract\AsFactoryObjectInterface;
+use App\Containers\Demo\Contract\AsFactoryStringInterface;
+use App\Containers\Demo\Contract\AsObjectInterface;
+use App\Containers\Demo\Contract\AsStringInterface;
+
 use stdClass;
 use Rudra\Container\Facades\Rudra;
 use App\Containers\Demo\DemoController;
 use Rudra\Container\Interfaces\RudraInterface;
 use App\Containers\Demo\Contract\CacheInterface;
+use App\Containers\Demo\Contract\ExampleInterface;
 use App\Containers\Demo\Service\SomeDemoService;
 use App\Containers\Demo\Contract\SmsSenderInterface;
 use App\Containers\Demo\Contract\UserRepositoryInterface;
@@ -59,5 +66,25 @@ class IndexController extends DemoController
         $service->greet(1);
 
         dd($rudra, $user, $smsSender, $cache, $service);
+    }
+
+    #[Routing(url: 'example')]
+    public function example(
+        AsStringInterface $string, 
+        AsObjectInterface $object, 
+        AsFactoryStringInterface $stringAsFactory,
+        AsFactoryObjectInterface $objectAsFactory,
+        AsClosureInterface $closure
+    ): void
+    {
+        dump(
+            $string, 
+            $object,
+            $stringAsFactory,
+            $objectAsFactory,
+            $closure
+        );
+
+        dd(Rudra::binding(), Rudra::waiting());
     }
 }

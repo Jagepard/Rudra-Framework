@@ -58,7 +58,7 @@ use Rudra\Container\Interfaces\FactoryInterface;
 
 class {$className} implements FactoryInterface
 {
-    public function create()
+    public function create(): object
     {
 
     }
