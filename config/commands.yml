@@ -18,7 +18,9 @@ make:contract:
   - App\Ship\Command\MakeContract
 make:factory:
   - App\Ship\Command\MakeFactory
-
+make:docs:
+  - Rudra\Markdown\Command\MakeDocumentation
+  
 cache:clear:
   - App\Ship\Command\CacheClear
 
