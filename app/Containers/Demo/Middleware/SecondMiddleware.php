@@ -2,10 +2,9 @@
 
 namespace App\Containers\Demo\Middleware;
 
-use Rudra\Router\MiddlewareInterface;
 use App\Containers\Demo\Tools\HelperTrait;
 
-class SecondMiddleware implements MiddlewareInterface
+class SecondMiddleware
 {
     use HelperTrait;
 

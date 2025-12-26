@@ -9,5 +9,5 @@ use Rudra\Model\Entity;
  */
 class Users extends Entity
 {
-    public static string $table = "users";
+    public static ?string $table = "users";
 }
