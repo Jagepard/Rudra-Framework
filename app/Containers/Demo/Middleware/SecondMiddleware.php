@@ -1,11 +1,19 @@
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @license https://mozilla.org/MPL/2.0/  MPL-2.0
+ */
 
 namespace App\Containers\Demo\Middleware;
 
-use Rudra\Router\MiddlewareInterface;
 use App\Containers\Demo\Tools\HelperTrait;
 
-class SecondMiddleware implements MiddlewareInterface
+class SecondMiddleware
 {
     use HelperTrait;
 
