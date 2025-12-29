@@ -1,4 +1,13 @@
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @license https://mozilla.org/MPL/2.0/  MPL-2.0
+ */
 
 namespace App\Ship\Command;
 
@@ -53,26 +62,43 @@ class MakeController extends FileCreator
 
         if (Rudra::config()->get("attributes")) {
             return <<<EOT
-            <?php
-            
-            namespace App\Containers\\{$container}\Controller;
-            
-            use App\Containers\\{$container}\\{$container}Controller;
-            
-            class {$controllerPrefix}Controller extends {$container}Controller
-            {
-                #[Routing(url: '{$url}', method: 'GET')]
-                public function actionIndex(): void
-                {
-                    dd(__CLASS__);
-                }
-            }
+<?php declare(strict_types=1);
 
-            EOT;
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @license https://mozilla.org/MPL/2.0/  MPL-2.0
+ */
+
+namespace App\Containers\\{$container}\Controller;
+
+use App\Containers\\{$container}\\{$container}Controller;
+
+class {$controllerPrefix}Controller extends {$container}Controller
+{
+    #[Routing(url: '{$url}', method: 'GET')]
+    public function actionIndex(): void
+    {
+        dd(__CLASS__);
+    }
+}
+EOT;
         }
 
         return <<<EOT
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @license https://mozilla.org/MPL/2.0/  MPL-2.0
+ */
 
 namespace App\Containers\\{$container}\Controller;
 
