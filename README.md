@@ -14,6 +14,10 @@ cd newapp
 composer create-project --prefer-dist --stability=dev rudra/framework newapp
 cd newapp
 ```
+Для быстрого развертывания проекта
+```
+
+```
 ## License
 
 This project is licensed under the **Mozilla Public License 2.0 (MPL-2.0)** — a free, open-source license that:

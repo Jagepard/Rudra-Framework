@@ -1,5 +1,5 @@
 secret: '1234567891011121' # Need to be changed - php rudra secret
-environment: production
+environment: development
 cache.time:
     routes: now
     templates: now
@@ -17,11 +17,11 @@ http.errors:
         controller: App\Ship\Errors\Controller\HttpErrorsController
         action: error503
 database:
-    dsn: mysql:dbname=db;host=db;host=127.0.0.1
+    dsn: mysql:dbname=db;host=db;port=3306
     # dsn: pgsql:host=127.0.0.1;port=5432;dbname=db;
     # dsn: sqlite:/path-to/app/Ship/Data/rudra.sqlite
-    username: jagepard
-    password: password
+    username: root
+    password: root
 attributes: true
 containers:
     demo: App\Containers\Demo\

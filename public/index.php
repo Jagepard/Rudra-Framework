@@ -18,13 +18,18 @@ use Rudra\Container\Facades\Rudra;
 
 (new Whoops\Run)->appendHandler(new Whoops\Handler\PrettyPageHandler)->register();
 
-Rudra::config((php_sapi_name() == "cli-server")
-    ? Yaml::parseFile("../config/setting.local.yml")
-    : Yaml::parseFile("../config/setting.production.yml"));
+$env = match (true) {
+    getenv('IS_DDEV_PROJECT') === 'true' => 'ddev',
+    php_sapi_name() === 'cli-server' => 'local',
+    default  => 'production',
+};
 
-Rudra::config()->set(["url" => (php_sapi_name() == "cli-server")
-    ? "http://127.0.0.1:8000"
-    : Rudra::request()->server()->get("REQUEST_SCHEME") . "://" . Rudra::request()->server()->get("SERVER_NAME")]);
+Rudra::config(Yaml::parseFile(__DIR__ . "/../config/setting.{$env}.yml"));
+Rudra::config()->set(['url' => php_sapi_name() === 'cli-server' 
+    ? 'http://127.0.0.1:8000' 
+    : (Rudra::request()->server()->get('HTTP_X_FORWARDED_PROTO') ?? 'http') 
+        . '://' . Rudra::request()->server()->get('SERVER_NAME')
+]);
 
 Rudra::config()->set(["app.path" => realpath('..')]);
 Rudra::config()->set(require_once "../app/Ship/config.php");
