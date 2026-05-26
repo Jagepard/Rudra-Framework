@@ -16,7 +16,10 @@ cd newapp
 ```
 Для быстрого развертывания проекта
 ```
-
+git clone git@github.com:Jagepard/Rudra-Framework.git
+cd Rudra-Framework
+ddev start  # ← Всё: контейнеры + зависимости + SSL + БД
+ddev launch # ← Открыть сайт
 ```
 ## License
 
