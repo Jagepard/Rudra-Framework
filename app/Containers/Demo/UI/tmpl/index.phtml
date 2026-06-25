@@ -38,8 +38,11 @@
             <pre class="bg-dark text-light p-3 rounded mt-3"><code>composer create-project --prefer-dist rudra/framework newapp
 cd newapp
 php rudra serve</code></pre>
+
+                <code>git clone git@github.com:Jagepard/Rudra-Framework.git && cd Rudra-Framework && ddev start</code>
+           
             <p class="text-muted small mt-2 mb-0">
-                Database config: <code>config/setting.local.yml</code> (local) or <code>config/setting.production.yml</code> (production)
+                Database config: <code>config/setting.ddev.yml</code> (DDEV), <code>config/setting.local.yml</code> (local), or <code>config/setting.production.yml</code> (production)
             </p>
         </div>
 
@@ -50,7 +53,7 @@ php rudra serve</code></pre>
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-dark text-white"><small>Routing with PHP 8 Attributes</small></div>
                     <div class="card-body">
-<pre class="m-0 small"><code>#[Routing(url: 'user/:name')]
+<pre class="m-0 small"><code class="language-php">#[Routing(url: 'user/:name')]
 #[Middleware(name: AuthMiddleware::class)]
 public function index(string $name = 'John'): void
 {
@@ -64,7 +67,7 @@ public function index(string $name = 'John'): void
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-dark text-white"><small>Automatic Dependency Injection</small></div>
                     <div class="card-body">
-<pre class="m-0 small"><code>// Container resolves ALL dependencies automatically
+<pre class="m-0 small"><code class="language-php">// Container resolves ALL dependencies automatically
 public function show(
     UserRepositoryInterface $users,
     SmsSenderInterface $sms
@@ -84,7 +87,7 @@ public function show(
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-dark text-white"><small>Entity — Zero Boilerplate</small></div>
                     <div class="card-body">
-<pre class="m-0 small"><code>class User extends Entity
+<pre class="m-0 small"><code class="language-php">class User extends Entity
 {
     public static ?string $table = 'users';
 }
@@ -99,7 +102,7 @@ User::create(['name' => 'John']);</code></pre>
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-dark text-white"><small>Fluent Query Builder</small></div>
                     <div class="card-body">
-<pre class="m-0 small"><code>$query = QB::select('id, name')
+<pre class="m-0 small"><code class="language-php">$query = QB::select('id, name')
     ->from('users')
     ->where('status = :status')
     ->orderBy('created_at DESC')
