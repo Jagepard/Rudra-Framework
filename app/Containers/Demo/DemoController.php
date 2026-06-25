@@ -28,8 +28,8 @@ class DemoController extends ShipController implements ContainerControllerInterf
         // "Cyborg"
         // "Darkly"
         // "Flatly"
-        // "Journal"
-        // "Litera"
+        // "Journal" //
+        // "Litera" //
         "Lumen"
         // "Lux"
         // "Materia"

@@ -18,9 +18,29 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeContainer extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 📦 Interactive Container Generator
+     * 
+     * CLI wizard that scaffolds a complete Container (module) following Porto architecture.
+     * This is a meta-generator: it creates the entire directory structure and boilerplate files.
+     * 
+     * Workflow:
+     *  1. Enter container name → becomes module directory (e.g. "Demo" → "App\Containers\Demo")
+     *  2. Name MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated structure:
+     *  - App\Containers\{Name}\{Name}Controller.php (default controller)
+     *  - App\Containers\{Name}\routes.php           (route definitions)
+     *  - App\Containers\{Name}\config.php           (container config)
+     *  - Standard subdirectories (Entity, Repository, etc.)
+     * 
+     * Additionally, automatically registers the new container in the global app config.
+     * Validates that the container does not already exist to prevent overwriting.
+     * 
+     * @see self::createContainersController() for default controller template
+     * @see self::createRoutes()               for routes template
+     * @see self::createConfig()               for config template
+     * @see self::addConfig()                  for global registration
+     * @see self::createDirectories()          for standard folder scaffolding
      */
     public function actionIndex(): void
     {
@@ -58,15 +78,6 @@ class MakeContainer extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createContainersController(string $className, string $container): string
     {
         return <<<EOT
@@ -107,11 +118,6 @@ class {$container}Controller extends ShipController implements ContainerControll
 EOT;
     }
 
-    /**
-     * Creates routes
-     * ------------------
-     * Создает файл маршрутизатора
-     */
     private function createRoutes(): string
     {
         return <<<EOT
@@ -131,11 +137,6 @@ return [
 EOT;
     }
 
-    /**
-     * Creates config file
-     * -------------------
-     * Создает файл конфигурации
-     */
     private function createConfig(): string
     {
         return <<<EOT
@@ -161,14 +162,6 @@ return [
 EOT;
     }
 
-    /**
-     * Create UI directories
-     * ---------------------
-     * Создает каталоги для UI
-     *
-     * @param string $path
-     * @return void
-     */
     private function createDirectories(string $path): void
     {
         if (!is_dir($path . 'UI')) {

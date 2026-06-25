@@ -15,8 +15,18 @@ use Rudra\Container\Facades\Rudra;
 
 trait HelperTrait
 {
-    public function info(string $message): void
+    /**
+     * Output message to debugbar.
+     * Accepts string or array (arrays are formatted as pretty JSON).
+     *
+     * @param array|string $message Message to display
+     */
+    public function info(array|string $message): void
     {
+        if (is_array($message)) {
+            $message = json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+        }
+        
         Rudra::get("debugbar")['messages']->info($message);
     }
 }

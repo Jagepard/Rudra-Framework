@@ -17,12 +17,6 @@ class FileCreator
 {
     /**
      * Writes data to a file
-     * ---------------------
-     * Записывает данные в файл
-     *
-     * @param array $path
-     * @param string $data
-     * @return void
      */
     protected function writeFile(array $path, string $data): void
     {

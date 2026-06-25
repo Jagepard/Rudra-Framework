@@ -18,9 +18,15 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeSeed extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 🌱 Interactive Seed Generator
+     * 
+     * Creates a new seed file via CLI prompts:
+     * 1. Asks for table name (used in class name + filename)
+     * 2. Asks for container name (empty = Ship level)
+     * 3. Asks for multiline format preference
+     * 
+     * Generated file: {ClassName}_{date}_seed.php
+     * Location: App\Containers\{Name}\Seed\ or App\Ship\Seed\
      */
     public function actionIndex(): void
     {
@@ -58,11 +64,6 @@ class MakeSeed extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     */
     private function createClass(string $className, string $table, string $namespace, bool $multiline = false): string
     {
         if ($multiline) {

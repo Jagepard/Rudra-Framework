@@ -23,6 +23,26 @@ class Seed extends LoggerAdapter
         parent::__construct();
     }
 
+    /**
+     * 🌾 Interactive Seeder Runner
+     * 
+     * Executes all seeders for a given container (or Ship) and tracks their state.
+     * 
+     * Workflow:
+     *  1. Enter container name → empty input defaults to Ship level
+     *  2. Scans the corresponding Seed/ directory for seeder files
+     *  3. Initializes the `rudra_seeds` tracking table if it doesn't exist
+     *  4. Iterates through seeders, skipping AbstractSeed
+     *  5. Checks execution log: skips if already seeded, otherwise runs and logs
+     * 
+     * Supported locations:
+     *  - Container: App\Containers\{Name}\Seed\
+     *  - Ship:      App\Ship\Seed\
+     * 
+     * @see self::checkLog()   to verify if a seeder was already executed
+     * @see self::writeLog()   to record a successful seeding
+     * @see self::isTable()    to check tracking table existence
+     */
     public function actionIndex(): void
     {
         Cli::printer("Enter container (empty for Ship): ", "magneta");

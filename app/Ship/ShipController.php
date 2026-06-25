@@ -20,8 +20,6 @@ use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
 
 /**
  * In summary, this code is responsible for initializing a ship and registering events.
- * ------------------------------------------------------------------------------------
- * В целом, этот код предназначен для инициализации корабля и регистрации событий.
  */
 class ShipController extends Controller implements ShipControllerInterface
 {

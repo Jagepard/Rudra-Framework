@@ -18,9 +18,23 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeModel extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 🧱 Interactive Model Generator (Entity + Repository)
+     * 
+     * CLI wizard that scaffolds a Model following Porto architecture.
+     * Automatically generates both the Entity and its corresponding Repository.
+     * 
+     * Workflow:
+     *  1. Enter table name     → becomes Entity class name (e.g. "user" → "User")
+     *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated files:
+     *  - App\Containers\{Name}\Entity\{Name}.php
+     *  - App\Containers\{Name}\Repository\{Name}Repository.php
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createEntity()     for Entity template generation
+     * @see self::createRepository() for Repository template generation
      */
     public function actionIndex(): void
     {
@@ -51,15 +65,6 @@ class MakeModel extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createEntity(string $className, string $container): string
     {
         $table = strtolower($className);
@@ -90,15 +95,6 @@ class {$className} extends Entity
 EOT;
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createRepository(string $className, string $container): string
     {
         $table = strtolower($className);

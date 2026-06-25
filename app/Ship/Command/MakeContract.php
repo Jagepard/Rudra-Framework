@@ -18,9 +18,22 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeContract extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     *  Interactive Contract (Interface) Generator
+     * 
+     * CLI wizard that scaffolds an Interface (Contract) following Porto architecture.
+     * Contracts define the strict API that implementations must fulfill, enabling 
+     * loose coupling and clean dependency injection.
+     * 
+     * Workflow:
+     *  1. Enter interface name → becomes class name (e.g. "User" → "UserInterface")
+     *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated file:
+     *  - App\Containers\{Name}\Contract\{Name}Interface.php
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createClass() for template generation
      */
     public function actionIndex(): void
     {
@@ -47,15 +60,6 @@ class MakeContract extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createClass(string $className, string $container): string
     {
         return <<<EOT

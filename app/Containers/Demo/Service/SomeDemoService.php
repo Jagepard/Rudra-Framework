@@ -21,10 +21,33 @@ class SomeDemoService
         private SmsSenderInterface $sms
     ) {}
 
-    public function greet(int $id): void
+    /**
+     * Greet user by ID.
+     * Returns structured result for debugging/demonstration.
+     *
+     * @param int $id User ID
+     * @return array{success: bool, message: string, user: array|null}
+     */
+    public function greet(int $id): array
     {
-        if ($user = $this->users->findById($id)) {
-            $this->sms->send('+79991234567', "Hello, {$user['name']}!");
+        $user = $this->users->findById($id);
+        
+        if ($user) {
+            $message = "Hello, {$user['name']}!";
+            $this->sms->send('+79991234567', $message);
+            
+            return [
+                'success' => true,
+                'message' => $message,
+                'user' => $user,
+                'sms_sent_to' => '+79991234567',
+            ];
         }
+        
+        return [
+            'success' => false,
+            'message' => "User with ID {$id} not found",
+            'user' => null,
+        ];
     }
 }

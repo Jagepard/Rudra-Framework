@@ -18,9 +18,14 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeObserver extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 👁️ Interactive Observer Generator
+     * 
+     * Creates a new Observer class via CLI prompts:
+     * 1. Asks for observer name (becomes {Name}Observer)
+     * 2. Asks for container name (required — re-prompts if empty)
+     * 
+     * Generated file: {Name}Observer.php
+     * Location: App\Containers\{Name}\Observer\
      */
     public function actionIndex(): void
     {
@@ -47,15 +52,6 @@ class MakeObserver extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createClass(string $className, string $container): string
     {
         return <<<EOT

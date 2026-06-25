@@ -18,9 +18,21 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeListener extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 👂 Interactive Listener Generator
+     * 
+     * CLI wizard that scaffolds a Listener class following Porto architecture.
+     * Listeners react to events dispatched via the EventDispatcher.
+     * 
+     * Workflow:
+     *  1. Enter listener name  → becomes class name (e.g. "User" → "UserListener")
+     *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated file:
+     *  - App\Containers\{Name}\Listener\{Name}Listener.php
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createClass() for template generation
      */
     public function actionIndex(): void
     {
@@ -47,15 +59,6 @@ class MakeListener extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createClass(string $className, string $container): string
     {
         return <<<EOT

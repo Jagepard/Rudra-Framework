@@ -17,7 +17,7 @@ class DbUserRepository implements UserRepositoryInterface
 {
     public function findById(int $id): ?array
     {
-        // Просто имитация БД
+        // Simply a DB mock.
         return match ($id) {
             1 => ['id' => 1, 'name' => 'Real Alice'],
             2 => ['id' => 2, 'name' => 'Real Bob'],
@@ -27,7 +27,7 @@ class DbUserRepository implements UserRepositoryInterface
 
     public function save(array $user): bool
     {
-        // В реальности — INSERT/UPDATE
+        // In reality — INSERT/UPDATE.
         return true;
     }
 }

@@ -17,7 +17,7 @@ class TwilioSmsSender implements SmsSenderInterface
 {
     public function send(string $phone, string $message): bool
     {
-        // В реальности — HTTP-запрос к Twilio
+        // In reality — an HTTP request to Twilio.
         echo "[PROD] SMS to $phone: $message\n";
         return true;
     }

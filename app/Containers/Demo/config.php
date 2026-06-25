@@ -32,7 +32,7 @@ use App\Containers\Demo\Stub\AsString;
 use App\Containers\Demo\Stub\AsObject;
 
 return [
-    // === Сценарий: продакшен-реализации ===
+    // === Scenario: production implementations. ===
     'contracts' => [
         UserRepositoryInterface::class => 'user_repo_factory',
         SmsSenderInterface::class      => 'twilio_sender',
@@ -45,7 +45,7 @@ return [
         AsClosureInterface::class => fn() => new AsClosure(),
     ],
 
-    // === Сценарий: заглушки (раскомментируйте для тестов) ===
+    // === Scenario: stubs (uncomment for tests). ===
     // 'contracts' => [
     //     UserRepositoryInterface::class => 'fake_user_repo',
     //     SmsSenderInterface::class      => 'fake_sms_sender',
@@ -53,13 +53,13 @@ return [
     // ],
 
     'services' => [
-        // Продакшен
+        // Production
         'user_repo_factory' => UserRepositoryFactory::class,
         // 'user_repo_factory' => new UserRepositoryFactory(),
         'twilio_sender'     => TwilioSmsSender::class,
         'redis_cache'       => new RedisCache(),
 
-        // Заглушки (всегда доступны)
+        // Stubs (always available).
         'fake_user_repo'    => fn() => new FakeUserRepository(),
         'fake_sms_sender'   => fn() => new FakeSmsSender(),
         'array_cache'       => fn() => new ArrayCache(),

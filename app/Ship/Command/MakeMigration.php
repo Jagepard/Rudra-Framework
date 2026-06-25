@@ -18,9 +18,22 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeMigration extends FileCreator
 {
     /**
-     * Creates a file with Migration data
-     * -----------------------------
-     * Создает файл с данными Migration
+     * 🗄️ Interactive Migration Generator
+     * 
+     * CLI wizard that scaffolds a migration file for a given table.
+     * Supports both Container-level and Ship-level migrations (Porto).
+     * 
+     * Workflow:
+     *  1. Enter table name     → becomes part of class name (e.g. "users" → "Users_25062026120000")
+     *  2. Enter container name → empty input places migration in App\Ship\Migration\
+     * 
+     * Generated files:
+     *  - Container: App\Containers\{Name}\Migration\{Table}_{date}_migration.php
+     *  - Ship:      App\Ship\Migration\{Table}_{date}_migration.php
+     * 
+     * Timestamp suffix (_dmYHis) preserves creation order and avoids collisions.
+     * 
+     * @see self::createMigration() for template generation
      */
     public function actionIndex(): void
     {
@@ -53,16 +66,6 @@ class MakeMigration extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $table
-     * @param string $namespace
-     * @return string
-     */
     private function createMigration(string $className, string $table, string $namespace): string
     {
         return <<<EOT

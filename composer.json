@@ -30,7 +30,7 @@
         }
     },
     "require": {
-        "php": ">=8.3",
+        "php": "^8.3",
         "filp/whoops": "^2.9",
         "ext-fileinfo": "*",
         "ext-pdo": "*",

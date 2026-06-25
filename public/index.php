@@ -25,6 +25,8 @@ $env = match (true) {
 };
 
 Rudra::config(Yaml::parseFile(__DIR__ . "/../config/setting.{$env}.yml"));
+
+// Respect reverse proxy headers (nginx, Cloudflare) for correct URL scheme
 Rudra::config()->set(['url' => php_sapi_name() === 'cli-server' 
     ? 'http://127.0.0.1:8000' 
     : (Rudra::request()->server()->get('HTTP_X_FORWARDED_PROTO') ?? 'http') 
@@ -49,6 +51,7 @@ if (Rudra::config()->get("environment") === "development") {
     $debugbar["time"]->startMeasure("index");
 } 
 
+// Prefix "RSID" = Rudra Session ID, hash isolates sessions per application instance
 session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());
 
 Rudra::get(Route::class)->run();
