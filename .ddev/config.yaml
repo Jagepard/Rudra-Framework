@@ -6,9 +6,9 @@ webserver_type: nginx-fpm
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
-# database:
-#     type: mysql
-#     version: "8.4"
+database:
+    type: mysql
+    version: "8.4"
 # database:
 #     type: postgres
 #     version: "16"
