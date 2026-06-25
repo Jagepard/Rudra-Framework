@@ -18,10 +18,14 @@ http.errors:
         action: error503
 database:
     dsn: mysql:dbname=db;host=db;port=3306
-    # dsn: pgsql:host=127.0.0.1;port=5432;dbname=db;
+    # dsn: pgsql:host=db;port=5432;dbname=db;
     # dsn: sqlite:/path-to/app/Ship/Data/rudra.sqlite
+    # For mysql
     username: root
     password: root
+    # For pgsql
+    # username: db
+    # password: db
 attributes: true
 containers:
     demo: App\Containers\Demo\
