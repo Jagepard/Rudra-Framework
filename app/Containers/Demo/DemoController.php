@@ -30,7 +30,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
         // "Flatly"
         // "Journal"
         // "Litera"
-        "Lumen"
+        // "Lumen"
         // "Lux"
         // "Materia"
         // "Minty"
@@ -46,7 +46,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
         // "Superhero"
         // "United"
         // "Vapor"
-        // "Yeti"
+        "Yeti"
         // "Zephyr"
     ;
     

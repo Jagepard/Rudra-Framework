@@ -17,6 +17,26 @@ use Rudra\Container\Facades\Request;
 
 class CacheClear
 {
+    /**
+     * 🧹 Interactive Cache Clearer
+     * 
+     * CLI command that removes cached files from the storage directory.
+     * Supports clearing specific cache types or the entire cache at once.
+     * 
+     * Workflow:
+     *  1. Enter cache type → (database, routes, templates, twig) or leave empty for ALL
+     *  2. Targets the corresponding folder in App\storage\cache\
+     *  3. Deletes the directory and outputs a colorized status message
+     * 
+     * Supported types:
+     *  - database  : App\storage\cache\database
+     *  - routes    : App\storage\cache\routes
+     *  - templates : App\storage\cache\templates
+     *  - twig      : App\storage\cache\twig
+     *  - (empty)   : App\storage\cache (clears everything)
+     * 
+     * @see self::deleteDirectory() for the actual deletion logic
+     */
     public function actionIndex(): void
     {
         Cli::printer("Enter cache type [database, routes, templates, twig](empty for all): ", "magneta");
@@ -37,10 +57,6 @@ class CacheClear
         }
     }
 
-    /**
-     * @param string $dir
-     * @return bool
-     */
     private function deleteDirectory(string $dir): bool
     {
         if (!is_dir($dir)) {

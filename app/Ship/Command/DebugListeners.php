@@ -15,6 +15,25 @@ use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
 
 class DebugListeners
 {
+    /**
+     * 🎧 Debug Listeners List
+     * 
+     * CLI command that displays all registered Listeners and the events they react to.
+     * Useful for debugging and verifying the Event Dispatcher configuration.
+     * 
+     * How it works:
+     * 1. Fetches all registered listeners from the EventDispatcher.
+     * 2. Renders a formatted, colorized ASCII table.
+     * 
+     * Table columns:
+     *  - #        : Listener index
+     *  - Event    : The event name/identifier being listened to
+     *  - Listener : Fully qualified class name of the Listener
+     *  - Action   : The action method triggered when the event is fired (e.g. handle)
+     * 
+     * @see EventDispatcher::getListeners() for data source
+     * @see self::getTable()                for table row rendering
+     */
     public function actionIndex(): void
     {
         $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;

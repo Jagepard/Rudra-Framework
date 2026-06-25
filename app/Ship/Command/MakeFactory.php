@@ -18,9 +18,21 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeFactory extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 🏭 Interactive Factory Generator
+     * 
+     * CLI wizard that scaffolds a Factory class following Porto architecture.
+     * Factories encapsulate complex object creation and instantiation logic.
+     * 
+     * Workflow:
+     *  1. Enter factory name   → becomes class name (e.g. "User" → "UserFactory")
+     *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated file:
+     *  - App\Containers\{Name}\Factory\{Name}Factory.php
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createClass() for template generation
      */
     public function actionIndex(): void
     {
@@ -47,15 +59,6 @@ class MakeFactory extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $className
-     * @param string $container
-     * @return string
-     */
     private function createClass(string $className, string $container): string
     {
         return <<<EOT

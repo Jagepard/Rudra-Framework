@@ -15,6 +15,25 @@ use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
 
 class DebugObservers
 {
+    /**
+     * 🔭 Debug Observers List
+     * 
+     * CLI command that displays all registered Observers and the events they listen to.
+     * Useful for debugging and verifying the Event Dispatcher configuration.
+     * 
+     * How it works:
+     * 1. Fetches all registered observers from the EventDispatcher.
+     * 2. Renders a formatted, colorized ASCII table.
+     * 
+     * Table columns:
+     *  - #        : Observer index
+     *  - Event    : The event name/identifier being observed
+     *  - Observer : Fully qualified class name of the Observer
+     *  - Method   : The method triggered when the event is fired (e.g. onEvent)
+     * 
+     * @see EventDispatcher::getObservers() for data source
+     * @see self::getTable()                for table row rendering
+     */
     public function actionIndex(): void
     {
         $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;

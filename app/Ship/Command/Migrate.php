@@ -23,6 +23,30 @@ class Migrate extends LoggerAdapter
         parent::__construct();
     }
 
+    /**
+     * 🛤️ Interactive Migration Runner
+     * 
+     * Executes all pending migrations for a given container (or Ship) 
+     * and tracks their state.
+     * 
+     * Workflow:
+     *  1. Enter container name → empty input defaults to Ship level
+     *  2. Scans the corresponding Migration/ directory for migration files
+     *  3. Initializes the `rudra_migrations` tracking table if it doesn't exist
+     *  4. Iterates through migrations in alphabetical/chronological order
+     *  5. Checks execution log: skips if already migrated, otherwise calls up() and logs
+     * 
+     * Supported locations:
+     *  - Container: App\Containers\{Name}\Migration\
+     *  - Ship:      App\Ship\Migration\
+     * 
+     * Note: Unlike the Seed runner which calls create(), this runner 
+     * invokes the up() method on each migration class to apply schema changes.
+     * 
+     * @see self::checkLog()   to verify if a migration was already executed
+     * @see self::writeLog()   to record a successful migration
+     * @see self::isTable()    to check tracking table existence
+     */
     public function actionIndex(): void
     {
         Cli::printer("Enter container (empty for Ship): ", "magneta");

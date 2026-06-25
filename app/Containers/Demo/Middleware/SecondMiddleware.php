@@ -11,6 +11,7 @@
 
 namespace App\Containers\Demo\Middleware;
 
+use Rudra\Router\RouterFacade as Router;
 use App\Containers\Demo\Tools\HelperTrait;
 
 class SecondMiddleware
@@ -19,10 +20,12 @@ class SecondMiddleware
 
     public function __invoke(array $next): void
     {
-        $this->info(__CLASS__);
+        $this->info("▶ SecondMiddleware BEFORE");
 
-        if (!$next) {
-            $next();
+        if ($next) {
+            Router::handleMiddleware($next);
         }
+
+        $this->info("◀ SecondMiddleware AFTER");
     }
 }

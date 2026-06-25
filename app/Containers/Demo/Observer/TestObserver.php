@@ -1,22 +1,22 @@
 <?php declare(strict_types=1);
 
-/**
- * This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at https://mozilla.org/MPL/2.0/.
- *
- * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
- * @license https://mozilla.org/MPL/2.0/  MPL-2.0
- */
-
 namespace App\Containers\Demo\Observer;
 
+use App\Containers\Demo\Tools\HelperTrait;
 use Rudra\EventDispatcher\ObserverInterface;
 
 class TestObserver implements ObserverInterface
 {
+    use HelperTrait;
+    
     public function onEvent($param): void
     {
-        dump(__CLASS__ . ' ' . $param);
+        $this->info([
+            'observer' => __CLASS__,
+            'event' => 'one',
+            'type' => 'stateless notification',
+            'param' => $param,
+            'timestamp' => date('H:i:s'),
+        ]);
     }
 }

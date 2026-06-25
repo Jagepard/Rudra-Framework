@@ -18,9 +18,24 @@ use Rudra\Router\RouterFacade as Router;
 class DebugRouter
 {
     /**
-     * Returns all routes
-     * ------------------
-     * Возвращает все маршруты
+     * 🗺️ Route List Viewer
+     * 
+     * CLI command that displays all registered routes grouped by their Container.
+     * 
+     * How it works:
+     * 1. Simulates a GET request context ($_SERVER) to trigger the router's parsing mechanism.
+     * 2. Iterates through all registered containers.
+     * 3. Renders a formatted, colorized ASCII table for each container.
+     * 
+     * Table columns:
+     *  - #         : Route index
+     *  - Route     : URL pattern
+     *  - Method    : HTTP method (GET, POST, etc.)
+     *  - Controller: Fully qualified controller class name
+     *  - Action    : Method name inside the controller
+     * 
+     * @see self::getRoutes() for route extraction logic
+     * @see self::getTable()  for table row rendering
      */
     public function actionIndex(): void
     {
@@ -41,9 +56,26 @@ class DebugRouter
     }
 
     /**
-     * Returns the route of the module
-     * -------------------------------
-     * Возвращает маршрут модуля
+     * 🔍 Filtered Route List (by Container)
+     * 
+     * CLI command that displays routes for a specific container only.
+     * Interactive version of the full route list — prompts for container name.
+     * 
+     * How it works:
+     * 1. Simulates a GET request context ($_SERVER) to trigger router parsing.
+     * 2. Prompts user to enter the target container name.
+     * 3. Renders a formatted, colorized ASCII table for that container only.
+     * 
+     * Table columns:
+     *  - #         : Route index
+     *  - Route     : URL pattern
+     *  - Method    : HTTP method (GET, POST, etc.)
+     *  - Controller: Fully qualified controller class name
+     *  - Action    : Method name inside the controller
+     * 
+     * @see self::actionIndex()  for the full route list (all containers)
+     * @see self::getRoutes()    for route extraction logic
+     * @see self::getTable()     for table row rendering
      */
     public function actionContainer(): void
     {
@@ -62,11 +94,6 @@ class DebugRouter
         echo $frame;
     }
 
-    /**
-     * Generates a color-alternating route table
-     * -----------------------------------------
-     * Формирует таблицу маршрутов с чередованием цветов
-     */
     protected function getTable(array $data, string $mask): void
     {
         $i = 1;
@@ -88,11 +115,6 @@ class DebugRouter
         }
     }
 
-    /**
-     * Collects route files from modules
-     * ---------------------------------
-     * Собирает файлы маршрутов из модулей
-     */
     protected function getRoutes(string $container): array
     {
         $path = "app/Containers/" . ucfirst($container) . "/routes";

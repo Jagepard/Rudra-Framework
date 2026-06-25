@@ -17,6 +17,28 @@ use Rudra\Container\Facades\Request;
 
 class Bcrypt
 {
+    /**
+     * 🔐 Bcrypt Password Hasher
+     * 
+     * CLI utility that generates a bcrypt hash for a given password.
+     * Useful for manually creating user records in the database, seeding test data,
+     * or verifying password hashing behavior.
+     * 
+     * How it works:
+     * 1. Simulates an HTTP request context (REMOTE_ADDR, HTTP_USER_AGENT)
+     *    because Auth::bcrypt() relies on the Request facade internally.
+     * 2. Prompts the user to enter a plain-text password via stdin.
+     * 3. Outputs the resulting bcrypt hash in green color.
+     * 
+     * Workflow:
+     *  - Enter password → (typed interactively, trimmed)
+     *  - Output         → $2y$10$... (bcrypt hash string)
+     * 
+     * Note: The hash includes a random salt each time, so the same password
+     * will produce different hashes on each run — this is expected bcrypt behavior.
+     * 
+     * @see Auth::bcrypt() for the underlying hashing implementation
+     */
     public function actionIndex(): void
     {
         Request::server()->set([

@@ -85,7 +85,7 @@ class Route
             throw new \RuntimeException("Routes file not found for container: " . $container);
         }
 
-        // Генерация маршрутов и сохранение их в кеш
+        // Generating routes and caching them.
         $routes = Router::annotationCollector(require_once $path . ".php", true, Rudra::config()->get("attributes"));
         file_put_contents($cacheFile, "<?php\nreturn " . var_export($routes, true) . ";");
 

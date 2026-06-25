@@ -18,9 +18,20 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeMiddleware extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 🛡️ Interactive Middleware Generator
+     * 
+     * CLI wizard that scaffolds a Middleware class following Porto architecture.
+     * 
+     * Workflow:
+     *  1. Enter middleware name → becomes class name (e.g. "Auth" → "AuthMiddleware")
+     *  2. Enter container name  → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated file:
+     *  - App\Containers\{Name}\Middleware\{Name}Middleware.php
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createClass() for template generation
      */
     public function actionIndex(): void
     {
@@ -47,15 +58,6 @@ class MakeMiddleware extends FileCreator
         }
     }
 
-    /**
-     * @param string $className
-     * @param string $container
-     * @return string
-     *
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     */
     private function createClass(string $className, string $container): string
     {
         return <<<EOT

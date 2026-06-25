@@ -18,9 +18,24 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class MakeController extends FileCreator
 {
     /**
-     * Creates a file with Seed data
-     * -----------------------------
-     * Создает файл с данными Seed
+     * 🧭 Interactive Controller Generator
+     * 
+     * CLI wizard that scaffolds a Controller class following Porto architecture.
+     * Controllers handle HTTP requests and map them to application logic.
+     * 
+     * Workflow:
+     *  1. Enter controller name  → becomes class name (e.g. "User" → "UserController")
+     *  2. Enter container name   → MUST be non-empty (re-prompts otherwise)
+     * 
+     * Generated file:
+     *  - App\Containers\{Name}\Controller\{Name}Controller.php
+     * 
+     * Additionally, automatically registers the new controller in the routing config.
+     * 
+     * Validates container existence before writing.
+     * 
+     * @see self::createClass() for template generation
+     * @see self::addRoute()    for automatic route registration
      */
     public function actionIndex(): void
     {
@@ -47,15 +62,6 @@ class MakeController extends FileCreator
         }
     }
 
-    /**
-     * Creates class data
-     * ------------------
-     * Создает данные класса
-     *
-     * @param string $controllerPrefix
-     * @param string $container
-     * @return string
-     */
     private function createClass(string $controllerPrefix, string $container): string
     {
         $url = strtolower("$container/$controllerPrefix");
@@ -118,11 +124,6 @@ class {$controllerPrefix}Controller extends {$container}Controller
 EOT;
     }
 
-    /**
-     * @param string $container
-     * @param string $controllerPrefix
-     * @return void
-     */
     public function addRoute(string $container, string $controllerPrefix): void
     {
         $path   = Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php";
