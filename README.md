@@ -121,13 +121,17 @@ Dispatcher::notify('before');
 ### ✅ Fluent Validation
 
 ```php
+use Rudra\Container\Facades\Request;
+use Rudra\Container\Facades\Session;
 use Rudra\Validation\ValidationFacade as V;
 
+$fields    = Request::post()->all();
 $processed = [
-    'name'  => V::set($_POST['name'])->required()->min(3)->max(50)->run(),
-    'email' => V::email($_POST['email'])->run(),
-    'age'   => V::set($_POST['age'])->integer()->between(18, 100)->run(),
-    'csrf'  => V::set($_POST['token'])->csrf($_SESSION['csrf'])->run(),
+    'name'        => V::sanitize($fields ['name'])->required()->min(3)->max(50)->run(),
+    'email'       => V::email($fields ['email'])->run(),
+    'age'         => V::sanitize($fields ['age'])->integer()->between(18, 100)->run(),
+    'description' => V::set($fields['description'])->run(), // without validation
+    'csrf'        => V::sanitize($fields['csrf'])->csrf(Session::get('csrf_token'))->run(),
 ];
 
 if (V::approve($processed)) {

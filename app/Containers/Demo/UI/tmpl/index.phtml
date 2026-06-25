@@ -152,65 +152,102 @@ $results = User::qBuilder($query, ['status' => 'active']);</code></pre>
             </div>
         </div>
 
-        <!-- ─── CLI TOOLS ──────────────────────────────────────── -->
+        <!-- ─── CLI TOOLS ────────────────────────────────────── -->
         <h2 class="fw-bold mb-3">🛠️ CLI Tools</h2>
         <p class="fs-5">Run <code>php rudra help</code> to see the full list.</p>
 
         <div class="row g-3 mb-4">
-            <div class="col-md-6">
+            <!-- Core Generators -->
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-header bg-primary text-white">🚀 Launch & Help</div>
-                    <ul class="list-group list-group-flush small">
+                    <div class="card-header bg-success text-white">📦 Core</div>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra make:container</code></li>
+                        <li class="list-group-item"><code>php rudra make:controller</code></li>
+                        <li class="list-group-item"><code>php rudra make:model</code></li>
+                        <li class="list-group-item"><code>php rudra make:contract</code></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Component Generators -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-success text-white">🧩 Components</div>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra make:factory</code></li>
+                        <li class="list-group-item"><code>php rudra make:middleware</code></li>
+                        <li class="list-group-item"><code>php rudra make:listener</code></li>
+                        <li class="list-group-item"><code>php rudra make:observer</code></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Database & Docs -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-success text-white">🗄️ Database & Docs</div>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra make:migration</code></li>
+                        <li class="list-group-item"><code>php rudra make:seed</code></li>
+                        <li class="list-group-item"><code>php rudra make:docs</code></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Launch -->
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-header bg-primary text-white">🚀 Launch</div>
+                    <ul class="list-group list-group-flush small mb-0">
                         <li class="list-group-item"><code>php rudra serve</code> — Start dev server</li>
-                        <li class="list-group-item"><code>php rudra help</code> — List all commands</li>
+                        <li class="list-group-item"><code>php rudra help</code> — List commands</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-header bg-success text-white">🛠️ Generators</div>
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item"><code>make:container</code> 📦 · <code>make:controller</code> 🧭</li>
-                        <li class="list-group-item"><code>make:model</code> 🧱 · <code>make:contract</code> 📜</li>
-                        <li class="list-group-item"><code>make:factory</code> 🏭 · <code>make:middleware</code> 🛡️</li>
-                        <li class="list-group-item"><code>make:listener</code> 👂 · <code>make:observer</code> 👁️</li>
-                        <li class="list-group-item"><code>make:seed</code> 🌱 · <code>make:migration</code> 🗄️</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-md-6">
+            
+            <!-- Database -->
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-warning text-dark">🗄️ Database</div>
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item"><code>php rudra migrate</code> 🛤️ — Run pending migrations</li>
-                        <li class="list-group-item"><code>php rudra seed</code> 🌾 — Execute seeders</li>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra migrate</code> — Run migrations</li>
+                        <li class="list-group-item"><code>php rudra seed</code> — Execute seeders</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6">
+            
+            <!-- Debug -->
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-info text-white">🔍 Debug</div>
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item"><code>debug:router</code> 🗺️ — List all routes</li>
-                        <li class="list-group-item"><code>debug:listeners</code> 🎧 · <code>debug:observers</code> 🔭</li>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra debug:router</code></li>
+                        <li class="list-group-item"><code>php rudra debug:router:container</code></li>
+                        <li class="list-group-item"><code>php rudra debug:listeners</code></li>
+                        <li class="list-group-item"><code>php rudra debug:observers</code></li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6">
+            
+            <!-- Security -->
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-header bg-danger text-white">🔐 Security</div>
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item"><code>php rudra bcrypt</code> 🔐 — Hash password</li>
-                        <li class="list-group-item"><code>php rudra secret</code> 🔑 — Generate APP_KEY</li>
+                    <div class="card-header bg-danger text-white"> Security</div>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra bcrypt</code> — Hash password</li>
+                        <li class="list-group-item"><code>php rudra secret</code> — Generate APP_KEY</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6">
+            
+            <!-- Maintenance -->
+            <div class="col-md-4">
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-header bg-secondary text-dark">🧹 Maintenance</div>
-                    <ul class="list-group list-group-flush small">
-                        <li class="list-group-item"><code>cache:clear</code> 🧹 — Clear cache</li>
-                        <li class="list-group-item"><code>convert:array-to-yml</code> 🔄 — PHP → YAML</li>
+                    <ul class="list-group list-group-flush small mb-0">
+                        <li class="list-group-item"><code>php rudra cache:clear</code></li>
+                        <li class="list-group-item"><code>php rudra convert:array-to-yml</code></li>
                     </ul>
                 </div>
             </div>
