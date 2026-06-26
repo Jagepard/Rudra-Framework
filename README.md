@@ -18,6 +18,18 @@ Rudra follows the **KISS principle** — every tool is visible, every dependency
 - **Explicit over implicit** — dependencies are declared, not guessed
 - **Modern PHP** — built from the ground up on PHP 8.3+ features (attributes, typed constants, fibers)
 
+## Who is this for?
+
+Rudra is built for developers who:
+
+- **Prefer explicit code over framework magic** — you want to see exactly what SQL is executed, what routes are registered, and what dependencies are injected
+- **Value cognitive clarity** — you need a framework that stays out of your way and doesn't require memorizing hidden conventions
+- **Work on small-to-medium projects** — you want structure and best practices without the overhead of enterprise-grade frameworks
+- **Want full control** — you believe that understanding your tools is more important than having hundreds of features out of the box
+
+If you're looking for a batteries-included framework with built-in ORM, pre-configured queue workers, and ready-made broadcast drivers — Rudra is not for you.  
+If you want a lightweight, transparent foundation with simple primitives that you can extend exactly as needed — you're in the right place.
+
 ## Installation
 
 ### Via Composer (stable)
