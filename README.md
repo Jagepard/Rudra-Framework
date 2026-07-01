@@ -30,7 +30,7 @@ Rudra is built for developers who:
 If you're looking for a batteries-included framework with built-in ORM, pre-configured queue workers, and ready-made broadcast drivers — Rudra is not for you.  
 If you want a lightweight, transparent foundation with simple primitives that you can extend exactly as needed — you're in the right place.
 
-## Installation
+## 🚀 Getting started
 
 ### Via Composer (stable)
 
@@ -45,7 +45,6 @@ cd newapp
 composer create-project --prefer-dist --stability=dev rudra/framework newapp
 cd newapp
 ```
-
 ### Via Git + DDEV (full environment)
 
 The fastest way to get a fully working local environment — containers, dependencies, SSL, and database included:
@@ -57,6 +56,18 @@ ddev start   # Start containers, install deps, set up SSL & DB
 ddev launch  # Open the site in your browser
 ```
 
+### ⚙️ Configuration
+Rudra uses environment-specific configuration files. The framework automatically loads the appropriate file based on your environment:
+
+| Environment | Config File |
+|-------------|-------------|
+| DDEV | config/setting.ddev.yml
+| Local development | config/setting.local.yml
+| Production | config/setting.production.yml
+
+These files contain database credentials, container paths, debug settings, and other environment-specific values.
+>💡 Tip: When adding new containers or settings during development, update config/setting.local.yml. For production deployment, copy the relevant sections to config/setting.production.yml.
+
 ## Quick Start
 
 Run the built-in development server:
@@ -64,7 +75,98 @@ Run the built-in development server:
 ```bash
 php rudra serve
 ```
+## 🚀 Creating Your First Page
 
+Let's create a simple `/hello/:name` page that greets the user. This example shows the full flow: container → controller → route → browser.
+
+### 1. Create a container
+
+```bash
+php rudra make:container
+```
+
+```
+Enter container name: web
+```
+
+This creates the `App\Containers\Web\` namespace and registers it in `config/setting.local.yml`.
+
+### 2. Create a controller
+
+```bash
+php rudra make:controller
+```
+
+```
+Enter controller name: hello
+Enter container: web
+```
+
+This generates `App/Containers/Web/Controller/HelloController.php`.
+
+### 3. Define the route and action
+
+Open the controller and add a method with the `#[Routing]` attribute:
+
+```php
+<?php
+
+namespace App\Containers\Web\Controller;
+
+use App\Containers\Web\WebController;
+use Rudra\Router\Attribute\Routing;
+use Rudra\Container\Facades\Request;
+
+class HelloController extends WebController
+{
+    #[Routing(url: 'hello/:name', method: 'GET')]
+    public function greet(string $name): void
+    {
+        echo "<h1>Hello, {$name}!</h1>";
+        echo "<p>Your lucky number is: " . random_int(1, 100) . "</p>";
+    }
+}
+```
+
+That's it. The route is registered automatically via the attribute — no separate `routes.php` needed.
+
+### 4. Open in browser
+
+```
+http://127.0.0.1:8000/hello/world
+```
+
+You should see: **Hello, world! Your lucky number is: 42**
+
+---
+
+### Alternative: routes.php
+
+If you prefer to keep routes separate from controllers, create (or edit) `App/Containers/Web/routes.php`:
+
+```php
+<?php
+
+use Rudra\Router\RouterFacade as Router;
+use App\Containers\Web\Controller\HelloController;
+
+Router::get('hello/:name', [HelloController::class, 'greet']);
+```
+
+> ⚠️ When using `routes.php` for manual routing, make sure the file returns an empty array to disable automatic attribute-based route registration:
+> ```php
+> return [];
+> ```
+
+### Alternative: closure route
+
+For quick prototyping, you can even skip the controller entirely:
+
+```php
+Router::get('hello/:name', function (string $name) {
+    echo "Hello, {$name}!";
+});
+```
 Then open [http://127.0.0.1:8000](http://127.0.0.1:8000) in your browser.
 
 ## 📦 Ecosystem Components
