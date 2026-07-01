@@ -16,6 +16,7 @@ use Rudra\Container\Interfaces\FactoryInterface;
 
 class AsStringFactory implements FactoryInterface
 {
+    #[\Override]
     public function create(): object
     {
         return new AsFactoryString();

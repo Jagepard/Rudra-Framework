@@ -10,7 +10,9 @@
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  */
 
-if (php_sapi_name() !== "cli") exit;
+if (php_sapi_name() !== "cli") {
+    exit;
+}
 
 require __DIR__ . "/vendor/autoload.php";
 

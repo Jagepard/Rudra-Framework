@@ -17,12 +17,14 @@ class ArrayCache implements CacheInterface
 {
     private array $storage = [];
 
+    #[\Override]
     public function get(string $key): mixed
     {
         [$value, $expire] = $this->storage[$key] ?? [null, 0];
         return ($expire > time()) ? unserialize($value) : null;
     }
 
+    #[\Override]
     public function set(string $key, mixed $value, int $ttl = 3600): void
     {
         $this->storage[$key] = [serialize($value), time() + $ttl];

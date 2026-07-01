@@ -17,6 +17,7 @@ class FakeSmsSender implements SmsSenderInterface
 {
     public array $sent = [];
 
+    #[\Override]
     public function send(string $phone, string $message): bool
     {
         $this->sent[] = compact('phone', 'message');

@@ -15,6 +15,7 @@ use App\Containers\Demo\Contract\SmsSenderInterface;
 
 class TwilioSmsSender implements SmsSenderInterface
 {
+    #[\Override]
     public function send(string $phone, string $message): bool
     {
         // In reality — an HTTP request to Twilio.

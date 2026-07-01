@@ -19,11 +19,13 @@ class FakeUserRepository implements UserRepositoryInterface
         99 => ['id' => 99, 'name' => 'Stub Charlie'],
     ];
 
+    #[\Override]
     public function findById(int $id): ?array
     {
         return $this->users[$id] ?? null;
     }
 
+    #[\Override]
     public function save(array $user): bool
     {
         $this->users[$user['id']] = $user;
