@@ -81,6 +81,7 @@ class MakeController extends FileCreator
 
 namespace App\Containers\\{$container}\Controller;
 
+use Rudra\Router\Attribute\Routing;
 use App\Containers\\{$container}\\{$container}Controller;
 
 class {$controllerPrefix}Controller extends {$container}Controller
