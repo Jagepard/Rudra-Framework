@@ -50,6 +50,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
         // "Zephyr" //
     ;
     
+    #[\Override]
     public function containerInit(): void
     {
         $config = require_once "config.php";

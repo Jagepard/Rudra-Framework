@@ -17,6 +17,7 @@ use Rudra\Container\Interfaces\FactoryInterface;
 
 class UserRepositoryFactory implements FactoryInterface
 {
+    #[\Override]
     public function create(): UserRepositoryInterface
     {
         return new DbUserRepository();

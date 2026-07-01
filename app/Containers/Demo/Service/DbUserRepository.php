@@ -15,6 +15,7 @@ use App\Containers\Demo\Contract\UserRepositoryInterface;
 
 class DbUserRepository implements UserRepositoryInterface
 {
+    #[\Override]
     public function findById(int $id): ?array
     {
         // Simply a DB mock.
@@ -25,6 +26,7 @@ class DbUserRepository implements UserRepositoryInterface
         };
     }
 
+    #[\Override]
     public function save(array $user): bool
     {
         // In reality — INSERT/UPDATE.
