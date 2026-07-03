@@ -57,6 +57,22 @@ ddev launch  # Open the site in your browser
 ```
 
 ### ⚙️ Configuration
+For web requests, Rudra automatically detects the environment in `index.php`:
+
+```php
+$env = match (true) {
+    getenv('IS_DDEV_PROJECT') === 'true' => 'ddev',
+    php_sapi_name() === 'cli-server' => 'local',
+    default  => 'production',
+};
+```
+#### Console Environment
+For CLI commands (like ```php rudra migrate```), the framework cannot auto-detect the environment. Use app_env.php to specify it manually:
+```php
+<?php
+// Do NOT commit this file to Git (.gitignore)
+return 'local'; // ← Set to: 'local', 'ddev', or 'production'
+```
 Rudra uses environment-specific configuration files. The framework automatically loads the appropriate file based on your environment:
 
 | Environment | Config File |
