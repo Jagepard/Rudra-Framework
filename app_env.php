@@ -1,3 +1,3 @@
 <?php
-// Этот файл НЕ добавляйте в Git (.gitignore)
-return 'local'; // ← меняете ТОЛЬКО здесь
+// Do NOT commit this file to Git (.gitignore)
+return 'local'; // ← Set to: 'local', 'ddev', or 'production'
