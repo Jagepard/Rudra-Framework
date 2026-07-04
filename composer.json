@@ -59,5 +59,10 @@
         "optimize-autoloader": true,
         "sort-packages": true,
         "platform-check": false
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "@php rudra secret"
+        ]
     }
 }
