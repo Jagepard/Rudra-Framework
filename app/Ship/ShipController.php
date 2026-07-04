@@ -23,6 +23,7 @@ use Rudra\EventDispatcher\EventDispatcherFacade as Dispatcher;
  */
 class ShipController extends Controller implements ShipControllerInterface
 {
+    #[\Override]
     public function shipInit(): void
     {
         if (Rudra::config()->get("environment") === "development") {
@@ -38,6 +39,7 @@ class ShipController extends Controller implements ShipControllerInterface
         $this->eventRegistration();
     }
 
+    #[\Override]
     public function eventRegistration(): void
     {
         Dispatcher::addListener('message', [MessageListener::class, 'info']);
