@@ -44,7 +44,7 @@ class Route
 
     protected function collect(array $namespaces): void
     {
-        foreach ($namespaces as $container => $item) {
+        foreach (array_keys($namespaces) as $container) {
             $routes     = $this->getRoutes($container);
             $flatRoutes = array_merge(...$routes);
 

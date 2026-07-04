@@ -53,9 +53,9 @@ The fastest way to get a fully working local environment — containers, depende
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
-ddev start        # Start containers, install deps, set up SSL & DB
-php rudra secret  # Generate secret keys for all environments
-ddev launch       # Open the site in your browser
+ddev start  # Start containers, install deps, set up SSL & DB
+ddev exec php rudra secret  # Generate secret keys for all environments
+ddev launch # Open the site in your browser
 ```
 #### 🔑 Secret Keys
 

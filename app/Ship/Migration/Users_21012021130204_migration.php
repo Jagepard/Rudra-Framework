@@ -12,7 +12,6 @@
 namespace App\Ship\Migration;
 
 use Rudra\Model\Schema;
-use Rudra\Container\Facades\Rudra;
 
 class Users_21012021130204_migration
 {
