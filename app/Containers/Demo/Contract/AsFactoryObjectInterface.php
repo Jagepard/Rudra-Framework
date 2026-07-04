@@ -13,5 +13,4 @@ namespace App\Containers\Demo\Contract;
 
 interface AsFactoryObjectInterface
 {
-
 }

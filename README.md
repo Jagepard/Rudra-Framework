@@ -37,13 +37,14 @@ If you want a lightweight, transparent foundation with simple primitives that yo
 ```bash
 composer create-project --prefer-dist rudra/framework newapp
 cd newapp
+# ✅ Secret keys are generated automatically
 ```
-
 ### Via Composer (dev)
 
 ```bash
 composer create-project --prefer-dist --stability=dev rudra/framework newapp
 cd newapp
+# ✅ Secret keys are generated automatically
 ```
 ### Via Git + DDEV (full environment)
 
@@ -52,10 +53,18 @@ The fastest way to get a fully working local environment — containers, depende
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
-ddev start   # Start containers, install deps, set up SSL & DB
-ddev launch  # Open the site in your browser
+ddev start        # Start containers, install deps, set up SSL & DB
+php rudra secret  # Generate secret keys for all environments
+ddev launch       # Open the site in your browser
 ```
+#### 🔑 Secret Keys
 
+Secret keys are automatically generated during Composer installation for all environments (local, ddev, production).
+If you need to regenerate them (e.g., after cloning the repository), simply run:
+
+```bash
+php rudra secret
+```
 ### ⚙️ Configuration
 For web requests, Rudra automatically detects the environment in `index.php`:
 

@@ -15,5 +15,4 @@ use App\Containers\Demo\Contract\AsStringInterface;
 
 class AsString implements AsStringInterface
 {
-
 }

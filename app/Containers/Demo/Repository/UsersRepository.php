@@ -16,5 +16,4 @@ use Rudra\Model\Repository;
 
 class UsersRepository extends Repository
 {
-
 }
