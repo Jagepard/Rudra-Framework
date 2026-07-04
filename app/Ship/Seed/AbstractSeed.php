@@ -26,13 +26,13 @@ abstract class AbstractSeed
 
     abstract public function create();
 
-    protected function createStmtString(array $fields): array
+    protected static function createStmtString(array $fields): array
     {
-        $insert = [];
+        $insert  = [];
         $execute = [];
 
-        foreach ($fields as $key => $data) {
-            $insert[] = "{$key}";
+        foreach (array_keys($fields) as $key) {
+            $insert[]  = $key;
             $execute[] = ":{$key}";
         }
 
