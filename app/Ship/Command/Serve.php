@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 /**
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,6 +18,9 @@ use Rudra\Container\Facades\Rudra;
 
 class Serve
 {
+    private const int PORT = 8000;
+    private const string HOST = '127.0.0.1';
+
     /**
      * 🚀 Development Server Launcher
      * 
@@ -23,7 +28,7 @@ class Serve
      * Provides a zero-config way to run Rudra Framework without Apache/Nginx setup.
      * 
      * How it works:
-     * 1. Spawns PHP's built-in web server via `exec()`
+     * 1. Spawns PHP's built-in web server via `passthru()`
      * 2. Binds to 127.0.0.1:8000 (localhost only)
      * 3. Sets `public/` as the document root
      * 4. Blocks the terminal until interrupted (Ctrl+C)
@@ -45,39 +50,63 @@ class Serve
      */
     public function actionIndex(): void
     {
-        $port = 8000;
-        $host = '127.0.0.1';
         $publicPath = Rudra::config()->get('app.path') . '/public';
 
-        // Check if public directory exists
-        if (!is_dir($publicPath)) {
-            Cli::printer("❌ Public directory not found: $publicPath" . PHP_EOL, "light_red");
+        if (!$this->validateEnvironment($publicPath)) {
             return;
         }
 
-        // Check if port is already in use
-        if ($this->isPortInUse($host, $port)) {
-            Cli::printer("⚠️  Port $port is already in use. Please stop the other server or choose a different port." . PHP_EOL, "light_yellow");
-            return;
-        }
-
-        Cli::printer("🚀 Starting Rudra development server..." . PHP_EOL, "light_green");
-        Cli::printer("🌐 Server running at: http://$host:$port" . PHP_EOL, "cyan");
-        Cli::printer("📁 Document root: $publicPath" . PHP_EOL, "cyan");
-        Cli::printer("🛑 Press Ctrl+C to stop the server" . PHP_EOL . PHP_EOL, "light_yellow");
-
-        // Use passthru instead of exec for interactive processes
-        // passthru streams output in real-time and handles signals (Ctrl+C) correctly
-        passthru("php -S $host:$port -t " . escapeshellarg($publicPath));
+        $this->renderHeader();
+        $this->renderServerInfo($publicPath);
+        
+        passthru(sprintf(
+            'php -S %s:%d -t %s',
+            self::HOST,
+            self::PORT,
+            escapeshellarg($publicPath)
+        ));
     }
 
-    /**
-     * Checks if a TCP port is already in use
-     */
-    protected function isPortInUse(string $host, int $port): bool
+    private function validateEnvironment(string $publicPath): bool
     {
-        $connection = @fsockopen($host, $port);
-        if (is_resource($connection)) {
+        if (!is_dir($publicPath)) {
+            Cli::printer("\n❌  Public directory not found: {$publicPath}\n\n", "light_red");
+            return false;
+        }
+
+        if ($this->isPortInUse()) {
+            Cli::printer("\n⚠️  Port " . self::PORT . " is already in use\n\n", "light_yellow");
+            return false;
+        }
+
+        return true;
+    }
+
+    private function renderHeader(): void
+    {
+        $phpVersion = PHP_VERSION;
+        $line = str_repeat('━', 54);
+        
+        Cli::printer("{$line}\n", "dark_gray");
+        Cli::printer(sprintf("  🚀  Rudra Development Server  (PHP %s)\n", $phpVersion), "light_green");
+        Cli::printer("{$line}\n", "dark_gray");
+    }
+
+    private function renderServerInfo(string $publicPath): void
+    {
+        $url = "http://" . self::HOST . ":" . self::PORT;
+        
+        Cli::printer(sprintf("  🌐  %s\n", $url), "light_cyan");
+        Cli::printer(sprintf("  📁  %s\n", $publicPath), "light_gray");
+        Cli::printer(sprintf("  🛑  %s\n\n", "Press Ctrl+C to stop"), "light_yellow");
+        Cli::printer(str_repeat('━', 54) . "\n\n", "dark_gray");
+    }
+
+    private function isPortInUse(): bool
+    {
+        $connection = @fsockopen(self::HOST, self::PORT, $errno, $errstr, 1);
+        
+        if ($connection) {
             fclose($connection);
             return true;
         }
