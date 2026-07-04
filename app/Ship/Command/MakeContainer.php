@@ -44,41 +44,50 @@ class MakeContainer extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter container name: ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
-        $className = trim($container . 'Controller');
-
-        if (!empty($container)) {
-            if (is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
-                Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, "light_yellow");
-                return;
+        $container = '';
+        
+        while (empty($container)) {
+            Cli::printer("📦 Enter container name: ", "cyan");
+            $container = ucfirst(trim(Cli::reader()));
+            
+            if (empty($container)) {
+                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
             }
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "{$className}.php"],
-                $this->createContainersController($className, $container)
-            );
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "routes.php"],
-                $this->createRoutes()
-            );
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/", "config.php"],
-                $this->createConfig()
-            );
-
-            $this->addConfig($container);
-            $this->createDirectories(Rudra::config()->get('app.path') . "/app/Containers/$container/");
-            Cli::printer("✅ Container '$container' was created" . PHP_EOL, "light_green");
-
-        } else {
-            $this->actionIndex();
+            
+            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+                $container = '';
+                continue;
+            }
         }
+
+        $className = $container . 'Controller';
+        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+
+        if (is_dir($containerPath)) {
+            Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        $this->createDirectories($containerPath);
+
+        $files = [
+            "{$className}.php" => $this->createContainersController($container),
+            "routes.php"       => $this->createRoutes(),
+            "config.php"       => $this->createConfig(),
+        ];
+
+        foreach ($files as $filename => $content) {
+            $this->writeFile([$containerPath, $filename], $content);
+        }
+
+        $this->addConfig($container);
+        
+        Cli::printer("✅ Container '$container' was created" . PHP_EOL, "light_green");
     }
 
-    private function createContainersController(string $className, string $container): string
+    private function createContainersController(string $container): string
     {
         return <<<EOT
 <?php declare(strict_types=1);
@@ -101,6 +110,7 @@ use Rudra\Controller\ContainerControllerInterface;
 
 class {$container}Controller extends ShipController implements ContainerControllerInterface
 {
+    #[\Override]
     public function containerInit(): void
     {
         \$config = require_once "config.php";

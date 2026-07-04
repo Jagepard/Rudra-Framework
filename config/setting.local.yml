@@ -24,4 +24,5 @@ database:
     password: password
 attributes: true
 containers:
-    demo: App\Containers\Demo\
+    demo: App\Containers\Demo\        
+    web: App\Containers\Web\

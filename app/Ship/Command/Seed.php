@@ -11,6 +11,7 @@
 
 namespace App\Ship\Command;
 
+use App\Ship\Seed\AbstractSeed;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Cli\ConsoleFacade as Cli;
 use App\Ship\Utils\Database\LoggerAdapter;
@@ -45,35 +46,68 @@ class Seed extends LoggerAdapter
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        // Prompt for container name (optional)
+        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        $container = ucfirst(trim(Cli::reader()));
 
+        // Validate container name if provided
+        if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            return;
+        }
+
+        // Resolve seed directory and namespace
         if (!empty($container)) {
-            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Seed/")), 2);
+            $seedPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/";
             $namespace = "App\\Containers\\$container\\Seed\\";
         } else {
-            $fileList  = array_slice(scandir(str_replace('/', DIRECTORY_SEPARATOR, Rudra::config()->get('app.path') . "/app/Ship/Seed/")), 2);
+            $seedPath = Rudra::config()->get('app.path') . "/app/Ship/Seed/";
             $namespace = "App\\Ship\\Seed\\";
         }
 
+        // Check if seed directory exists
+        if (!is_dir($seedPath)) {
+            Cli::printer("⚠️  Seed directory does not exist: $seedPath" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        // Ensure seed log table exists
         if (!$this->isTable()) {
             $this->up();
         }
 
-        foreach ($fileList as $filename) {
+        // Get all PHP files in the directory
+        $files = array_filter(scandir($seedPath), function ($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'php';
+        });
 
-            $seedName = $namespace . strstr($filename, '.', true);
+        if (empty($files)) {
+            Cli::printer("ℹ️  No seeds found" . PHP_EOL, "cyan");
+            return;
+        }
 
-            if ($seedName === 'App\Ship\Seed\AbstractSeed') {
+        // Process each seed file
+        foreach ($files as $filename) {
+            $className = strstr($filename, '.', true);
+            $seedName = $namespace . $className;
+
+            // Skip abstract base class
+            if ($seedName === AbstractSeed::class) {
+                continue;
+            }
+
+            // Check if class exists to prevent fatal errors
+            if (!class_exists($seedName)) {
+                Cli::printer("❌ Class '$seedName' not found. Skipping." . PHP_EOL, "light_red");
                 continue;
             }
 
             if ($this->checkLog($seedName)) {
-                Cli::printer("⚠️  $seedName was seeded" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $seedName already seeded. Skipping." . PHP_EOL, "light_yellow");
             } else {
                 (new $seedName)->create();
-                Cli::printer("✅  $seedName seeded successfully" . PHP_EOL, "light_green");
                 $this->writeLog($seedName);
+                Cli::printer("✅ $seedName seeded successfully" . PHP_EOL, "light_green");
             }
         }
     }

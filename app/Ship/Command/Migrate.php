@@ -49,31 +49,63 @@ class Migrate extends LoggerAdapter
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        // Prompt for container name (optional)
+        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        $container = ucfirst(trim(Cli::reader()));
 
+        // Validate container name if provided
+        if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            return;
+        }
+
+        // Resolve migration directory and namespace
         if (!empty($container)) {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/"), 2);
+            $migrationPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Migration/";
             $namespace = "App\\Containers\\$container\\Migration\\";
         } else {
-            $fileList  = array_slice(scandir(Rudra::config()->get('app.path') . "/app/Ship/Migration/"), 2);
+            $migrationPath = Rudra::config()->get('app.path') . "/app/Ship/Migration/";
             $namespace = "App\\Ship\\Migration\\";
         }
 
+        // Check if migration directory exists
+        if (!is_dir($migrationPath)) {
+            Cli::printer("⚠️  Migration directory does not exist: $migrationPath" . PHP_EOL, "light_yellow");
+            return;
+        }
 
+        // Ensure migration log table exists
         if (!$this->isTable()) {
             $this->up();
         }
 
-        foreach ($fileList as $filename) {
-            $migrationName = $namespace . strstr($filename, '.', true);
+        // Get all PHP files in the directory (ignores . and ..)
+        $files = array_filter(scandir($migrationPath), function ($file) {
+            return pathinfo($file, PATHINFO_EXTENSION) === 'php';
+        });
+
+        if (empty($files)) {
+            Cli::printer("ℹ️  No migrations found" . PHP_EOL, "cyan");
+            return;
+        }
+
+        // Process each migration file
+        foreach ($files as $filename) {
+            $className = strstr($filename, '.', true);
+            $migrationName = $namespace . $className;
+
+            // Check if class exists to prevent fatal errors
+            if (!class_exists($migrationName)) {
+                Cli::printer("❌ Class '$migrationName' not found. Skipping." . PHP_EOL, "light_red");
+                continue;
+            }
 
             if ($this->checkLog($migrationName)) {
-                Cli::printer("⚠️  $migrationName was migrated" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $migrationName already migrated. Skipping." . PHP_EOL, "light_yellow");
             } else {
                 (new $migrationName)->up();
-                Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, "light_green");
                 $this->writeLog($migrationName);
+                Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, "light_green");
             }
         }
     }

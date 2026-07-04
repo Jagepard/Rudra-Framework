@@ -41,14 +41,27 @@ class Bcrypt
      */
     public function actionIndex(): void
     {
+        // Initialize server variables required by Auth component
         Request::server()->set([
             "REMOTE_ADDR"     => "127.0.0.1",
             "HTTP_USER_AGENT" => "Mozilla",
         ]);
 
-        Cli::printer("Enter password: ", "magneta");
-        $password = trim(fgets(fopen("php://stdin", "r")));
+        // Prompt for password until non-empty value is provided
+        $password = '';
+        while (empty($password)) {
+            Cli::printer("🔐 Enter password: ", "cyan");
+            $password = trim(Cli::reader());
 
-        Cli::printer(Auth::bcrypt($password) . PHP_EOL, "light_green", );
+            if (empty($password)) {
+                Cli::printer("⚠️  Password cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
+            }
+        }
+
+        // Generate and display bcrypt hash
+        $hash = Auth::bcrypt($password);
+        Cli::printer("✅ Bcrypt hash:" . PHP_EOL, "light_green");
+        Cli::printer($hash . PHP_EOL, "cyan");
     }
 }

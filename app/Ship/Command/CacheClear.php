@@ -13,7 +13,7 @@ namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
 use Rudra\Auth\AuthFacade as Auth;
-use Rudra\Container\Facades\Request;
+use Rudra\Container\Facades\Rudra;
 
 class CacheClear
 {
@@ -39,34 +39,74 @@ class CacheClear
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter cache type [database, routes, templates, twig](empty for all): ", "magneta");
-        $type = str_replace(PHP_EOL, "", Cli::reader());
+        echo PHP_EOL;
+        Cli::printer("🧹 Cache Clearer" . PHP_EOL, "light_magenta");
+        echo PHP_EOL;
 
-        $folderPath = !empty($type)
-            ? dirname(__DIR__, 3) . "/storage/cache/$type"
-            : dirname(__DIR__, 3) . "/storage/cache";
+        Cli::printer(" Enter cache type [database, routes, templates, twig] (empty for all): ", "cyan");
+        $type = trim(Cli::reader());
 
-        if ($this->deleteDirectory($folderPath)) {
-            Cli::printer(!empty($type)
-                ? "✅ Cache $type was cleared" . PHP_EOL
-                : "✅ Cache was cleared" . PHP_EOL, "light_green");
+        $allowedTypes = ['database', 'routes', 'templates', 'twig'];
+        if (!empty($type) && !in_array($type, $allowedTypes, true)) {
+            Cli::printer("❌ Invalid cache type. Allowed: " . implode(', ', $allowedTypes) . PHP_EOL, "light_red");
+            return;
+        }
+
+        $cacheBasePath = Rudra::config()->get('app.path') . '/storage/cache';
+        $folderPath = !empty($type) ? $cacheBasePath . "/$type" : $cacheBasePath;
+
+        if (!is_dir($folderPath)) {
+            Cli::printer("⚠️  Cache directory does not exist: $folderPath" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        // Delete contents (files and subdirectories), keep the folder itself
+        if ($this->clearDirectory($folderPath)) {
+            $message = !empty($type) 
+                ? "✅ Cache '$type' was cleared" . PHP_EOL 
+                : "✅ All caches were cleared" . PHP_EOL;
+            Cli::printer($message, "light_green");
         } else {
-            Cli::printer(!empty($type)
-                ? "❌ Cache type '$type' does not exist." . PHP_EOL
-                : "⚠️  The directory does not exist or the cache was cleared." . PHP_EOL, !empty($type) ? "red" : "yellow");
+            Cli::printer("❌ Failed to clear cache: $folderPath" . PHP_EOL, "light_red");
         }
     }
 
-    private function deleteDirectory(string $dir): bool
+    /**
+     * Recursively deletes all contents of a directory (files and subdirectories).
+     * The directory itself is preserved.
+     */
+    protected function clearDirectory(string $dir): bool
     {
-        if (!is_dir($dir)) {
+        $items = scandir($dir);
+        if ($items === false) {
             return false;
         }
 
-        foreach (glob($dir . '/*') as $file) {
-            is_dir($file) ? $this->deleteDirectory($file) : unlink($file);
+        foreach ($items as $item) {
+            // Skip current and parent directory references
+            if ($item === '.' || $item === '..') {
+                continue;
+            }
+
+            $path = $dir . DIRECTORY_SEPARATOR . $item;
+
+            if (is_dir($path)) {
+                // Recursively clear subdirectory
+                if (!$this->clearDirectory($path)) {
+                    return false;
+                }
+                // Remove empty subdirectory
+                if (!rmdir($path)) {
+                    return false;
+                }
+            } else {
+                // Delete file
+                if (!unlink($path)) {
+                    return false;
+                }
+            }
         }
 
-        return rmdir($dir);
+        return true;
     }
 }

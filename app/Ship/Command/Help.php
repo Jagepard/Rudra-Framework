@@ -15,6 +15,9 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class Help
 {
+    private const MASK  = "| %-2s | %-22s | %-41s | %-15s |" . PHP_EOL;
+    private const FRAME = "+----+------------------------+-------------------------------------------+-----------------+" . PHP_EOL;
+
     /**
      * 📖 CLI Command Reference
      * 
@@ -37,28 +40,43 @@ class Help
      *  - Refer to each command's PHPDoc for detailed usage instructions
      * 
      * @see Cli::getRegistry() for the command registry source
-     * @see self::getTable()   for table row rendering
+     * @see self::renderTable() for table row rendering
      */
     public function actionIndex(): void
     {
-        $mask  = "| %-2s | %-22s | %-41s | %-15s |" . PHP_EOL;
-        $frame = "\e[1;34m+----+------------------------+-------------------------------------------+-----------------+\e[m" . PHP_EOL;
+        echo PHP_EOL;
+        Cli::printer("📖 Rudra CLI Command Reference" . PHP_EOL, "light_magenta");
+        echo PHP_EOL;
 
-        echo $frame;
-        printf("\e[1;95m" . $mask . "\e[m", "#", "Command", "Controller", "Action");
-        echo $frame;
-        $this->getTable(Cli::getRegistry(), $mask);
-        echo $frame;
+        // Top frame - use Cli::printer instead of echo
+        Cli::printer(self::FRAME, "blue");
+
+        // Table header - use Cli::printer with background
+        Cli::printer(sprintf(self::MASK, "#", "Command", "Controller", "Action"), "white", "blue");
+
+        // Separator frame
+        Cli::printer(self::FRAME, "blue");
+
+        // Data rows
+        $this->renderTable(Cli::getRegistry());
+
+        // Bottom frame  
+        Cli::printer(self::FRAME, "blue");
     }
 
-    protected function getTable(array $data, string $mask): void
+    /**
+     * Renders all registered CLI commands as colorized table rows.
+     * Uses alternating colors (cyan/green) for better readability.
+     */
+    protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["\e[0;36m", "\e[0;32m"]; // чередующиеся цвета строк
+        $colors = ["cyan", "green"]; // alternating row colors
 
         foreach ($data as $name => $routes) {
             $color = $colors[($i - 1) % 2];
-            printf($color . $mask . "\e[m", $i, $name, $routes[0], $routes[1] ?? "actionIndex");
+            $row = sprintf(self::MASK, $i, $name, $routes[0], $routes[1] ?? "actionIndex");
+            Cli::printer($row, $color);
             $i++;
         }
     }

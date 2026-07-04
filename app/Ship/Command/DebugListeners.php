@@ -12,9 +12,14 @@
 namespace App\Ship\Command;
 
 use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
+use Rudra\Cli\ConsoleFacade as Cli;
 
 class DebugListeners
 {
+    // Table formatting constants
+    private const MASK  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
+    private const FRAME = "+-----+-----------------+---------------------------------------------------+-----------------+" . PHP_EOL;
+
     /**
      * 🎧 Debug Listeners List
      * 
@@ -32,34 +37,56 @@ class DebugListeners
      *  - Action   : The action method triggered when the event is fired (e.g. handle)
      * 
      * @see EventDispatcher::getListeners() for data source
-     * @see self::getTable()                for table row rendering
+     * @see self::renderTable()             for table row rendering
      */
     public function actionIndex(): void
     {
-        $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
-        $frame = "\e[1;34m+-----+-----------------+---------------------------------------------------+-----------------+\e[m" . PHP_EOL;
+        $data = EventDispatcher::getListeners();
 
-        echo $frame;
-        printf("\e[1;95m" . $mask . "\e[m", "#", "Event", "Listener", "Action");
-        echo $frame;
-        $this->getTable(EventDispatcher::getListeners(), $mask);
-        echo $frame;
+        // Display header with emoji
+        echo PHP_EOL;
+        Cli::printer("🎧 Event Listeners Reference" . PHP_EOL, "light_magenta");
+        echo PHP_EOL;
+
+        // Top frame
+        Cli::printer(self::FRAME, "blue");
+
+        // Table header with background
+        Cli::printer(sprintf(self::MASK, "#", "Event", "Listener", "Action"), "white", "blue");
+
+        // Separator frame
+        Cli::printer(self::FRAME, "blue");
+
+        // Data rows or empty message
+        if (empty($data)) {
+            Cli::printer("ℹ️  No listeners registered" . PHP_EOL, "cyan");
+        } else {
+            $this->renderTable($data);
+        }
+
+        // Bottom frame
+        Cli::printer(self::FRAME, "blue");
     }
 
-    protected function getTable(array $data, string $mask): void
+    /**
+     * Renders listener data as colorized table rows.
+     * Uses alternating colors (cyan/green) for better readability.
+     */
+    protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["\e[0;36m", "\e[0;32m"]; // чередующиеся цвета строк
+        $colors = ["cyan", "green"]; // alternating row colors
 
         foreach ($data as $name => $listeners) {
             $color = $colors[($i - 1) % 2];
-            printf(
-                $color . $mask . "\e[m",
+            $row = sprintf(
+                self::MASK,
                 $i,
                 $name,
                 $listeners["listener"],
                 $listeners["method"] ?? 'actionIndex'
             );
+            Cli::printer($row, $color);
             $i++;
         }
     }

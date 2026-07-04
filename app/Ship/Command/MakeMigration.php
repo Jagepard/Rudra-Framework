@@ -37,33 +37,66 @@ class MakeMigration extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter table name: ", "magneta");
-        $table = str_replace(PHP_EOL, "", Cli::reader());
+        $table = '';
+        $container = '';
+        
+        // Prompt for table name until valid input is provided
+        while (empty($table)) {
+            Cli::printer("🗄️  Enter table name: ", "cyan");
+            $table = trim(Cli::reader());
+            
+            if (empty($table)) {
+                Cli::printer("⚠️  Table name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
+            }
+            
+            // Validate table name format (snake_case or CamelCase)
+            if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $table)) {
+                Cli::printer("❌ Invalid table name. Use alphanumeric characters (e.g., users, blog_posts)" . PHP_EOL, "light_red");
+                $table = '';
+                continue;
+            }
+        }
+        
+        // Prompt for container name (optional)
+        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        $container = ucfirst(trim(Cli::reader()));
+        
+        // Validate container name if provided
+        if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            return;
+        }
 
-        Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        // Generate timestamp and class name
+        $date = date("_dmYHis");
+        $className = ucfirst($table) . $date;
 
-        $date      = date("_dmYHis");
-        $className = trim(ucfirst($table) . $date);
-
+        // Determine target path and namespace based on container
         if (!empty($container)) {
+            $targetPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Migration/";
+            $namespace = "App\\Containers\\$container\\Migration";
+            
+            // Check if container exists
             if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
                 Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
                 return;
             }
-
-            $namespace = 'App\Containers\\' . $container . '\Migration';
-
-            $this->writeFile([Rudra::config()->get('app.path') . "/app/Containers/" . $container . "/Migration/", "{$className}_migration.php"],
-                $this->createMigration($className, $table, $namespace)
-            );
         } else {
-            $namespace = "App\Ship\Migration";
-
-            $this->writeFile([Rudra::config()->get('app.path') . "/app/Ship/Migration/", "{$className}_migration.php"],
-                $this->createMigration($className, $table, $namespace)
-            );
+            $targetPath = Rudra::config()->get('app.path') . "/app/Ship/Migration/";
+            $namespace = "App\\Ship\\Migration";
         }
+
+        $targetFile = "{$className}_migration.php";
+
+        // Create migration file
+        $this->writeFile(
+            [$targetPath, $targetFile],
+            $this->createMigration($className, $table, $namespace)
+        );
+        
+        $location = !empty($container) ? "container '$container'" : "Ship";
+        Cli::printer("✅ Migration for table '$table' was created in $location" . PHP_EOL, "light_green");
     }
 
     private function createMigration(string $className, string $table, string $namespace): string
@@ -83,7 +116,6 @@ class MakeMigration extends FileCreator
 namespace $namespace;
 
 use Rudra\Model\Schema;
-use Rudra\Container\Facades\Rudra;
 
 class {$className}_migration
 {
