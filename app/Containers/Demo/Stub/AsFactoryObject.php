@@ -15,5 +15,4 @@ use App\Containers\Demo\Contract\AsFactoryObjectInterface;
 
 class AsFactoryObject implements AsFactoryObjectInterface
 {
-
 }

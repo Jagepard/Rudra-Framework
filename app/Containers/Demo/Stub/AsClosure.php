@@ -15,5 +15,4 @@ use App\Containers\Demo\Contract\AsClosureInterface;
 
 class AsClosure implements AsClosureInterface
 {
-
 }
