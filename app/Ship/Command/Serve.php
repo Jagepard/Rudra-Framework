@@ -12,6 +12,7 @@
 namespace App\Ship\Command;
 
 use Rudra\Cli\ConsoleFacade as Cli;
+use Rudra\Container\Facades\Rudra;
 
 class Serve
 {
@@ -44,7 +45,42 @@ class Serve
      */
     public function actionIndex(): void
     {
-        Cli::printer("🌐 Rudra is running:", "cyan");
-        exec('php -S 127.0.0.1:8000 -t public');
+        $port = 8000;
+        $host = '127.0.0.1';
+        $publicPath = Rudra::config()->get('app.path') . '/public';
+
+        // Check if public directory exists
+        if (!is_dir($publicPath)) {
+            Cli::printer("❌ Public directory not found: $publicPath" . PHP_EOL, "light_red");
+            return;
+        }
+
+        // Check if port is already in use
+        if ($this->isPortInUse($host, $port)) {
+            Cli::printer("⚠️  Port $port is already in use. Please stop the other server or choose a different port." . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        Cli::printer("🚀 Starting Rudra development server..." . PHP_EOL, "light_green");
+        Cli::printer("🌐 Server running at: http://$host:$port" . PHP_EOL, "cyan");
+        Cli::printer("📁 Document root: $publicPath" . PHP_EOL, "cyan");
+        Cli::printer("🛑 Press Ctrl+C to stop the server" . PHP_EOL . PHP_EOL, "light_yellow");
+
+        // Use passthru instead of exec for interactive processes
+        // passthru streams output in real-time and handles signals (Ctrl+C) correctly
+        passthru("php -S $host:$port -t " . escapeshellarg($publicPath));
+    }
+
+    /**
+     * Checks if a TCP port is already in use
+     */
+    protected function isPortInUse(string $host, int $port): bool
+    {
+        $connection = @fsockopen($host, $port);
+        if (is_resource($connection)) {
+            fclose($connection);
+            return true;
+        }
+        return false;
     }
 }

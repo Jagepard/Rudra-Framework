@@ -35,27 +35,71 @@ class MakeMiddleware extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter middleware name: ", "magneta");
-        $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = trim(ucfirst($prefix) . 'Middleware');
-
-        Cli::printer("Enter container: ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
-
-        if (!empty($container)) {
-            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
-                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
-                return;
+        $prefix = '';
+        $container = '';
+        
+        // Prompt for middleware name until valid input is provided
+        while (empty($prefix)) {
+            Cli::printer("🛡️  Enter middleware name: ", "cyan");
+            $prefix = trim(Cli::reader());
+            
+            if (empty($prefix)) {
+                Cli::printer("⚠️  Middleware name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
             }
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Middleware/", "{$className}.php"],
-                $this->createClass($className, $container)
-            );
-
-        } else {
-            $this->actionIndex();
+            
+            // Validate middleware name format (CamelCase)
+            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
+                Cli::printer("❌ Invalid middleware name. Use CamelCase (e.g., Auth, Logging)" . PHP_EOL, "light_red");
+                $prefix = '';
+                continue;
+            }
         }
+        
+        $className = ucfirst($prefix) . 'Middleware';
+        
+        // Prompt for container name until valid input is provided
+        while (empty($container)) {
+            Cli::printer("📦 Enter container: ", "cyan");
+            $container = ucfirst(trim(Cli::reader()));
+            
+            if (empty($container)) {
+                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
+            }
+            
+            // Validate container name format (CamelCase)
+            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+                $container = '';
+                continue;
+            }
+        }
+
+        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+
+        // Check if container exists
+        if (!is_dir($containerPath)) {
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        $middlewarePath = $containerPath . "Middleware/";
+        $middlewareFile = "{$className}.php";
+
+        // Check if middleware already exists
+        if (file_exists($middlewarePath . $middlewareFile)) {
+            Cli::printer("⚠️  Middleware '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        // Create middleware file
+        $this->writeFile(
+            [$middlewarePath, $middlewareFile],
+            $this->createClass($className, $container)
+        );
+        
+        Cli::printer("✅ Middleware '$className' was created in container '$container'" . PHP_EOL, "light_green");
     }
 
     private function createClass(string $className, string $container): string
@@ -74,14 +118,16 @@ class MakeMiddleware extends FileCreator
 
 namespace App\Containers\\{$container}\Middleware;
 
+use Rudra\Router\RouterFacade as Router;
+
 class {$className}
 {
-    public function __invoke(\$next, ...\$params)
+    public function __invoke(array \$next, ...\$params)
     {
         dump(__CLASS__);
-
+        
         if (\$next) {
-            \$next();
+            Router::handleMiddleware(\$next);
         }
     }
 }\r\n

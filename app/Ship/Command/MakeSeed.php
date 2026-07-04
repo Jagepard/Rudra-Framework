@@ -30,38 +30,71 @@ class MakeSeed extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter table name: ", "magneta");
-        $table     = str_replace(PHP_EOL, "", Cli::reader());
-        $date      = date("_dmYHis");
-        $className = trim(ucfirst($table . $date));
+        $table = '';
+        
+        // Prompt for table name until valid input is provided
+        while (empty($table)) {
+            Cli::printer("🌱 Enter table name: ", "cyan");
+            $table = trim(Cli::reader());
+            
+            if (empty($table)) {
+                Cli::printer("⚠️  Table name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
+            }
+            
+            // Validate table name format (alphanumeric or snake_case)
+            if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $table)) {
+                Cli::printer("❌ Invalid table name. Use alphanumeric characters (e.g., users, blog_posts)" . PHP_EOL, "light_red");
+                $table = '';
+                continue;
+            }
+        }
+        
+        // Prompt for container name (optional)
+        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        $container = ucfirst(trim(Cli::reader()));
+        
+        // Validate container name if provided
+        if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            return;
+        }
 
-        Cli::printer("Enter container (empty for Ship): ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
+        // Prompt for multiline option
+        Cli::printer("📝 Multiline seed (yes/no): ", "cyan");
+        $multilineInput = strtolower(trim(Cli::reader()));
+        $multiline = ($multilineInput === 'yes' || $multilineInput === 'y');
 
-        Cli::printer("multiline Seed (yes): ", "magneta");
-        $multiline = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
-        $multiline = empty($multiline);
+        // Generate timestamp and class name
+        $date = date("_YmdHis"); // Year-first for proper chronological sorting
+        $className = ucfirst($table) . $date;
 
+        // Determine target path and namespace based on container
         if (!empty($container)) {
+            $targetPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/";
+            $namespace = "App\\Containers\\$container\\Seed";
+            
+            // Check if container exists
             if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
                 Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
                 return;
             }
-
-            $namespace = 'App\Containers\\' . $container . '\Seed';
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/", "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace, $multiline)
-            );
         } else {
-            $namespace = "App\Ship\Seed";
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Ship/Seed/", "{$className}_seed.php"],
-                $this->createClass($className, $table, $namespace, $multiline)
-            );
+            $targetPath = Rudra::config()->get('app.path') . "/app/Ship/Seed/";
+            $namespace = "App\\Ship\\Seed";
         }
+
+        $targetFile = "{$className}_seed.php";
+
+        // Create seed file
+        $this->writeFile(
+            [$targetPath, $targetFile],
+            $this->createClass($className, $table, $namespace, $multiline)
+        );
+        
+        $location = !empty($container) ? "container '$container'" : "Ship";
+        $mode = $multiline ? "multiline" : "single-line";
+        Cli::printer("✅ $mode Seed for table '$table' was created in $location" . PHP_EOL, "light_green");
     }
 
     private function createClass(string $className, string $table, string $namespace, bool $multiline = false): string
@@ -85,6 +118,7 @@ use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
+    #[\Override]
     public function create(): void
     {
         \$table = "$table";
@@ -116,6 +150,7 @@ use App\Ship\Seed\AbstractSeed;
 
 class {$className}_seed extends AbstractSeed
 {
+    #[\Override]
     public function create(): void
     {
         \$table = "$table";

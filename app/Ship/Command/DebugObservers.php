@@ -12,9 +12,14 @@
 namespace App\Ship\Command;
 
 use Rudra\EventDispatcher\EventDispatcherFacade as EventDispatcher;
+use Rudra\Cli\ConsoleFacade as Cli;
 
 class DebugObservers
 {
+    // Table formatting constants
+    private const MASK  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
+    private const FRAME = "+-----+-----------------+---------------------------------------------------+-----------------+" . PHP_EOL;
+
     /**
      * 🔭 Debug Observers List
      * 
@@ -32,33 +37,57 @@ class DebugObservers
      *  - Method   : The method triggered when the event is fired (e.g. onEvent)
      * 
      * @see EventDispatcher::getObservers() for data source
-     * @see self::getTable()                for table row rendering
+     * @see self::renderTable()             for table row rendering
      */
     public function actionIndex(): void
     {
-        $mask  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
-        $frame = "\e[1;34m+-----+-----------------+---------------------------------------------------+-----------------+\e[m" . PHP_EOL;
+        $data = EventDispatcher::getObservers();
 
-        echo $frame;
-        printf("\e[1;95m" . $mask . "\e[m", "#", "Event", "Observer", "Method");
-        echo $frame;
-        $this->getTable(EventDispatcher::getObservers(), $mask);
-        echo $frame;
+        // Display header with emoji
+        echo PHP_EOL;
+        Cli::printer("🔭 Event Observers Reference" . PHP_EOL, "light_magenta");
+        echo PHP_EOL;
+
+        // Top frame
+        Cli::printer(self::FRAME, "blue");
+
+        // Table header with background
+        Cli::printer(sprintf(self::MASK, "#", "Event", "Observer", "Method"), "white", "blue");
+
+        // Separator frame
+        Cli::printer(self::FRAME, "blue");
+
+        // Data rows or empty message
+        if (empty($data)) {
+            Cli::printer("ℹ️  No observers registered" . PHP_EOL, "cyan");
+        } else {
+            $this->renderTable($data);
+        }
+
+        // Bottom frame
+        Cli::printer(self::FRAME, "blue");
     }
 
-    protected function getTable(array $data, string $mask): void
+    /**
+     * Renders observer data as colorized table rows.
+     * Uses alternating colors (cyan/green) for better readability.
+     */
+    protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["\e[0;36m", "\e[0;32m"];
+        $colors = ["cyan", "green"]; // alternating row colors
 
         foreach ($data as $event => $observers) {
             foreach ($observers as $observer) {
                 $color = $colors[($i - 1) % 2];
-                printf($color . $mask . "\e[m", $i,
+                $row = sprintf(
+                    self::MASK,
+                    $i,
                     $event,
                     $observer['class'],
                     $observer['method']
                 );
+                Cli::printer($row, $color);
                 $i++;
             }
         }

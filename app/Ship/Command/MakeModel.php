@@ -38,31 +38,85 @@ class MakeModel extends FileCreator
      */
     public function actionIndex(): void
     {
-        Cli::printer("Enter table name: ", "magneta");
-        $prefix    = str_replace(PHP_EOL, "", Cli::reader());
-        $className = trim(ucfirst($prefix));
-
-        Cli::printer("Enter container: ", "magneta");
-        $container = ucfirst(str_replace(PHP_EOL, "", Cli::reader()));
-
-        if (!empty($container)) {
-            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
-                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
-                return;
+        $prefix = '';
+        $container = '';
+        
+        // Prompt for table name until valid input is provided
+        while (empty($prefix)) {
+            Cli::printer("🗄️  Enter table name: ", "cyan");
+            $prefix = trim(Cli::reader());
+            
+            if (empty($prefix)) {
+                Cli::printer("⚠️  Table name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
             }
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Entity/", "{$className}.php"],
-                $this->createEntity($className, $container)
-            );
-
-            $this->writeFile(
-                [Rudra::config()->get('app.path') . "/app/Containers/$container/Repository/", "{$className}Repository.php"],
-                $this->createRepository($className, $container)
-            );
-        } else {
-            $this->actionIndex();
+            
+            // Validate table name format (CamelCase)
+            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
+                Cli::printer("❌ Invalid table name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+                $prefix = '';
+                continue;
+            }
         }
+        
+        $className = ucfirst($prefix);
+        
+        // Prompt for container name until valid input is provided
+        while (empty($container)) {
+            Cli::printer("📦 Enter container: ", "cyan");
+            $container = ucfirst(trim(Cli::reader()));
+            
+            if (empty($container)) {
+                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
+                continue;
+            }
+            
+            // Validate container name format (CamelCase)
+            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+                $container = '';
+                continue;
+            }
+        }
+
+        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+
+        // Check if container exists
+        if (!is_dir($containerPath)) {
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        $entityPath = $containerPath . "Entity/";
+        $repositoryPath = $containerPath . "Repository/";
+        $entityFile = "{$className}.php";
+        $repositoryFile = "{$className}Repository.php";
+
+        // Check if Entity already exists
+        if (file_exists($entityPath . $entityFile)) {
+            Cli::printer("⚠️  Entity '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        // Check if Repository already exists
+        if (file_exists($repositoryPath . $repositoryFile)) {
+            Cli::printer("⚠️  Repository '{$className}Repository' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            return;
+        }
+
+        // Create Entity file
+        $this->writeFile(
+            [$entityPath, $entityFile],
+            $this->createEntity($className, $container)
+        );
+
+        // Create Repository file
+        $this->writeFile(
+            [$repositoryPath, $repositoryFile],
+            $this->createRepository($className, $container)
+        );
+        
+        Cli::printer("✅ Entity '$className' and Repository were created in container '$container'" . PHP_EOL, "light_green");
     }
 
     private function createEntity(string $className, string $container): string
@@ -90,15 +144,13 @@ use Rudra\Model\Entity;
  */
 class {$className} extends Entity
 {
-    public static string \$table = "$table";
+    public static ?string \$table = "$table";
 }\r\n
 EOT;
     }
 
     private function createRepository(string $className, string $container): string
     {
-        $table = strtolower($className);
-
         return <<<EOT
 <?php
 
@@ -117,7 +169,6 @@ use Rudra\Model\Repository;
 
 class {$className}Repository extends Repository
 {
-
 }\r\n
 EOT;
     }

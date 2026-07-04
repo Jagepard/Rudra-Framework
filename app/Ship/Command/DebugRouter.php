@@ -5,7 +5,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  *
- * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @author  Korotkov Danila (Jageard) <jagepard@yandex.ru>
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  */
 
@@ -17,6 +17,10 @@ use Rudra\Router\RouterFacade as Router;
 
 class DebugRouter
 {
+    // Table formatting constants
+    private const MASK  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
+    private const FRAME = "+-----+-----------------------------------------------+--------+-------------------------------------------------------------------+---------------------------+" . PHP_EOL;
+
     /**
      * 🗺️ Route List Viewer
      * 
@@ -34,24 +38,15 @@ class DebugRouter
      *  - Controller: Fully qualified controller class name
      *  - Action    : Method name inside the controller
      * 
-     * @see self::getRoutes() for route extraction logic
-     * @see self::getTable()  for table row rendering
+     * @see self::getRoutes()      for route extraction logic
+     * @see self::renderTable()    for table row rendering
      */
     public function actionIndex(): void
     {
-        $_SERVER["REQUEST_METHOD"] = 'GET';
-        $_SERVER["REQUEST_URI"]    = '';
+        $this->simulateRequestContext();
 
         foreach (Rudra::config()->get('containers') as $container => $item) {
-            $mask  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
-            $frame = "\e[1;34m+-----+-----------------------------------------------+--------+-------------------------------------------------------------------+---------------------------+\e[m" . PHP_EOL;
-            Cli::printer(strtoupper($container) . PHP_EOL, "yellow");
-
-            echo $frame;
-            printf("\e[1;95m" . $mask . "\e[m", "#", "Route", "Method", "Controller", "Action");
-            echo $frame;
-            $this->getTable($this->getRoutes($container), $mask);
-            echo $frame;
+            $this->renderContainerRoutes($container);
         }
     }
 
@@ -66,55 +61,95 @@ class DebugRouter
      * 2. Prompts user to enter the target container name.
      * 3. Renders a formatted, colorized ASCII table for that container only.
      * 
-     * Table columns:
-     *  - #         : Route index
-     *  - Route     : URL pattern
-     *  - Method    : HTTP method (GET, POST, etc.)
-     *  - Controller: Fully qualified controller class name
-     *  - Action    : Method name inside the controller
-     * 
-     * @see self::actionIndex()  for the full route list (all containers)
-     * @see self::getRoutes()    for route extraction logic
-     * @see self::getTable()     for table row rendering
+     * @see self::actionIndex()    for the full route list (all containers)
+     * @see self::getRoutes()      for route extraction logic
+     * @see self::renderTable()    for table row rendering
      */
     public function actionContainer(): void
     {
-        $_SERVER["REQUEST_METHOD"] = 'GET';
-        $_SERVER["REQUEST_URI"]    = '';
+        $this->simulateRequestContext();
 
-        Cli::printer("Enter container name: ", "magenta");
-        $link  = trim(Cli::reader());
-        $mask  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
-        $frame = "\e[1;34m+-----+---------------------------------------------+--------+-------------------------------------------------------------------+--------------------------+\e[m" . PHP_EOL;
+        // Prompt for container name
+        Cli::printer("📦 Enter container name: ", "cyan");
+        $container = ucfirst(trim(Cli::reader()));
 
-        echo $frame;
-        printf("\e[1;95m" . $mask . "\e[m", "#", "Route", "Method", "Controller", "Action");
-        echo $frame;
-        $this->getTable($this->getRoutes($link), $mask);
-        echo $frame;
+        // Validate container name format
+        if (empty($container) || !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
+            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            return;
+        }
+
+        $this->renderContainerRoutes($container);
     }
 
-    protected function getTable(array $data, string $mask): void
+    /**
+     * Renders routes for a specific container in a formatted table.
+     */
+    protected function renderContainerRoutes(string $container): void
+    {
+        $routes = $this->getRoutes($container);
+
+        // Display container header
+        echo PHP_EOL;
+        Cli::printer("📦 " . strtoupper($container) . PHP_EOL, "light_yellow");
+        echo PHP_EOL;
+
+        // Render table frame and header
+        Cli::printer(self::FRAME, "blue");
+        Cli::printer(sprintf(self::MASK, "#", "Route", "Method", "Controller", "Action"), "white", "blue");
+        Cli::printer(self::FRAME, "blue");
+
+        // Render data rows or empty message
+        if (empty($routes)) {
+            Cli::printer("ℹ️  No routes found for container '$container'" . PHP_EOL, "cyan");
+        } else {
+            $this->renderTable($routes);
+        }
+
+        Cli::printer(self::FRAME, "blue");
+    }
+
+    /**
+     * Renders route data as colorized table rows.
+     * Uses alternating colors (cyan/green) for better readability.
+     */
+    protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["\e[0;36m", "\e[0;32m"]; // color-alternating
+        $colors = ["cyan", "green"]; // alternating row colors
 
         foreach ($data as $routes) {
             foreach ($routes as $route) {
                 $color = $colors[($i - 1) % 2];
-                printf(
-                    $color . $mask . "\e[m",
+                $row = sprintf(
+                    self::MASK,
                     $i,
                     $route['url'],
                     $route['method'],
                     $route['controller'],
                     $route['action'] ?? 'actionIndex'
                 );
+                Cli::printer($row, $color);
                 $i++;
             }
         }
     }
 
+    /**
+     * Simulates GET request context to trigger router parsing.
+     */
+    protected function simulateRequestContext(): void
+    {
+        $_SERVER["REQUEST_METHOD"] = 'GET';
+        $_SERVER["REQUEST_URI"]    = '';
+    }
+
+    /**
+     * Extracts routes from container's routes file.
+     * 
+     * @param string $container Container name (CamelCase)
+     * @return array            Array of routes grouped by HTTP method
+     */
     protected function getRoutes(string $container): array
     {
         $path = "app/Containers/" . ucfirst($container) . "/routes";
