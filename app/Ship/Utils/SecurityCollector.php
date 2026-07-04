@@ -24,11 +24,13 @@ use DebugBar\DataCollector\DataCollector;
  */
 class SecurityCollector extends DataCollector implements Renderable
 {
+    #[\Override]
     public function getName()
     {
         return 'security';
     }
 
+    #[\Override]
     public function getWidgets()
     {
         return [
@@ -41,6 +43,7 @@ class SecurityCollector extends DataCollector implements Renderable
         ];
     }
 
+    #[\Override]
     public function collect()
     {
         try {
