@@ -12,10 +12,12 @@
 require "../vendor/autoload.php";
 
 use App\Ship\Route;
+use App\Ship\Utils\RudraDumper;
 use Rudra\Auth\Auth;
 use Symfony\Component\Yaml\Yaml;
 use Rudra\Container\Facades\Rudra;
 
+RudraDumper::register();
 (new Whoops\Run)->appendHandler(new Whoops\Handler\PrettyPageHandler)->register();
 
 $env = match (true) {
