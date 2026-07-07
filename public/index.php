@@ -44,7 +44,8 @@ if (Rudra::config()->get("environment") === "development") {
     $debugbar = Rudra::get("debugbar");
     $debugbar->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("connection"))));
     $debugbar->addCollector(new App\Ship\Utils\SecurityCollector());
-
+    $debugbar->addCollector(new App\Ship\Utils\RoutingCollector());
+    
     if (php_sapi_name() == "cli-server") {
         $debugbar->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
     }
