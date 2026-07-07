@@ -1,261 +1,631 @@
+/* ═══════════════════════════════════════════
+   DARK WIDGETS — Rudra Theme
+   Unified palette with RoutingCollector & RudraDumper
+   ═══════════════════════════════════════════ */
+
+/* ─── CODE BLOCK ───────────────────────────── */
 pre.phpdebugbar-widgets-code-block {
-    white-space: pre;
-    word-wrap: normal;
-    overflow: hidden;
+  white-space: pre;
+  word-wrap: normal;
+  overflow: hidden;
+  background: #2d2d2d;
+  color: #d4d4d4;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
 }
-  pre.phpdebugbar-widgets-code-block code {
-    display: block;
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  pre.phpdebugbar-widgets-code-block code.phpdebugbar-widgets-numbered-code {
-    padding: 5px;
-  }
-    pre.phpdebugbar-widgets-code-block code span.phpdebugbar-widgets-highlighted-line {
-      background: #800000;
-      color: #fff;
-      display: inline-block;
-      min-width: 100%;
-    }
-      pre.phpdebugbar-widgets-code-block code span.phpdebugbar-widgets-highlighted-line span {
-        background: none !important;
-        color: inherit !important;
-      }
-  pre.phpdebugbar-widgets-code-block ul {
-    float: left;
-    padding: 5px;
-    background: #cacaca;
-    border-right: 1px solid #aaa;
-    text-align: right;
-  }
 
-/* -------------------------------------- */
+pre.phpdebugbar-widgets-code-block code {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
 
+pre.phpdebugbar-widgets-code-block code.phpdebugbar-widgets-numbered-code {
+  padding: 5px;
+}
+
+pre.phpdebugbar-widgets-code-block code span.phpdebugbar-widgets-highlighted-line {
+  background: #17a2b8;
+  color: #fff;
+  display: inline-block;
+  min-width: 100%;
+}
+
+pre.phpdebugbar-widgets-code-block code span.phpdebugbar-widgets-highlighted-line span {
+  background: none !important;
+  color: inherit !important;
+}
+
+pre.phpdebugbar-widgets-code-block ul {
+  float: left;
+  padding: 5px;
+  background: #1a1a1a;
+  border-right: 1px solid #17a2b8;
+  text-align: right;
+  color: #808080;
+}
+
+/* ─── LIST WIDGET ──────────────────────────── */
 ul.phpdebugbar-widgets-list {
   margin: 0;
   padding: 0;
   list-style: none;
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  background: #2d2d2d;
+  color: #d4d4d4;
 }
-  ul.phpdebugbar-widgets-list li.phpdebugbar-widgets-list-item {
-    padding: 3px 6px;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    overflow: hidden;
-  }
-  ul.phpdebugbar-widgets-list li.phpdebugbar-widgets-list-item:hover {
-    background: #fafafa;
-  }
 
-/* -------------------------------------- */
+ul.phpdebugbar-widgets-list li.phpdebugbar-widgets-list-item {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: hidden;
+  color: #d4d4d4;
+}
 
+ul.phpdebugbar-widgets-list li.phpdebugbar-widgets-list-item:hover {
+  background: rgba(23, 162, 184, 0.08);
+}
+
+/* ─── MESSAGES WIDGET ──────────────────────── */
 div.phpdebugbar-widgets-messages {
   position: relative;
   height: 100%;
+  background: #2d2d2d;
+  color: #d4d4d4;
 }
-  div.phpdebugbar-widgets-messages ul.phpdebugbar-widgets-list {
-    padding-bottom: 20px;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-warning:before {
-    font-family: PhpDebugbarFontAwesome;
-    content: "\f071";
-    margin-right: 8px;
-    font-size: 11px;
-    color: #ecb03d;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-error {
-    color: red;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-error:before {
-    font-family: PhpDebugbarFontAwesome;
-    content: "\f057";
-    margin-right: 8px;
-    font-size: 11px;
-    color: red;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item pre.sf-dump {
-    display: inline;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-collector,
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-label {
-    float: right;
-    font-size: 12px;
-    padding: 2px 4px;
-    color: #888;
-    margin: 0 2px;
-    text-decoration: none;
-    text-shadow: none;
-    background: none;
-    font-weight: normal;
-  }
-  div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-collector {
-    color: #555;
-    font-style: italic;
-  }
-  div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #fff;
-  }
-    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar input {
-      border: 0;
-      margin: 0;
-      margin-left: 7px;
-      width: 50%;
-      box-shadow: none;
-    }
-    div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar input:focus {
-      outline: none;
-    }
-      div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter {
-        float: right;
-        font-size: 12px;
-        padding: 2px 4px;
-        background: #7cacd5;
-        margin: 0 2px;
-        border-radius: 4px;
-        color: #fff;
-        text-decoration: none;
-      }
-      div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded {
-        background: #eee;
-        color: #888;
-      }
 
-/* -------------------------------------- */
+div.phpdebugbar-widgets-messages ul.phpdebugbar-widgets-list {
+  padding-bottom: 20px;
+  background: #2d2d2d;
+}
 
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item {
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-warning:before {
+  font-family: PhpDebugbarFontAwesome;
+  content: "\f071";
+  margin-right: 8px;
+  font-size: 11px;
+  color: #ffb74d;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-error {
+  color: #e57373;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-value.phpdebugbar-widgets-error:before {
+  font-family: PhpDebugbarFontAwesome;
+  content: "\f057";
+  margin-right: 8px;
+  font-size: 11px;
+  color: #e57373;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item pre.sf-dump {
+  display: inline;
+  background: #1a1a1a;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-collector,
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-label {
+  float: right;
+  font-size: 11px;
+  padding: 2px 6px;
+  color: #808080;
+  margin: 0 2px;
+  text-decoration: none;
+  text-shadow: none;
+  background: none;
+  font-weight: normal;
+}
+
+div.phpdebugbar-widgets-messages li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-collector {
+  color: #5f8a8b;
+  font-style: italic;
+}
+
+div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #1a1a1a;
+  border-top: 1px solid #17a2b8;
+}
+
+div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar input {
+  border: 0;
+  margin: 0;
+  margin-left: 7px;
+  width: 50%;
+  box-shadow: none;
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar input:focus {
+  outline: 1px solid #17a2b8;
+}
+
+div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter {
+  float: right;
+  font-size: 11px;
+  padding: 2px 6px;
+  background: #17a2b8;
+  margin: 0 2px;
+  border-radius: 3px;
+  color: #fff;
+  text-decoration: none;
+}
+
+div.phpdebugbar-widgets-messages div.phpdebugbar-widgets-toolbar a.phpdebugbar-widgets-filter.phpdebugbar-widgets-excluded {
+  background: #2d2d2d;
+  color: #808080;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ─── KV LIST (Security, Config) ───────────── */
 dl.phpdebugbar-widgets-kvlist {
   margin: 0;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  background: #2d2d2d;
+  color: #d4d4d4;
 }
-  dl.phpdebugbar-widgets-kvlist dt {
-    float: left;
-    width: 150px;
-    padding: 5px;
-    border-top: 1px solid #eee;
-    font-weight: bold;
-    clear: both;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  dl.phpdebugbar-widgets-kvlist dd {
-    margin-left: 160px;
-    padding: 5px;
-    border-top: 1px solid #eee;
-    cursor: pointer;
-    min-height: 17px;
-  }
 
-/* -------------------------------------- */
+div.phpdebugbar-panel dl.phpdebugbar-widgets-kvlist.phpdebugbar-widgets-htmlvarlist {
+  margin: 0px 0px 0px -160px;
+}
 
+dl.phpdebugbar-widgets-kvlist dt {
+  float: left;
+  width: 150px;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-weight: 500;
+  clear: both;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #17a2b8;
+  background: #1a1a1a;
+}
+
+dl.phpdebugbar-widgets-kvlist dd {
+  margin-left: 160px;
+  padding: 6px 10px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  min-height: 17px;
+  color: #ce9178;
+}
+
+dl.phpdebugbar-widgets-kvlist dt:hover,
+dl.phpdebugbar-widgets-kvlist dd:hover {
+  background: rgba(23, 162, 184, 0.08);
+}
+
+/* ─── VAR LIST ─────────────────────────────── */
 dl.phpdebugbar-widgets-varlist,
 dl.phpdebugbar-widgets-htmlvarlist {
-  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  background: #2d2d2d;
+  color: #d4d4d4;
 }
-  dl.phpdebugbar-widgets-htmlvarlist dd {
-    cursor: initial;
-  }
 
-/* -------------------------------------- */
+dl.phpdebugbar-widgets-htmlvarlist dd {
+  cursor: initial;
+}
 
+/* ─── TIMELINE WIDGET ──────────────────────── */
 ul.phpdebugbar-widgets-timeline {
   margin: 0;
   padding: 0;
   list-style: none;
+  background: #2d2d2d;
 }
-  ul.phpdebugbar-widgets-timeline .phpdebugbar-widgets-measure {
-    height: 20px;
-    position: relative;
-    border-bottom: 1px solid #eee;
-    display: block;
-  }
-  ul.phpdebugbar-widgets-timeline li:hover {
-    background: #fafafa;
-  }
-    ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-label,
-    ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-collector {
-      position: absolute;
-      font-size: 12px;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-      color: #555;
-      top: 4px;
-      left: 5px;
-      background: none;
-      text-shadow: none;
-      font-weight: normal;
-      white-space: pre;
-    }
-    ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-collector {
-      left: initial;
-      right: 5px;
-    }
-    ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-value {
-      display: block;
-      position: absolute;
-      height: 10px;
-      background: #3db9ec;
-      top: 5px;
-      border-radius: 2px;
-      min-width: 1px;
-    }
-    ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params {
-      display: none;
-      width: 70%;
-      margin: 10px;
-      border: 1px solid #ddd;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-      border-collapse: collapse;
-    }
-      ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params td {
-        border: 1px solid #ddd;
-        padding: 0 5px;
-      }
-      ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params .phpdebugbar-widgets-name {
-        width: 20%;
-        font-weight: bold;
-      }
 
-/* -------------------------------------- */
+ul.phpdebugbar-widgets-timeline .phpdebugbar-widgets-measure {
+  height: 20px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: block;
+}
+
+ul.phpdebugbar-widgets-timeline li:hover {
+  background: rgba(23, 162, 184, 0.08);
+}
+
+ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-label,
+ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-collector {
+  position: absolute;
+  font-size: 11px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  color: #d4d4d4;
+  top: 4px;
+  left: 5px;
+  background: none;
+  text-shadow: none;
+  font-weight: normal;
+  white-space: pre;
+}
+
+ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-collector {
+  left: initial;
+  right: 5px;
+  color: #808080;
+}
+
+ul.phpdebugbar-widgets-timeline li span.phpdebugbar-widgets-value {
+  display: block;
+  position: absolute;
+  height: 10px;
+  background: #17a2b8;
+  top: 5px;
+  border-radius: 2px;
+  min-width: 1px;
+}
+
+ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params {
+  display: none;
+  width: 70%;
+  margin: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  border-collapse: collapse;
+  background: #1a1a1a;
+}
+
+ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params td {
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 4px 8px;
+  color: #d4d4d4;
+}
+
+ul.phpdebugbar-widgets-timeline table.phpdebugbar-widgets-params .phpdebugbar-widgets-name {
+  width: 20%;
+  font-weight: 500;
+  color: #17a2b8;
+}
+
+/* ─── EXCEPTIONS WIDGET ────────────────────── */
+div.phpdebugbar-widgets-exceptions {
+  background: #2d2d2d;
+}
 
 div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item {
   cursor: pointer;
+  background: #2d2d2d;
+  border-left: 3px solid #e57373;
+  margin: 4px 0;
+  padding: 8px 12px;
 }
-  div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-message {
-    display: block;
-    color: red;
-  }
 
-  div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-filename {
-    display: block;
-    font-style: italic;
-    color: #555;
-  }
+div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-message {
+  display: block;
+  color: #e57373;
+  font-weight: 600;
+}
 
-  div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-type {
-    display: block;
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    font-weight: bold;
-  }
+div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-filename {
+  display: block;
+  font-style: italic;
+  color: #808080;
+  font-size: 11px;
+}
 
-  div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item pre.phpdebugbar-widgets-file {
-    display: none;
-    margin: 10px;
-    padding: 5px;
-    border: 1px solid #ddd;
-    font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-  }
+div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item span.phpdebugbar-widgets-type {
+  display: block;
+  position: absolute;
+  right: 4px;
+  top: 4px;
+  font-weight: bold;
+  color: #ffb74d;
+}
+
+div.phpdebugbar-widgets-exceptions li.phpdebugbar-widgets-list-item pre.phpdebugbar-widgets-file {
+  display: none;
+  margin: 10px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  background: #1a1a1a;
+  color: #d4d4d4;
+}
 
 div.phpdebugbar-widgets-exceptions a.phpdebugbar-widgets-editor-link:before {
   font-family: PhpDebugbarFontAwesome;
-  margin-right: 4px;
-  font-size: 12px;
-  font-style: normal;
-}
-
-div.phpdebugbar-widgets-exceptions a.phpdebugbar-widgets-editor-link:before {
   content: "\f08e";
   margin-left: 4px;
+  font-size: 12px;
+  font-style: normal;
+  color: #17a2b8;
+}
+
+/* ─── SQL QUERIES WIDGET ───────────────────── */
+div.phpdebugbar-widgets-sqlqueries {
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-widgets-sqlqueries table {
+  width: 100%;
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-widgets-sqlqueries table th {
+  background: #1a1a1a;
+  color: #808080;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #17a2b8;
+}
+
+div.phpdebugbar-widgets-sqlqueries table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-widgets-sqlqueries table tr:hover {
+  background: rgba(23, 162, 184, 0.08);
+}
+
+div.phpdebugbar-widgets-sqlqueries pre {
+  background: #1a1a1a;
+  color: #ce9178;
+  padding: 8px;
+  border-radius: 3px;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 12px;
+  border-left: 3px solid #17a2b8;
+}
+
+/* ─── SCROLLBAR ────────────────────────────── */
+div.phpdebugbar-panel::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+div.phpdebugbar-panel::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+div.phpdebugbar-panel::-webkit-scrollbar-thumb {
+  background: #17a2b8;
+  border-radius: 4px;
+}
+
+div.phpdebugbar-panel::-webkit-scrollbar-thumb:hover {
+  background: #138496;
+}
+
+/* ─── GENERIC TABLE IN PANELS ──────────────── */
+div.phpdebugbar-panel table {
+  background: #2d2d2d;
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-panel table th {
+  background: #1a1a1a;
+  color: #808080;
+  padding: 6px 10px;
+  text-align: left;
+  font-weight: 500;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #17a2b8;
+}
+
+div.phpdebugbar-panel table td {
+  padding: 6px 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: #d4d4d4;
+}
+
+div.phpdebugbar-panel table tr:hover {
+  background: rgba(23, 162, 184, 0.08);
+}
+
+/* ─── CONFIG COLLECTOR IMPROVEMENTS ────────── */
+
+/* Keys — brand cyan, bold */
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dt {
+  color: #17a2b8;
+  font-weight: 600;
+  background: #1a1a1a;
+}
+
+/* Values — warm brown (matches Routing URL color) */
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd {
+  color: #ce9178;
+  background: #252525;
+  border-left: 3px solid #17a2b8;
+  padding-left: 12px;
+}
+
+/* Expanded arrays — deep background with cyan border */
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd pre.sf-dump {
+  background: #1a1a1a;
+  color: #d4d4d4;
+  border: 1px solid rgba(23, 162, 184, 0.3);
+  border-radius: 3px;
+  padding: 8px;
+}
+
+/* Keys inside expanded arrays — light blue (matches controller color) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-key {
+  color: #9cdcfe;
+  font-weight: 500;
+}
+
+/* String values — warm brown (matches str in RudraDumper) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-value.phpdebugbar-widgets-string {
+  color: #ce9178;
+}
+
+/* Numbers — soft green (matches num in RudraDumper) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-value.phpdebugbar-widgets-number {
+  color: #b5cea8;
+  font-weight: 600;
+}
+
+/* Arrays — violet (matches ref in RudraDumper) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-value.phpdebugbar-widgets-array {
+  color: #c586c0;
+}
+
+/* Booleans — yellow (matches protected in RudraDumper) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-value.phpdebugbar-widgets-bool {
+  color: #fff176;
+  font-weight: 600;
+}
+
+/* Null values — muted gray (matches ellipsis in RudraDumper) */
+div.phpdebugbar-panel[data-collector="config"] .phpdebugbar-widgets-kvlist dd .phpdebugbar-widgets-value.phpdebugbar-widgets-null {
+  color: #808080;
+  font-style: italic;
+}
+
+/* Nested tables — deep background with cyan accents */
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd table {
+  background: #1a1a1a;
+  border: 1px solid rgba(23, 162, 184, 0.2);
+}
+
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd table th {
+  background: #17a2b8;
+  color: #fff;
+}
+
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd table td {
+  background: #1a1a1a;
+  color: #d4d4d4;
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Hover effects */
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dt:hover {
+  background: rgba(23, 162, 184, 0.1);
+}
+
+div.phpdebugbar-panel[data-collector="config"] dl.phpdebugbar-widgets-kvlist dd:hover {
+  background: #2d2d2d;
+  border-left-color: #17a2b8;
+}
+
+/* ─── CODE BLOCKS READABILITY ──────────────── */
+
+/* Code blocks — deep background with cyan accent line */
+.phpdebugbar-panel pre.phpdebugbar-widgets-code-block {
+    background: #1a1a1a !important;
+    color: #d4d4d4 !important;
+    padding: 12px !important;
+    border-radius: 4px;
+    border-left: 3px solid #17a2b8;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+/* Highlight.js base — matches code block */
+.phpdebugbar-panel .hljs {
+    background: #1a1a1a !important;
+    color: #d4d4d4 !important;
+    display: block;
+    padding: 0 !important;
+}
+
+/* Strings — warm brown (matches str / URL in Routing) */
+.phpdebugbar-panel .hljs-string {
+    color: #ce9178 !important;
+}
+
+/* Numbers — soft green (matches num in RudraDumper) */
+.phpdebugbar-panel .hljs-number {
+    color: #b5cea8 !important;
+}
+
+/* Keywords (array, =>) — blue (matches note in RudraDumper) */
+.phpdebugbar-panel .hljs-keyword {
+    color: #569cd6 !important;
+}
+
+/* Comments — muted gray (matches ellipsis) */
+.phpdebugbar-panel .hljs-comment {
+    color: #808080 !important;
+    font-style: italic;
+}
+
+/* Literals (null, true, false) — violet (matches ref) */
+.phpdebugbar-panel .hljs-literal {
+    color: #c586c0 !important;
+}
+
+/* Types (string, int) — yellow-green (matches action in Routing) */
+.phpdebugbar-panel .hljs-type {
+    color: #dcdcaa !important;
+}
+
+/* Symbols (=>, brackets) — light gray */
+.phpdebugbar-panel .hljs-symbol,
+.phpdebugbar-panel .hljs-operator {
+    color: #808080 !important;
+}
+
+/* Variables — cyan (matches container in Routing) */
+.phpdebugbar-panel .hljs-variable {
+    color: #17a2b8 !important;
+}
+
+/* ─── SYMFONY DUMP OVERRIDES ───────────────── */
+
+/* Symfony dump — unified with code blocks */
+.phpdebugbar-panel pre.sf-dump {
+    background: #1a1a1a !important;
+    color: #d4d4d4 !important;
+    border: 1px solid rgba(23, 162, 184, 0.3) !important;
+    border-radius: 4px;
+    padding: 12px !important;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+/* Dump keys — light blue (matches key in RudraDumper) */
+.phpdebugbar-panel pre.sf-dump .sf-dump-key {
+    color: #9cdcfe !important;
+}
+
+/* Dump numbers — soft green (matches num) */
+.phpdebugbar-panel pre.sf-dump .sf-dump-number {
+    color: #b5cea8 !important;
+}
+
+/* Dump strings — warm brown (matches str) */
+.phpdebugbar-panel pre.sf-dump .sf-dump-string {
+    color: #ce9178 !important;
+}
+
+/* Dump arrays — violet (matches ref) */
+.phpdebugbar-panel pre.sf-dump .sf-dump-array {
+    color: #c586c0 !important;
+}
+
+/* Dump null — muted gray (matches ellipsis) */
+.phpdebugbar-panel pre.sf-dump .sf-dump-null {
+    color: #808080 !important;
+    font-style: italic;
 }
