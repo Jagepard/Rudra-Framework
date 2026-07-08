@@ -46,7 +46,7 @@ if (Rudra::config()->get("environment") === "development") {
     $debugbar->addCollector(new App\Ship\Utils\SecurityCollector());
     $debugbar->addCollector(new App\Ship\Utils\RoutingCollector());
     
-    if (php_sapi_name() == "cli-server") {
+    if (in_array($env, ['ddev', 'local'], true)) {
         $debugbar->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
     }
 
