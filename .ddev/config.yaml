@@ -18,9 +18,8 @@ web_environment: []
 corepack_enable: false
 hooks:
   post-start:
-    # If the vendor folder does not exist → run composer install
-    # If it exists → skip (instant start on subsequent ddev starts
-    - exec: "composer install"
+    - exec: "composer install --prefer-stable --no-interaction"
+    - exec: "php rudra secret"
 
 # Key features of DDEV's config.yaml:
 
