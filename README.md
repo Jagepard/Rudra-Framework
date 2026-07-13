@@ -30,6 +30,12 @@ Rudra is built for developers who:
 If you're looking for a batteries-included framework with built-in ORM, pre-configured queue workers, and ready-made broadcast drivers — Rudra is not for you.  
 If you want a lightweight, transparent foundation with simple primitives that you can extend exactly as needed — you're in the right place.
 
+## Requirements
+
+- PHP 8.3 or higher
+- PDO extension
+- Composer (for installation)
+
 ## 🚀 Getting started
 
 ### Via Composer (stable)
@@ -44,7 +50,7 @@ composer create-project --prefer-dist --stability=dev rudra/framework newapp
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
-git checkout v26.7.6
+git checkout latest
 ddev start
 ddev launch
 ```
@@ -57,13 +63,22 @@ ddev launch
 ```
 #### 🔑 Secret Keys
 
-Secret keys are automatically generated during Composer installation for all environments (local, ddev, production).
+Secret keys are automatically generated during Composer installation for all environments (`local`, `ddev`, `production`).
 If you need to regenerate them (e.g., after cloning the repository), simply run:
 
 ```bash
 php rudra secret
 ```
 ### ⚙️ Configuration
+Rudra uses environment-specific configuration files. The framework automatically loads the appropriate file based on your environment:
+| Environment | Config File |
+|-------------|-------------|
+| DDEV | `config/setting.ddev.yml`
+| Local development | `config/setting.local.yml`
+| Production | `config/setting.production.yml`
+
+These files contain database credentials, container paths, debug settings, and other environment-specific values.
+#### 🌐 Web Environment (auto-detected)
 For web requests, Rudra automatically detects the environment in `index.php`:
 
 ```php
@@ -73,28 +88,24 @@ $env = match (true) {
     default  => 'production',
 };
 ```
-#### Console Environment
-For CLI commands (like ```php rudra migrate```), the framework cannot auto-detect the environment. Use app_env.php to specify it manually:
+#### 🖥️ Console Environment (manual)
+For CLI commands (like `php rudra migrate`), the framework cannot auto-detect the environment. You must specify it manually using `app_env.php`. 
+The value you set (`'local'`, `'ddev'`, or `'production'`) determines which configuration file from the table above will be loaded (e.g., `'local'` → `config/setting.local.yml`).
+##### Setup
+1. Copy the example file:
+```bash
+cp app_env.php.example app_env.php
+```
+2. Then edit `app_env.php` and set your environment:
 ```php
 <?php
 // Do NOT commit this file to Git (.gitignore)
 return 'local'; // ← Set to: 'local', 'ddev', or 'production'
 ```
-Rudra uses environment-specific configuration files. The framework automatically loads the appropriate file based on your environment:
+>ℹ️ Note: If `app_env.php` is missing, the framework defaults to `'local'` for CLI commands. This is safe for local development but should not be relied upon in production — always set `APP_ENV` explicitly or create the file.
+>💡 Tip: When adding new containers or settings during development, update `config/setting.local.yml`. For production deployment, copy the relevant sections to `config/setting.production.yml`.
 
-| Environment | Config File |
-|-------------|-------------|
-| DDEV | config/setting.ddev.yml
-| Local development | config/setting.local.yml
-| Production | config/setting.production.yml
-
-These files contain database credentials, container paths, debug settings, and other environment-specific values.
->💡 Tip: When adding new containers or settings during development, update config/setting.local.yml. For production deployment, copy the relevant sections to config/setting.production.yml.
-
-## Quick Start
-
-Run the built-in development server:
-
+### Run the development server
 ```bash
 php rudra serve
 ```
@@ -163,7 +174,7 @@ You should see: **Hello, world! Your lucky number is: 42**
 
 ---
 
-### Alternative: routes.php
+#### Alternative: routes.php
 
 If you prefer to keep routes separate from controllers, create (or edit) `App/Containers/Web/routes.php`:
 
@@ -177,11 +188,11 @@ Router::get('hello/:name', [HelloController::class, 'greet']);
 ```
 
 > ⚠️ When using `routes.php` for manual routing, make sure the file returns an empty array to disable automatic attribute-based route registration:
-> ```php
-> return [];
-> ```
+```php
+return [];
+```
 
-### Alternative: closure route
+#### Alternative: closure route
 
 For quick prototyping, you can even skip the controller entirely:
 
@@ -264,9 +275,9 @@ use Rudra\Validation\ValidationFacade as V;
 
 $fields    = Request::post()->all();
 $processed = [
-    'name'        => V::sanitize($fields ['name'])->required()->min(3)->max(50)->run(),
-    'email'       => V::email($fields ['email'])->run(),
-    'age'         => V::sanitize($fields ['age'])->integer()->between(18, 100)->run(),
+    'name'        => V::sanitize($fields['name'])->required()->min(3)->max(50)->run(),
+    'email'       => V::email($fields['email'])->run(),
+    'age'         => V::sanitize($fields['age'])->integer()->between(18, 100)->run(),
     'description' => V::set($fields['description'])->run(), // without validation
     'csrf'        => V::sanitize($fields['csrf'])->csrf(Session::get('csrf_token'))->run(),
 ];
@@ -291,13 +302,13 @@ This creates the following routes:
 
 | Method | URL | Controller Method | Description |
 |--------|-----|-------------------|-------------|
-| GET    | api/users      | index  | List all users |
-| GET    | api/user/:id   | read   | Get single user |
-| POST   | api/users      | create | Create new user |
-| PUT    | api/user/:id   | update | Full update user |
-| PATCH  | api/user/:id   | update | Partial update user |
-| DELETE | api/user/:id   | delete | Delete user |
->The default action names are [index, read, create, update, delete].
+| GET    | `api/users`      | index  | List all users |
+| GET    | `api/user/:id`   | read   | Get single user |
+| POST   | `api/users`      | create | Create new user |
+| PUT    | `api/user/:id`   | update | Full update of user |
+| PATCH  | `api/user/:id`   | update | Partial update of user |
+| DELETE | `api/user/:id`   | delete | Delete user |
+>The default action names are `['index', 'read', 'create', 'update', 'delete']`.
 ### Custom Method Names
 You can override the default action names by passing a custom array of 5 methods:
 
@@ -310,7 +321,7 @@ $router->resource('api/posts', 'api/post', PostController::class, [
     'actionDrop'     // DELETE api/post/:id    — delete post
 ]);
 ```
->The array order is fixed: [index, read, create, update, delete].
+>The array order is fixed: `[index, read, create, update, delete]`.
 
 ### 🖼️ View with Caching
 
@@ -354,6 +365,7 @@ class User extends Entity
 }
 
 // Usage — no Model or Repository needed:
+// These methods are provided by the base Repository automatically
 $users = User::getAll();
 $user  = User::find(1);
 User::create(['name' => 'John', 'email' => 'john@example.com']);
@@ -389,7 +401,7 @@ $query = QB::select('id, name, email')
     ->and('role = :role')
     ->orderBy('created_at DESC')
     ->limit(10)
-    ->get();
+    ->get(); // Returns SQL query string
 
 // Execute via Repository:
 $results = User::qBuilder($query, ['status' => 'active', 'role' => 'admin']);
@@ -401,13 +413,13 @@ $results = User::qBuilder($query, ['status' => 'active', 'role' => 'admin']);
 use Rudra\Model\Schema;
 
 Schema::create('users', function ($table) {
-    $table->integer('id', '', true) // auto-increment
+    $table->integer('id', pk: true) // auto-increment
           ->string('name')
           ->string('email')
           ->text('bio', 'NULL')
           ->created_at()
           ->updated_at()
-          ->pk('id');
+          ->pk('id'); // Explicitly declare primary key
 })->execute();
 ```
 
@@ -416,10 +428,10 @@ Schema::create('users', function ($table) {
 Simple, reliable JSON file caching — no Redis/Memcached required:
 
 ```php
-// Cache query results
+// Cache the result of User::getAll() method
 $users = User::cache(['getAll']);
 
-// Cache with TTL
+// Cache Post::findBy('category', 'news') with 1 hour TTL
 $posts = Post::cache(['findBy', ['category', 'news']], '+1 hour');
 
 // Auto-clears on create/update/delete
@@ -489,21 +501,6 @@ Rudra ships with a rich set of CLI utilities following the Porto architecture. R
 |---------|-------------|
 | `php rudra cache:clear` | 🧹 Clear application cache |
 | `php rudra convert:array-to-yml` | 🔄 Convert a PHP array config to YAML (alias: `to:yml`) |
-
-## Features
-
-- **PHP 8.3 Attributes** for routing and middleware — clean, declarative syntax
-- **Automatic Dependency Injection** with autowiring
-- **5 container binding patterns**: string, object, factory string, factory object, closure
-- **Event Dispatcher** with both Listeners and Observers
-- **File-based caching** — simple, reliable, no external dependencies
-- **Porto Architecture** — clear separation between Ship (shared) and Containers (modules)
-- **DebugBar integration** with custom collectors (Security, PDO, Config)
-- **Whoops** for beautiful error pages in development
-- **Twig support** — optional, via factory binding
-- **RESTful resources** — one line registers all CRUD routes
-- **Method spoofing** — PUT/PATCH/DELETE from POST forms via `_method`
-- **CSRF protection** built into validation and controllers
 
 ## License
 
