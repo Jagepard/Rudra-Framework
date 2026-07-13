@@ -103,6 +103,7 @@ cp app_env.php.example app_env.php
 return 'local'; // ← Set to: 'local', 'ddev', or 'production'
 ```
 >ℹ️ Note: If `app_env.php` is missing, the framework defaults to `'local'` for CLI commands. This is safe for local development but should not be relied upon in production — always set `APP_ENV` explicitly or create the file.
+
 >💡 Tip: When adding new containers or settings during development, update `config/setting.local.yml`. For production deployment, copy the relevant sections to `config/setting.production.yml`.
 
 ### Run the development server
