@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * @author  Korotkov Danila (Jagepard) <jagepard@yandex.ru>
+ * @license https://mozilla.org/MPL/2.0/  MPL-2.0
+ */
+
+/**
+ * Environment configuration for CLI commands.
+ *
+ * Copy this file to app_env.php and set your environment:
+ *   cp app_env.php.example app_env.php
+ *
+ * Available values: 'local', 'ddev', 'production'
+ *
+ * Do NOT commit app_env.php to version control.
+ */
+return 'local';
