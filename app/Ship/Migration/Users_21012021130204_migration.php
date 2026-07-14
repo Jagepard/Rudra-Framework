@@ -24,9 +24,9 @@ class Users_21012021130204_migration
                 ->string('password')
                 ->string('role')
                 ->integer('status', 'DEFAULT 1')
-                ->created_at()
-                ->updated_at()
-                ->pk('id');
+                ->createdAt()
+                ->updatedAt()
+                ->primaryKey('id');
         })->execute();
     }
 }
