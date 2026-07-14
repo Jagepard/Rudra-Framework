@@ -45,27 +45,26 @@ class DebugObservers
 
         // Display header with emoji
         echo PHP_EOL;
-        Cli::printer("🔭 Event Observers Reference" . PHP_EOL, "light_magenta");
-        echo PHP_EOL;
+        Cli::printer("🔭 Event Observers Reference:" . PHP_EOL, "light_magenta");
 
         // Top frame
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
 
         // Table header with background
-        Cli::printer(sprintf(self::MASK, "#", "Event", "Observer", "Method"), "white", "blue");
+        Cli::printer(sprintf(self::MASK, "#", "Event", "Observer", "Method"), "light_cyan");
 
         // Separator frame
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
 
         // Data rows or empty message
         if (empty($data)) {
-            Cli::printer("ℹ️  No observers registered" . PHP_EOL, "cyan");
+            Cli::printer("ℹ️  No observers registered" . PHP_EOL, "light_cyan");
         } else {
             $this->renderTable($data);
         }
 
         // Bottom frame
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
     }
 
     /**
@@ -75,7 +74,7 @@ class DebugObservers
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["cyan", "green"]; // alternating row colors
+        $colors = ["light_blue", "light_green"]; // alternating row colors
 
         foreach ($data as $event => $observers) {
             foreach ($observers as $observer) {

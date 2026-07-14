@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeController extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      * 🧭 Interactive Controller Generator
      * 
@@ -39,48 +41,10 @@ class MakeController extends FileCreator
      */
     public function actionIndex(): void
     {
-        $controllerPrefix = '';
-        $container = '';
-        
-        // Prompt for controller name until valid input is provided
-        while (empty($controllerPrefix)) {
-            Cli::printer("🎮 Enter controller name: ", "cyan");
-            $controllerPrefix = ucfirst(trim(Cli::reader()));
-            
-            if (empty($controllerPrefix)) {
-                Cli::printer("⚠️  Controller name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate controller name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $controllerPrefix)) {
-                Cli::printer("❌ Invalid controller name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $controllerPrefix = '';
-                continue;
-            }
-        }
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
+        $controllerPrefix = $this->getValidCamelCaseName("🎮 Enter controller name: ", "Controller");
+        $container        = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $containerPath    = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
-
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -89,22 +53,19 @@ class MakeController extends FileCreator
         $controllerPath = $containerPath . "Controller/";
         $controllerFile = "{$controllerPrefix}Controller.php";
 
-        // Check if controller already exists
         if (file_exists($controllerPath . $controllerFile)) {
-            Cli::printer("⚠️  Controller '$controllerPrefix' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Controller '{$controllerPrefix}Controller' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create controller file
         $this->writeFile(
             [$controllerPath, $controllerFile],
             $this->createClass($controllerPrefix, $container)
         );
 
-        // Register controller routes
         $this->addRoute($container, $controllerPrefix);
         
-        Cli::printer("✅ Controller '$controllerPrefix' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Controller '{$controllerPrefix}Controller' was created in container '$container'" . PHP_EOL, "light_green");
     }
 
     private function createClass(string $controllerPrefix, string $container): string

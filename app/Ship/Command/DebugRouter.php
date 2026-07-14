@@ -70,7 +70,7 @@ class DebugRouter
         $this->simulateRequestContext();
 
         // Prompt for container name
-        Cli::printer("📦 Enter container name: ", "cyan");
+        Cli::printer("📦 Enter container name: ", "light_magenta");
         $container = ucfirst(trim(Cli::reader()));
 
         // Validate container name format
@@ -91,22 +91,21 @@ class DebugRouter
 
         // Display container header
         echo PHP_EOL;
-        Cli::printer("📦 " . strtoupper($container) . PHP_EOL, "light_yellow");
-        echo PHP_EOL;
+        Cli::printer("📦 " . strtoupper($container) . PHP_EOL, "light_magenta");
 
         // Render table frame and header
-        Cli::printer(self::FRAME, "blue");
-        Cli::printer(sprintf(self::MASK, "#", "Route", "Method", "Controller", "Action"), "white", "blue");
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(sprintf(self::MASK, "#", "Route", "Method", "Controller", "Action"), "light_cyan");
+        Cli::printer(self::FRAME, "light_blue");
 
         // Render data rows or empty message
         if (empty($routes)) {
-            Cli::printer("ℹ️  No routes found for container '$container'" . PHP_EOL, "cyan");
+            Cli::printer("ℹ️  No routes found for container '$container'" . PHP_EOL, "light_cyan");
         } else {
             $this->renderTable($routes);
         }
 
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
     }
 
     /**
@@ -116,7 +115,7 @@ class DebugRouter
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["cyan", "green"]; // alternating row colors
+        $colors = ["light_blue", "light_green"]; // alternating row colors
 
         foreach ($data as $routes) {
             foreach ($routes as $route) {

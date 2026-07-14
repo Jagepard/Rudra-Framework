@@ -50,7 +50,7 @@ class Migrate extends LoggerAdapter
     public function actionIndex(): void
     {
         // Prompt for container name (optional)
-        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        Cli::printer("📦 Enter container (empty for Ship): ", "light_cyan");
         $container = ucfirst(trim(Cli::reader()));
 
         // Validate container name if provided
@@ -85,7 +85,7 @@ class Migrate extends LoggerAdapter
         });
 
         if (empty($files)) {
-            Cli::printer("ℹ️  No migrations found" . PHP_EOL, "cyan");
+            Cli::printer("ℹ️  No migrations found" . PHP_EOL, "light_cyan");
             return;
         }
 

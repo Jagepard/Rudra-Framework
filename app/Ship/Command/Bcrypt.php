@@ -50,7 +50,7 @@ class Bcrypt
         // Prompt for password until non-empty value is provided
         $password = '';
         while (empty($password)) {
-            Cli::printer("🔐 Enter password: ", "cyan");
+            Cli::printer("🔐 Enter password: ", "light_magenta");
             $password = trim(Cli::reader());
 
             if (empty($password)) {
@@ -61,7 +61,7 @@ class Bcrypt
 
         // Generate and display bcrypt hash
         $hash = Auth::bcrypt($password);
-        Cli::printer("✅ Bcrypt hash:" . PHP_EOL, "light_green");
+        Cli::printer("✅ Bcrypt hash: " , "light_green");
         Cli::printer($hash . PHP_EOL, "cyan");
     }
 }

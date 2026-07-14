@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeObserver extends FileCreator
 {
+    use CamelCaseInputTrait;
+           
     /**
      * 👁️ Interactive Observer Generator
      * 
@@ -29,50 +31,12 @@ class MakeObserver extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = '';
-        $container = '';
-        
-        // Prompt for observer name until valid input is provided
-        while (empty($prefix)) {
-            Cli::printer("👁️  Enter observer name: ", "cyan");
-            $prefix = trim(Cli::reader());
-            
-            if (empty($prefix)) {
-                Cli::printer("⚠️  Observer name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate observer name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
-                Cli::printer("❌ Invalid observer name. Use CamelCase (e.g., UserObserver, OrderObserver)" . PHP_EOL, "light_red");
-                $prefix = '';
-                continue;
-            }
-        }
-        
-        $className = ucfirst($prefix) . 'Observer';
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
+        $prefix = $this->getValidCamelCaseName("👁️  Enter observer name: ", "Observer");
+        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
 
+        $className = $prefix . 'Observer';
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -81,13 +45,11 @@ class MakeObserver extends FileCreator
         $observerPath = $containerPath . "Observer/";
         $observerFile = "{$className}.php";
 
-        // Check if observer already exists
         if (file_exists($observerPath . $observerFile)) {
             Cli::printer("⚠️  Observer '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create observer file
         $this->writeFile(
             [$observerPath, $observerFile],
             $this->createClass($className, $container)

@@ -43,9 +43,7 @@ class Secret
         ]);
 
         // Display header
-        echo PHP_EOL;
-        Cli::printer("🔑 Secret Key Rotator" . PHP_EOL, "light_magenta");
-        echo PHP_EOL;
+        Cli::printer("🔑 Key Rotation Tool:" . PHP_EOL, "light_magenta");
 
         $basePath = Rudra::config()->get('app.path') . '/';
         $files = [
@@ -94,9 +92,5 @@ class Secret
             Cli::printer("✅ {$relativePath}: {$secret}" . PHP_EOL, "light_green");
             $updated++;
         }
-
-        // Summary
-        echo PHP_EOL;
-        Cli::printer("📊 Summary: {$updated} updated, {$skipped} skipped" . PHP_EOL, "cyan");
     }
 }

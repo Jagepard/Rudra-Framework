@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeListener extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      * 👂 Interactive Listener Generator
      * 
@@ -36,50 +38,12 @@ class MakeListener extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = '';
-        $container = '';
-        
-        // Prompt for listener name until valid input is provided
-        while (empty($prefix)) {
-            Cli::printer("🎧 Enter listener name: ", "cyan");
-            $prefix = trim(Cli::reader());
-            
-            if (empty($prefix)) {
-                Cli::printer("⚠️  Listener name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate listener name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
-                Cli::printer("❌ Invalid listener name. Use CamelCase (e.g., UserRegistered, OrderShipped)" . PHP_EOL, "light_red");
-                $prefix = '';
-                continue;
-            }
-        }
-        
-        $className = ucfirst($prefix) . 'Listener';
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
+        $prefix = $this->getValidCamelCaseName("🎧 Enter listener name: ", "Listener");
+        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
 
+        $className = $prefix . 'Listener';
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -88,13 +52,11 @@ class MakeListener extends FileCreator
         $listenerPath = $containerPath . "Listener/";
         $listenerFile = "{$className}.php";
 
-        // Check if listener already exists
         if (file_exists($listenerPath . $listenerFile)) {
             Cli::printer("⚠️  Listener '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create listener file
         $this->writeFile(
             [$listenerPath, $listenerFile],
             $this->createClass($className, $container)

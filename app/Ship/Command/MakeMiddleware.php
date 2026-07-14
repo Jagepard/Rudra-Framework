@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeMiddleware extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      * 🛡️ Interactive Middleware Generator
      * 
@@ -35,50 +37,11 @@ class MakeMiddleware extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = '';
-        $container = '';
-        
-        // Prompt for middleware name until valid input is provided
-        while (empty($prefix)) {
-            Cli::printer("🛡️  Enter middleware name: ", "cyan");
-            $prefix = trim(Cli::reader());
-            
-            if (empty($prefix)) {
-                Cli::printer("⚠️  Middleware name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate middleware name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
-                Cli::printer("❌ Invalid middleware name. Use CamelCase (e.g., Auth, Logging)" . PHP_EOL, "light_red");
-                $prefix = '';
-                continue;
-            }
-        }
-        
-        $className = ucfirst($prefix) . 'Middleware';
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
-
+        $prefix = $this->getValidCamelCaseName("🛡️ Enter middleware name: ", "Middleware");
+        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $className = $prefix . 'Middleware';
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -87,13 +50,11 @@ class MakeMiddleware extends FileCreator
         $middlewarePath = $containerPath . "Middleware/";
         $middlewareFile = "{$className}.php";
 
-        // Check if middleware already exists
         if (file_exists($middlewarePath . $middlewareFile)) {
             Cli::printer("⚠️  Middleware '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create middleware file
         $this->writeFile(
             [$middlewarePath, $middlewareFile],
             $this->createClass($className, $container)
