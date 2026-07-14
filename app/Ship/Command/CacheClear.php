@@ -39,11 +39,8 @@ class CacheClear
      */
     public function actionIndex(): void
     {
-        echo PHP_EOL;
-        Cli::printer("🧹 Cache Clearer" . PHP_EOL, "light_magenta");
-        echo PHP_EOL;
-
-        Cli::printer(" Enter cache type [database, routes, templates, twig] (empty for all): ", "cyan");
+        Cli::printer("🧹 Cache Clearer:" . PHP_EOL, "light_magenta");
+        Cli::printer("Enter cache type [database, routes, templates, twig] (empty for all): ", "light_cyan");
         $type = trim(Cli::reader());
 
         $allowedTypes = ['database', 'routes', 'templates', 'twig'];

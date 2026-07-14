@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeContract extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      *  Interactive Contract (Interface) Generator
      * 
@@ -37,50 +39,12 @@ class MakeContract extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = '';
-        $container = '';
-        
-        // Prompt for interface name until valid input is provided
-        while (empty($prefix)) {
-            Cli::printer("📜 Enter interface name: ", "cyan");
-            $prefix = trim(Cli::reader());
-            
-            if (empty($prefix)) {
-                Cli::printer("⚠️  Interface name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate interface name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
-                Cli::printer("❌ Invalid interface name. Use CamelCase (e.g., User, PaymentGateway)" . PHP_EOL, "light_red");
-                $prefix = '';
-                continue;
-            }
-        }
-        
-        $className = ucfirst($prefix) . 'Interface';
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
+        $prefix = $this->getValidCamelCaseName("📜 Enter interface name: ", "Interface");
+        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
 
+        $className = $prefix . 'Interface';
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -89,13 +53,11 @@ class MakeContract extends FileCreator
         $contractPath = $containerPath . "Contract/";
         $contractFile = "{$className}.php";
 
-        // Check if interface already exists
         if (file_exists($contractPath . $contractFile)) {
             Cli::printer("⚠️  Interface '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create interface file
         $this->writeFile(
             [$contractPath, $contractFile],
             $this->createClass($className, $container)

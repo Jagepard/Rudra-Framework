@@ -414,13 +414,13 @@ $results = User::qBuilder($query, ['status' => 'active', 'role' => 'admin']);
 use Rudra\Model\Schema;
 
 Schema::create('users', function ($table) {
-    $table->integer('id', pk: true) // auto-increment
+    $table->integer('id', autoincrement: true)
           ->string('name')
           ->string('email')
           ->text('bio', 'NULL')
-          ->created_at()
-          ->updated_at()
-          ->pk('id'); // Explicitly declare primary key
+          ->createdAt()
+          ->updatedAt()
+          ->primaryKey('id'); // Explicitly declare primary key
 })->execute();
 ```
 

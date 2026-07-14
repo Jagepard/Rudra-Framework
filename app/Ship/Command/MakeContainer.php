@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeContainer extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      * 📦 Interactive Container Generator
      * 
@@ -44,25 +46,7 @@ class MakeContainer extends FileCreator
      */
     public function actionIndex(): void
     {
-        $container = '';
-        
-        while (empty($container)) {
-            Cli::printer("📦 Enter container name: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
-
-        $className = $container . 'Controller';
+        $container     = $this->getValidCamelCaseName("📦 Enter container name: ", "Container");
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
         if (is_dir($containerPath)) {
@@ -72,6 +56,7 @@ class MakeContainer extends FileCreator
 
         $this->createDirectories($containerPath);
 
+        $className = $container . 'Controller';
         $files = [
             "{$className}.php" => $this->createContainersController($container),
             "routes.php"       => $this->createRoutes(),

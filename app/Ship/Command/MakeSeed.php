@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeSeed extends FileCreator
 {
+    use CamelCaseInputTrait;
+
     /**
      * 🌱 Interactive Seed Generator
      * 
@@ -30,69 +32,46 @@ class MakeSeed extends FileCreator
      */
     public function actionIndex(): void
     {
-        $table = '';
+        $table = $this->getValidTableName("🌱 Enter table name: ");
         
-        // Prompt for table name until valid input is provided
-        while (empty($table)) {
-            Cli::printer("🌱 Enter table name: ", "cyan");
-            $table = trim(Cli::reader());
-            
-            if (empty($table)) {
-                Cli::printer("⚠️  Table name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate table name format (alphanumeric or snake_case)
-            if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $table)) {
-                Cli::printer("❌ Invalid table name. Use alphanumeric characters (e.g., users, blog_posts)" . PHP_EOL, "light_red");
-                $table = '';
-                continue;
-            }
-        }
-        
-        // Prompt for container name (optional)
         Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
         $container = ucfirst(trim(Cli::reader()));
         
-        // Validate container name if provided
         if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
             Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
             return;
         }
 
-        // Prompt for multiline option
         Cli::printer("📝 Multiline seed (yes/no): ", "cyan");
         $multilineInput = strtolower(trim(Cli::reader()));
-        $multiline = ($multilineInput === 'yes' || $multilineInput === 'y');
+        $multiline = in_array($multilineInput, ['yes', 'y'], true);
 
-        // Generate timestamp and class name
-        $date = date("_YmdHis"); // Year-first for proper chronological sorting
+        $date = date("_YmdHis");
         $className = ucfirst($table) . $date;
+        $targetFile = "{$className}_seed.php";
 
-        // Determine target path and namespace based on container
         if (!empty($container)) {
-            $targetPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/";
-            $namespace = "App\\Containers\\$container\\Seed";
+            $basePath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
             
-            // Check if container exists
-            if (!is_dir(Rudra::config()->get('app.path') . "/app/Containers/$container/")) {
+            if (!is_dir($basePath)) {
                 Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
                 return;
             }
+            
+            $targetPath = $basePath . "Seed/";
+            $namespace = "App\\Containers\\$container\\Seed";
+            $location = "container '$container'";
         } else {
             $targetPath = Rudra::config()->get('app.path') . "/app/Ship/Seed/";
             $namespace = "App\\Ship\\Seed";
+            $location = "Ship";
         }
 
-        $targetFile = "{$className}_seed.php";
-
-        // Create seed file
         $this->writeFile(
             [$targetPath, $targetFile],
             $this->createClass($className, $table, $namespace, $multiline)
         );
         
-        $location = !empty($container) ? "container '$container'" : "Ship";
         $mode = $multiline ? "multiline" : "single-line";
         Cli::printer("✅ $mode Seed for table '$table' was created in $location" . PHP_EOL, "light_green");
     }

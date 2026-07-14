@@ -36,8 +36,6 @@ run:
 
 help:
   - App\Ship\Command\Help
-'' :
-  - App\Ship\Command\Help
 
 debug:router:
   - App\Ship\Command\DebugRouter

@@ -17,6 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class MakeFactory extends FileCreator
 {
+    use CamelCaseInputTrait;
+    
     /**
      * 🏭 Interactive Factory Generator
      * 
@@ -36,50 +38,12 @@ class MakeFactory extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = '';
-        $container = '';
-        
-        // Prompt for factory name until valid input is provided
-        while (empty($prefix)) {
-            Cli::printer("🏭 Enter factory name: ", "cyan");
-            $prefix = trim(Cli::reader());
-            
-            if (empty($prefix)) {
-                Cli::printer("⚠️  Factory name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate factory name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', ucfirst($prefix))) {
-                Cli::printer("❌ Invalid factory name. Use CamelCase (e.g., User, Payment)" . PHP_EOL, "light_red");
-                $prefix = '';
-                continue;
-            }
-        }
-        
-        $className = ucfirst($prefix) . 'Factory';
-        
-        // Prompt for container name until valid input is provided
-        while (empty($container)) {
-            Cli::printer("📦 Enter container: ", "cyan");
-            $container = ucfirst(trim(Cli::reader()));
-            
-            if (empty($container)) {
-                Cli::printer("⚠️  Container name cannot be empty" . PHP_EOL, "light_yellow");
-                continue;
-            }
-            
-            // Validate container name format (CamelCase)
-            if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-                Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
-                $container = '';
-                continue;
-            }
-        }
+        $prefix = $this->getValidCamelCaseName("🏭 Enter factory name: ", "Factory");
+        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
 
+        $className = $prefix . 'Factory';
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
-        // Check if container exists
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
             return;
@@ -88,13 +52,11 @@ class MakeFactory extends FileCreator
         $factoryPath = $containerPath . "Factory/";
         $factoryFile = "{$className}.php";
 
-        // Check if factory already exists
         if (file_exists($factoryPath . $factoryFile)) {
             Cli::printer("⚠️  Factory '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
             return;
         }
 
-        // Create factory file
         $this->writeFile(
             [$factoryPath, $factoryFile],
             $this->createClass($className, $container)

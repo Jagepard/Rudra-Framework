@@ -45,33 +45,32 @@ class Help
     public function actionIndex(): void
     {
         echo PHP_EOL;
-        Cli::printer("📖 Rudra CLI Command Reference" . PHP_EOL, "light_magenta");
-        echo PHP_EOL;
+        Cli::printer("📖 Rudra CLI Command Reference:" . PHP_EOL, "light_magenta");
 
         // Top frame - use Cli::printer instead of echo
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
 
         // Table header - use Cli::printer with background
-        Cli::printer(sprintf(self::MASK, "#", "Command", "Controller", "Action"), "white", "blue");
+        Cli::printer(sprintf(self::MASK, "#", "Command", "Controller", "Action"), "light_cyan");
 
         // Separator frame
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
 
         // Data rows
         $this->renderTable(Cli::getRegistry());
 
         // Bottom frame  
-        Cli::printer(self::FRAME, "blue");
+        Cli::printer(self::FRAME, "light_blue");
     }
 
     /**
      * Renders all registered CLI commands as colorized table rows.
-     * Uses alternating colors (cyan/green) for better readability.
+     * Uses alternating colors (light_blue/light_green) for better readability.
      */
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["cyan", "green"]; // alternating row colors
+        $colors = ["light_blue", "light_green"]; // alternating row colors
 
         foreach ($data as $name => $routes) {
             $color = $colors[($i - 1) % 2];

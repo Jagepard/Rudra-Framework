@@ -44,15 +44,11 @@ class ArrayToYml
     public function actionIndex(): void
     {
         // Display header
-        echo PHP_EOL;
         Cli::printer("🔄 PHP Array to YAML Converter" . PHP_EOL, "light_magenta");
-        echo PHP_EOL;
-
         // Display instructions
-        Cli::printer("ℹ️  Place the PHP file containing the array into the config/ directory" . PHP_EOL, "cyan");
-
+        Cli::printer("ℹ️  Place the PHP file containing the array into the config/ directory" . PHP_EOL, "light_cyan");
         // Prompt for filename
-        Cli::printer("📄 Enter the PHP filename (without .php extension): ", "cyan");
+        Cli::printer("📄 Enter the PHP filename (without .php extension): ", "light_cyan");
         $filename = trim(Cli::reader());
 
         // Validate filename is not empty
