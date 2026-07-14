@@ -102,9 +102,9 @@ class {$className}_migration
     {
         Schema::create('$table', function (\$table) {
             \$table->integer('id', autoincrement: true)
-                ->created_at()
-                ->updated_at()
-                ->pk('id');
+                ->createdAt()
+                ->updatedAt()
+                ->primaryKey('id');
         })->execute();
     }
 }\r\n
