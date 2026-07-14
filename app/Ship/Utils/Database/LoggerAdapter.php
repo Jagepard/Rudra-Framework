@@ -38,9 +38,9 @@ class LoggerAdapter
         $query = QBFacade::create($this->table)
             ->integer('id', '', true)
             ->string('name')
-            ->created_at()
-            ->updated_at()
-            ->pk('id')
+            ->createdAt()
+            ->updatedAt()
+            ->primaryKey('id')
             ->close()
             ->get();
 
