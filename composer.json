@@ -62,6 +62,7 @@
     },
     "scripts": {
         "post-create-project-cmd": [
+            "@php -r \"file_exists('app_env.php') || copy('app_env.php.example', 'app_env.php');\"",
             "@php rudra secret"
         ]
     }
