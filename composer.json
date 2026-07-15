@@ -62,7 +62,7 @@
     },
     "scripts": {
         "post-create-project-cmd": [
-            "@php -r \"$f='app_env.php'; if(!file_exists($f)){copy('app_env.php.example',$f);} if(getenv('DDEV_PROJECT')){$c=file_get_contents($f);$c=substr($c,0,strrpos($c,'return'));file_put_contents($f,$c.'return \\'ddev\\';');}\"",
+            "@php scripts/post-create-project.php",
             "@php rudra secret"
         ]
     }
