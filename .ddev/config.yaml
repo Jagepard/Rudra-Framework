@@ -18,7 +18,8 @@ web_environment: []
 corepack_enable: false
 hooks:
   post-start:
-    - exec: "composer install --no-interaction"
+    - exec: "composer install --no-interaction --no-scripts"
+    - exec: "php scripts/post-create-project.php"
     - exec: "php rudra secret"
 
 # Key features of DDEV's config.yaml:
