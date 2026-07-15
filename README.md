@@ -161,6 +161,8 @@ Enter container name: web
 
 This creates the `App\Containers\Web\` namespace and registers it in `config/setting.local.yml`.
 
+💡 *Don't forget to also register it in `config/setting.ddev.yml` and `config/setting.production.yml` if needed.*
+
 ### 2. Create a controller
 
 ```bash
