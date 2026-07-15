@@ -36,6 +36,8 @@ run:
 
 help:
   - App\Ship\Command\Help
+env:
+  - App\Ship\Command\Env
 
 debug:router:
   - App\Ship\Command\DebugRouter
