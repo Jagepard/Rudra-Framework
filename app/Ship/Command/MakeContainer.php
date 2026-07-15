@@ -70,6 +70,12 @@ class MakeContainer extends FileCreator
         $this->addConfig($container);
         
         Cli::printer("✅ Container '$container' was created" . PHP_EOL, "light_green");
+        Cli::printer("📝 Registered in config/setting.local.yml" . PHP_EOL, "light_green");
+        // Reminder about other environments that need manual update
+        Cli::printer(PHP_EOL . "💡 Don't forget to register it in other environments if needed:" . PHP_EOL, "light_cyan");
+        Cli::printer("   • config/setting.ddev.yml" . PHP_EOL, "light_cyan");
+        Cli::printer("   • config/setting.production.yml" . PHP_EOL . PHP_EOL, "light_cyan");
+    
     }
 
     private function createContainersController(string $container): string
