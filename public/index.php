@@ -54,8 +54,9 @@ if (Rudra::config()->get("environment") === "development") {
     $debugbar["time"]->startMeasure("index");
 } 
 
-// Prefix "RSID" = Rudra Session ID, hash isolates sessions per application instance
-session_name("RSID_" . Rudra::get(Auth::class)->getSessionHash());
+// Prefix "RSID" = Rudra Session ID
+// Application-wide stable session name (independent of user IP and User-Agent)
+session_name("RSID_" . substr(hash('sha256', Rudra::config()->get('secret')), 0, 12));
 
 Rudra::get(Route::class)->run();
 
