@@ -55,6 +55,7 @@ class DemoController extends ShipController implements ContainerControllerInterf
     {
         $config = require_once "config.php";
         
+        Rudra::config()->set($config);
         Rudra::binding()->set($config['contracts']);
         Rudra::waiting()->set($config['services']);
 

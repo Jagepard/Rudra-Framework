@@ -75,7 +75,7 @@ class MakeModel extends FileCreator
         $table = strtolower($className);
 
         return <<<EOT
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -96,14 +96,15 @@ use Rudra\Model\Entity;
 class {$className} extends Entity
 {
     public static ?string \$table = "$table";
-}\r\n
+}
+
 EOT;
     }
 
     private function createRepository(string $className, string $container): string
     {
         return <<<EOT
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -120,7 +121,8 @@ use Rudra\Model\Repository;
 
 class {$className}Repository extends Repository
 {
-}\r\n
+}
+
 EOT;
     }
 }

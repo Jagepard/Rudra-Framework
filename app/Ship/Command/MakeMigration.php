@@ -107,7 +107,8 @@ class {$className}_migration
                 ->primaryKey('id');
         })->execute();
     }
-}\r\n
+}
+
 EOT;
     }
 }

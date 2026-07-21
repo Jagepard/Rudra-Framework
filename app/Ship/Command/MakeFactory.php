@@ -89,7 +89,8 @@ class {$className} implements FactoryInterface
     public function create(): object
     {
     }
-}\r\n
+}
+
 EOT;
     }
 }

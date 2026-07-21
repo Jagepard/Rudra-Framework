@@ -84,7 +84,8 @@ namespace App\Containers\\{$container}\Contract;
 
 interface {$className}
 {
-}\r\n
+}
+
 EOT;
     }
 }

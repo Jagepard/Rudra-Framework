@@ -64,4 +64,8 @@ return [
         'fake_sms_sender'   => fn() => new FakeSmsSender(),
         'array_cache'       => fn() => new ArrayCache(),
     ],
+
+    'demo.settings' => [
+        'demo_key' => 'demo_value',
+    ],
 ];

@@ -136,17 +136,12 @@ EOT;
     {
         $path   = Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php";
         $routes = require_once $path;
-        $namespace = "\App\Containers\\{$container}\\Controller\\{$controllerPrefix}Controller";
+        $namespace = "App\\Containers\\{$container}\\Controller\\{$controllerPrefix}Controller";
 
-        if (!in_array($namespace, $routes)) {
+        if (!in_array($namespace, $routes, true)) {
             $contents = file_get_contents($path);
-            $contents = str_replace("];", '', $contents);
-            file_put_contents($path, $contents);
-            $contents = <<<EOT
-\t$namespace::class,
-];
-EOT;
-            file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
+            $contents = str_replace("];", "\t\\$namespace::class,\n];", $contents);
+            file_put_contents($path, $contents, LOCK_EX);
         }
     }
 }
