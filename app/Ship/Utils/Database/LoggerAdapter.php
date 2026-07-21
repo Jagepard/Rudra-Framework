@@ -36,7 +36,7 @@ class LoggerAdapter
     public function up(): void
     {
         $query = QBFacade::create($this->table)
-            ->integer('id', '', true)
+            ->integer('id', autoincrement: true)
             ->string('name')
             ->createdAt()
             ->updatedAt()
