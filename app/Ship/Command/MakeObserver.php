@@ -61,7 +61,7 @@ class MakeObserver extends FileCreator
     private function createClass(string $className, string $container): string
     {
         return <<<EOT
-<?php
+<?php declare(strict_types=1);
 
 /**
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -81,7 +81,8 @@ class {$className} implements ObserverInterface
     public function onEvent()
     {
     }
-}\r\n
+}
+
 EOT;
     }
 }

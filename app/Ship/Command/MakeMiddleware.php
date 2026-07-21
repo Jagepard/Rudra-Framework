@@ -91,7 +91,8 @@ class {$className}
             Router::handleMiddleware(\$next);
         }
     }
-}\r\n
+}
+
 EOT;
     }
 }

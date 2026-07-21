@@ -83,7 +83,8 @@ namespace App\Containers\\{$container}\Listener;
 
 class {$className}
 {
-}\r\n
+}
+
 EOT;
     }
 }

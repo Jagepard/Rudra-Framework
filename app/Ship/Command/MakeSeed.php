@@ -42,7 +42,7 @@ class MakeSeed extends FileCreator
             return;
         }
 
-        Cli::printer("📝 Multiline seed (yes/no): ", "cyan");
+        Cli::printer("📝 Multiline seed [y/N]: ", "cyan");
         $multilineInput = strtolower(trim(Cli::reader()));
         $multiline = in_array($multilineInput, ['yes', 'y'], true);
 
@@ -117,11 +117,12 @@ class {$className}_seed extends AbstractSeed
             \$this->execute(\$table, \$fields);
         }
     }
-}\r\n
+}
+
 EOT;
         } else {
             return <<<EOT
-<?php
+<?php declare(strict_types=1);
 
 namespace {$namespace};
 
@@ -140,7 +141,8 @@ class {$className}_seed extends AbstractSeed
 
         \$this->execute(\$table, \$fields);
     }
-}\r\n
+}
+
 EOT;
         }
     }

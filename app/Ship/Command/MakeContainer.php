@@ -60,7 +60,7 @@ class MakeContainer extends FileCreator
         $files = [
             "{$className}.php" => $this->createContainersController($container),
             "routes.php"       => $this->createRoutes(),
-            "config.php"       => $this->createConfig(),
+            "config.php"       => $this->createConfig(strtolower($container)),
         ];
 
         foreach ($files as $filename => $content) {
@@ -106,6 +106,7 @@ class {$container}Controller extends ShipController implements ContainerControll
     {
         \$config = require_once "config.php";
 
+        Rudra::config()->set(\$config);
         Rudra::binding()->set(\$config['contracts']);
         Rudra::waiting()->set(\$config['services']);
 
@@ -115,7 +116,8 @@ class {$container}Controller extends ShipController implements ContainerControll
             "title" => __CLASS__,
         ]);
     }
-}\r\n
+}
+  
 EOT;
     }
 
@@ -134,11 +136,12 @@ EOT;
  */
 
 return [
-];\r\n
+];
+
 EOT;
     }
 
-    private function createConfig(): string
+    private function createConfig(string $container): string
     {
         return <<<EOT
 <?php
@@ -153,13 +156,11 @@ EOT;
  */
 
 return [
-    'contracts' => [
+    'contracts' => [],
+    'services' => [],
+    '{$container}.settings' => [],
+];
 
-    ],
-    'services'  => [
-
-    ]
-];\r\n
 EOT;
     }
 
@@ -178,9 +179,12 @@ EOT;
     {
         $path      = Rudra::config()->get('app.path') . "/config/setting.local.yml";
         $namespace = strtolower($container) . ": App\Containers\\{$container}\\";
-        $contents  = <<<EOT
-        \r\n    $namespace
-EOT;
+        $contents  = "\r\n    {$namespace}";
+
+        if (str_contains(file_get_contents($path), $namespace)) {
+            return;
+        }
+
         file_put_contents($path, $contents, FILE_APPEND | LOCK_EX);
     }
 }
