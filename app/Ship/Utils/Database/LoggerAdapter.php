@@ -19,18 +19,22 @@ use App\Ship\Utils\Database\Driver\SQLite;
 
 class LoggerAdapter
 {
-    protected $driver;
     protected string $table;
+    protected object $driver;
+    protected \PDO $connection;
 
-    public function __construct()
+    public function __construct(string $table)
     {
-        if (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "mysql") {
-            $this->driver = new MySQL($this->table);
-        } elseif (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "pgsql") {
-            $this->driver = new PgSQL($this->table);
-        } elseif (Rudra::get('connection')->getAttribute(\PDO::ATTR_DRIVER_NAME) === "sqlite") {
-            $this->driver = new SQLite($this->table);
-        }
+        $this->table = $table;
+        $this->connection = Rudra::get('connection');
+        $driverName = $this->connection->getAttribute(\PDO::ATTR_DRIVER_NAME);
+
+        $this->driver = match ($driverName) {
+            'mysql'  => new MySQL($this->table),
+            'pgsql'  => new PgSQL($this->table),
+            'sqlite' => new SQLite($this->table),
+            default  => throw new \InvalidArgumentException("Unsupported database driver: {$driverName}"),
+        };
     }
 
     public function up(): void
@@ -75,10 +79,9 @@ class LoggerAdapter
             ->get()
         );
 
-        $stmt->execute([
-            ':name' => $name,
-        ]);
+        $stmt->execute([':name' => $name]);
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-        return $stmt->fetch(\PDO::FETCH_ASSOC);
+        return $result ?: null;
     }
 }

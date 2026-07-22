@@ -20,8 +20,7 @@ class Seed extends LoggerAdapter
 {
     public function __construct()
     {
-        $this->table = "rudra_seeds";
-        parent::__construct();
+        parent::__construct("rudra_seeds");
     }
 
     /**
