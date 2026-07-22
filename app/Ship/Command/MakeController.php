@@ -68,7 +68,7 @@ class MakeController extends FileCreator
         Cli::printer("✅ Controller '{$controllerPrefix}Controller' was created in container '$container'" . PHP_EOL, "light_green");
     }
 
-    private function createClass(string $controllerPrefix, string $container): string
+    protected function createClass(string $controllerPrefix, string $container): string
     {
         $url = strtolower("$container/$controllerPrefix");
 

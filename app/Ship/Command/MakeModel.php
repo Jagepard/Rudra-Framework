@@ -70,7 +70,7 @@ class MakeModel extends FileCreator
         Cli::printer("✅ Entity '$className' and Repository were created in container '$container'" . PHP_EOL, "light_green");
     }
 
-    private function createEntity(string $className, string $container): string
+    protected function createEntity(string $className, string $container): string
     {
         $table = strtolower($className);
 
@@ -101,7 +101,7 @@ class {$className} extends Entity
 EOT;
     }
 
-    private function createRepository(string $className, string $container): string
+    protected function createRepository(string $className, string $container): string
     {
         return <<<EOT
 <?php declare(strict_types=1);

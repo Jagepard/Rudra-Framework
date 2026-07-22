@@ -63,7 +63,7 @@ class MakeMiddleware extends FileCreator
         Cli::printer("✅ Middleware '$className' was created in container '$container'" . PHP_EOL, "light_green");
     }
 
-    private function createClass(string $className, string $container): string
+    protected function createClass(string $className, string $container): string
     {
         return <<<EOT
 <?php declare(strict_types=1);
