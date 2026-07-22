@@ -13,7 +13,7 @@ namespace App\Ship\Seed;
 
 use Rudra\Auth\AuthFacade as Auth;
 
-class Users_21012021144905_seed extends AbstractSeed
+class Users_20082025093507_seed extends AbstractSeed
 {
     #[\Override]
     public function create(): void
@@ -24,6 +24,7 @@ class Users_21012021144905_seed extends AbstractSeed
             "email"    => "admin@admin.com",
             "password" => Auth::bcrypt('password'),
             "role"     => "admin",
+            "activate" => md5(random_bytes(16)),
             "status"   => 1,
             "created_at" => date('Y-m-d H:i:s'),
             "updated_at" => date('Y-m-d H:i:s'),

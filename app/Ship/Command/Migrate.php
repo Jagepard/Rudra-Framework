@@ -19,8 +19,7 @@ class Migrate extends LoggerAdapter
 {
     public function __construct()
     {
-        $this->table = "rudra_migrations";
-        parent::__construct();
+        parent::__construct("rudra_migrations");
     }
 
     /**
