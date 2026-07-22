@@ -13,7 +13,7 @@ namespace App\Ship\Migration;
 
 use Rudra\Model\Schema;
 
-class Users_21012021130204_migration
+class Users_20082025083039_migration
 {
     public function up(): void
     {
@@ -23,7 +23,8 @@ class Users_21012021130204_migration
                 ->string('email', 'NOT NULL UNIQUE')
                 ->string('password')
                 ->string('role')
-                ->integer('status', 'DEFAULT 1')
+                ->string('activate')
+                ->integer('status', 'DEFAULT 0')
                 ->createdAt()
                 ->updatedAt()
                 ->primaryKey('id');
