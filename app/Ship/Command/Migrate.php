@@ -93,18 +93,30 @@ class Migrate extends LoggerAdapter
             $className = strstr($filename, '.', true);
             $migrationName = $namespace . $className;
 
-            // Check if class exists to prevent fatal errors
             if (!class_exists($migrationName)) {
                 Cli::printer("❌ Class '$migrationName' not found. Skipping." . PHP_EOL, "light_red");
                 continue;
             }
 
             if ($this->checkLog($migrationName)) {
-                Cli::printer("⚠️  $migrationName already migrated. Skipping." . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $migrationName already migrated (in log). Skipping." . PHP_EOL, "light_yellow");
             } else {
-                (new $migrationName)->up();
-                $this->writeLog($migrationName);
-                Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, "light_green");
+                try {
+                    (new $migrationName)->up();
+                    $this->writeLog($migrationName);
+                    Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, "light_green");
+                } catch (\RuntimeException $e) {
+                    if (str_contains($e->getMessage(), 'already exists')) {
+                        $this->writeLog($migrationName);
+                        Cli::printer("⚠️  {$e->getMessage()}. Logged as migrated." . PHP_EOL, "light_yellow");
+                    } else {
+                        Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                        throw $e;
+                    }
+                } catch (\Throwable $e) {
+                    Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                    throw $e;
+                }
             }
         }
     }
