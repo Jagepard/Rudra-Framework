@@ -78,7 +78,7 @@ class MakeContainer extends FileCreator
     
     }
 
-    private function createContainersController(string $container): string
+    protected function createContainersController(string $container): string
     {
         return <<<EOT
 <?php declare(strict_types=1);
@@ -121,7 +121,7 @@ class {$container}Controller extends ShipController implements ContainerControll
 EOT;
     }
 
-    private function createRoutes(): string
+    protected function createRoutes(): string
     {
         return <<<EOT
 <?php
@@ -141,7 +141,7 @@ return [
 EOT;
     }
 
-    private function createConfig(string $container): string
+    protected function createConfig(string $container): string
     {
         return <<<EOT
 <?php
@@ -164,7 +164,7 @@ return [
 EOT;
     }
 
-    private function createDirectories(string $path): void
+    protected function createDirectories(string $path): void
     {
         if (!is_dir($path . 'UI')) {
             mkdir($path . 'UI', 0755, true);
