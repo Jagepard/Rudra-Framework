@@ -102,11 +102,26 @@ class Seed extends LoggerAdapter
             }
 
             if ($this->checkLog($seedName)) {
-                Cli::printer("⚠️  $seedName already seeded. Skipping." . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $seedName already seeded (in log). Skipping." . PHP_EOL, "light_yellow");
             } else {
-                (new $seedName)->create();
-                $this->writeLog($seedName);
-                Cli::printer("✅ $seedName seeded successfully" . PHP_EOL, "light_green");
+                try {
+                    (new $seedName)->create();
+                    $this->writeLog($seedName);
+                    Cli::printer("✅ $seedName seeded successfully" . PHP_EOL, "light_green");
+                } catch (\PDOException $e) {
+                    // Code 23000 - Integrity constraint violation (e.g., Duplicate entry 1062 in MySQL)
+                    if ($e->getCode() === '23000') {
+                        // Record already exists in DB. Sync the log so the seeder is skipped on subsequent runs.
+                        $this->writeLog($seedName); 
+                        Cli::printer("⚠️  Record already exists in DB. Logged as seeded to prevent future errors." . PHP_EOL, "light_yellow");
+                    } else {
+                        Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                        throw $e; // Re-throw other database exceptions
+                    }
+                } catch (\Throwable $e) {
+                    Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                    throw $e; // Re-throw fatal PHP exceptions
+                }
             }
         }
     }
