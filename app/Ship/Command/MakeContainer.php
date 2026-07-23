@@ -177,7 +177,20 @@ EOT;
 
     public function addConfig(string $container): void
     {
-        $path      = Rudra::config()->get('app.path') . "/config/setting.local.yml";
+        // Get current environment (from env var or app_env.php)
+        $env = getenv('APP_ENV');
+        if ($env === false || $env === '') {
+            $envFile = Rudra::config()->get('app.path') . '/app_env.php';
+            $env = file_exists($envFile) ? require $envFile : 'local';
+        }
+
+        // Path to environment-specific config file
+        $path = Rudra::config()->get('app.path') . "/config/setting.{$env}.yml";
+
+        if (!file_exists($path)) {
+            file_put_contents($path, "containers:\r\n", LOCK_EX);
+        }
+
         $namespace = strtolower($container) . ": App\Containers\\{$container}\\";
         $contents  = "\r\n    {$namespace}";
 
