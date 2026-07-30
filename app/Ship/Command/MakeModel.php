@@ -19,20 +19,20 @@ class MakeModel extends FileCreator
 {
     /**
      * 🧱 Interactive Model Generator (Entity + Repository)
-     * 
+     *
      * CLI wizard that scaffolds a Model following Porto architecture.
      * Automatically generates both the Entity and its corresponding Repository.
-     * 
+     *
      * Workflow:
-     *  1. Enter table name     → becomes Entity class name (e.g. "user" → "User")
-     *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
-     * 
+     *  1. Enter entity name  → accepts any format (item_tag_map, ItemTagMap, itemTagMap)
+     *                          → auto-converts to PascalCase for class name
+     *                          → auto-derives snake_case for table name
+     *  2. Enter container    → MUST be non-empty and must exist on disk
+     *
      * Generated files:
-     *  - App\Containers\{Name}\Entity\{Name}.php
-     *  - App\Containers\{Name}\Repository\{Name}Repository.php
-     * 
-     * Validates container existence before writing.
-     * 
+     *  - App\Containers\{Container}\Entity\{Name}.php
+     *  - App\Containers\{Container}\Repository\{Name}Repository.php
+     *
      * @see self::createEntity()     for Entity template generation
      * @see self::createRepository() for Repository template generation
      */
@@ -40,8 +40,15 @@ class MakeModel extends FileCreator
 
     public function actionIndex(): void
     {
+        // Accepts any format: item_tag_map, ItemTagMap, itemTagMap → returns ItemTagMap
         $className = $this->getValidCamelCaseName("🗄️  Enter entity name: ", "Entity");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+
+        // Derive snake_case table name from the PascalCase class name
+        $tableName = $this->toSnakeCase($className);
+
+        Cli::printer("   → Class: $className | Table: $tableName" . PHP_EOL, "light_green");
+
+        $container     = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
         $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
@@ -64,16 +71,14 @@ class MakeModel extends FileCreator
             return;
         }
 
-        $this->writeFile([$entityPath, $entityFile], $this->createEntity($className, $container));
+        $this->writeFile([$entityPath, $entityFile], $this->createEntity($className, $tableName, $container));
         $this->writeFile([$repositoryPath, $repositoryFile], $this->createRepository($className, $container));
-        
+
         Cli::printer("✅ Entity '$className' and Repository were created in container '$container'" . PHP_EOL, "light_green");
     }
 
-    protected function createEntity(string $className, string $container): string
+    protected function createEntity(string $className, string $tableName, string $container): string
     {
-        $table = strtolower($className);
-
         return <<<EOT
 <?php declare(strict_types=1);
 
@@ -95,7 +100,7 @@ use Rudra\Model\Entity;
  */
 class {$className} extends Entity
 {
-    public static ?string \$table = "$table";
+    public static ?string \$table = "$tableName";
 }
 
 EOT;
