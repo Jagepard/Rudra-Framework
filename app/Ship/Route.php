@@ -57,7 +57,7 @@ class Route
     protected function getRoutes(string $container): array
     {
         $cacheDir  = "../storage/cache";
-        $cacheTime = config('cache.time', 'routes');
+        $cacheTime = config('cache_time.routes');
         $routesDir = $cacheDir . "/routes";
         $cacheFile = $routesDir . "/routes_" . $container . ".php";
         $cacheLifetime = strtotime($cacheTime) - time();

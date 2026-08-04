@@ -44,8 +44,8 @@ class RudraDumper
      */
     private static function renderCaller(): void
     {
-        $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
-        $appPath = Rudra::config()->get('app.path');
+        $trace   = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 5);
+        $appPath = Rudra::config()->get('app_path');
         
         foreach ($trace as $frame) {
             if (!isset($frame['file']) || 

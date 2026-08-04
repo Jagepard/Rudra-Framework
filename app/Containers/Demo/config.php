@@ -65,7 +65,7 @@ return [
         'array_cache'       => fn() => new ArrayCache(),
     ],
 
-    'demo.settings' => [
+    'demo_settings' => [
         'demo_key' => 'demo_value',
-    ],
+    ]
 ];
