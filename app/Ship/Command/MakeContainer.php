@@ -158,7 +158,7 @@ EOT;
 return [
     'contracts' => [],
     'services' => [],
-    '{$container}.settings' => [],
+    '{$container}_settings' => [],
 ];
 
 EOT;

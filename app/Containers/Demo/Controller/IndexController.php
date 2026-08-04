@@ -115,7 +115,7 @@ class IndexController extends DemoController
         $this->info("Hello $name");
         
         // Access container-specific settings
-        $this->info(config('demo.settings'));
+        $this->info(config('demo_settings'));
 
         // ─── NOTIFICATION (STATELESS) ─────────────────────────
         // Lightweight notification — no payload, just a signal

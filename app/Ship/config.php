@@ -20,9 +20,9 @@ return [
 
     'services'  => [
         'connection' => [PDO::class, [
-            config('database', 'dsn'),
-            config('database', 'username'),
-            config('database', 'password')
+            config('database.dsn'),
+            config('database.username'),
+            config('database.password')
         ]],
         "debugbar" => StandardDebugBar::class
     ]

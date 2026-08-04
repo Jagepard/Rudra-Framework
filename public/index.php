@@ -17,7 +17,6 @@ use Rudra\Auth\Auth;
 use Symfony\Component\Yaml\Yaml;
 use Rudra\Container\Facades\Rudra;
 
-RudraDumper::register();
 (new Whoops\Run)->appendHandler(new Whoops\Handler\PrettyPageHandler)->register();
 
 $env = match (true) {
@@ -35,10 +34,11 @@ Rudra::config()->set(['url' => php_sapi_name() === 'cli-server'
         . '://' . Rudra::request()->server()->get('SERVER_NAME')
 ]);
 
-Rudra::config()->set(["app.path" => realpath('..')]);
+Rudra::config()->set(["app_path" => realpath('..')]);
 Rudra::config()->set(require_once "../app/Ship/config.php");
 Rudra::binding(Rudra::config()->get("contracts"));
 Rudra::waiting(Rudra::config()->get("services"));
+RudraDumper::register();
 
 if (Rudra::config()->get("environment") === "development") {
     $debugbar = Rudra::get("debugbar");

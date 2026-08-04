@@ -38,7 +38,7 @@ class RoutingCollector extends DataCollector implements Renderable
         try {
             $containers = Rudra::config()->get('containers') ?? [];
             $attributes = (bool) (Rudra::config()->get('attributes') ?? false);
-            $appPath = Rudra::config()->get('app.path');
+            $appPath = Rudra::config()->get('app_path');
             
             $routes = [];
             $total = 0;

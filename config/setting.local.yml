@@ -1,6 +1,6 @@
 secret: 'YOUR_GENERATED_SECRET_HERE' # Need to be changed - php rudra secret
 environment: development
-cache.time:
+cache_time:
     routes: now
     templates: now
     database: now
@@ -9,7 +9,7 @@ roles:
     editor: 1
     moderator: 2
     user: 3
-http.errors:
+http_errors:
     404:
         controller: App\Ship\Errors\Controller\HttpErrorsController 
         action: error404
