@@ -11,6 +11,7 @@
 
 namespace App\Ship;
 
+use App\Ship\Utils\Theme;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
 use App\Containers\Demo\Observer\TestObserver;
@@ -27,7 +28,6 @@ class ShipController extends Controller implements ShipControllerInterface
     public function shipInit(): void
     {
         if (Rudra::config()->get("environment") === "development") {
-            
             Rudra::get("debugbar")['time']->stopMeasure('routing');
             Rudra::get("debugbar")['time']->stopMeasure('application');
 
@@ -36,6 +36,7 @@ class ShipController extends Controller implements ShipControllerInterface
             ]);
         }
 
+        data(["thema" => Theme::Yeti]);
         $this->eventRegistration();
     }
 
