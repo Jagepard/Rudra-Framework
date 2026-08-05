@@ -18,8 +18,6 @@ trait HelperTrait
     /**
      * Output message to debugbar.
      * Accepts string or array (arrays are formatted as pretty JSON).
-     *
-     * @param array|string $message Message to display
      */
     public function info(array|string $message): void
     {
