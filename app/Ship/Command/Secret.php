@@ -45,7 +45,7 @@ class Secret
         // Display header
         Cli::printer("🔑 Key Rotation Tool:" . PHP_EOL, "light_magenta");
 
-        $basePath = Rudra::config()->get('app.path') . '/';
+        $basePath = Rudra::config()->get('app_path') . '/';
         $files = [
             'config/setting.local.yml',
             'config/setting.ddev.yml',
