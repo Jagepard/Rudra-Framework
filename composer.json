@@ -63,7 +63,8 @@
     "scripts": {
         "post-create-project-cmd": [
             "@php scripts/post-create-project.php",
-            "@php rudra secret"
+            "@php rudra secret",
+            "@php rudra storage:publish"
         ]
     }
 }
