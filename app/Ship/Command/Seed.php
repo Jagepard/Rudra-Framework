@@ -57,10 +57,10 @@ class Seed extends LoggerAdapter
 
         // Resolve seed directory and namespace
         if (!empty($container)) {
-            $seedPath = Rudra::config()->get('app.path') . "/app/Containers/$container/Seed/";
+            $seedPath = Rudra::config()->get('app_path') . "/app/Containers/$container/Seed/";
             $namespace = "App\\Containers\\$container\\Seed\\";
         } else {
-            $seedPath = Rudra::config()->get('app.path') . "/app/Ship/Seed/";
+            $seedPath = Rudra::config()->get('app_path') . "/app/Ship/Seed/";
             $namespace = "App\\Ship\\Seed\\";
         }
 

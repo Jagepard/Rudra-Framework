@@ -54,7 +54,7 @@ class RudraDumper
                 continue;
             }
             
-            // Calculate relative path from app.path
+            // Calculate relative path from app_path
             $relativePath = self::getRelativePath($frame['file'], $appPath);
             
             echo sprintf(

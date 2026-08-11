@@ -47,7 +47,7 @@ class MakeContainer extends FileCreator
     public function actionIndex(): void
     {
         $container     = $this->getValidCamelCaseName("📦 Enter container name: ", "Container");
-        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+        $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, "light_yellow");
@@ -180,12 +180,12 @@ EOT;
         // Get current environment (from env var or app_env.php)
         $env = getenv('APP_ENV');
         if ($env === false || $env === '') {
-            $envFile = Rudra::config()->get('app.path') . '/app_env.php';
+            $envFile = Rudra::config()->get('app_path') . '/app_env.php';
             $env = file_exists($envFile) ? require $envFile : 'local';
         }
 
         // Path to environment-specific config file
-        $path = Rudra::config()->get('app.path') . "/config/setting.{$env}.yml";
+        $path = Rudra::config()->get('app_path') . "/config/setting.{$env}.yml";
 
         if (!file_exists($path)) {
             file_put_contents($path, "containers:\r\n", LOCK_EX);

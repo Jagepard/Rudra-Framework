@@ -50,7 +50,7 @@ class Env
         }
 
         $env = $environments[$choice];
-        $appPath = Rudra::config()->get('app.path');
+        $appPath = Rudra::config()->get('app_path');
         $envFilePath = $appPath . '/app_env.php';
         $exampleFilePath = $appPath . '/app_env.php.example';
 

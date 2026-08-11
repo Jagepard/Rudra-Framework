@@ -40,7 +40,7 @@ class MakeMiddleware extends FileCreator
         $prefix = $this->getValidCamelCaseName("🛡️ Enter middleware name: ", "Middleware");
         $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
         $className = $prefix . 'Middleware';
-        $containerPath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+        $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");

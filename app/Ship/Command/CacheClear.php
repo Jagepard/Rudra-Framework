@@ -49,7 +49,7 @@ class CacheClear
             return;
         }
 
-        $cacheBasePath = Rudra::config()->get('app.path') . '/storage/cache';
+        $cacheBasePath = Rudra::config()->get('app_path') . '/storage/cache';
         $folderPath = !empty($type) ? $cacheBasePath . "/$type" : $cacheBasePath;
 
         if (!is_dir($folderPath)) {
