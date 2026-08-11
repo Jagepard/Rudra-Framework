@@ -51,7 +51,7 @@ class MakeSeed extends FileCreator
         $targetFile = "{$className}_seed.php";
 
         if (!empty($container)) {
-            $basePath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+            $basePath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
             
             if (!is_dir($basePath)) {
                 Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
@@ -62,7 +62,7 @@ class MakeSeed extends FileCreator
             $namespace = "App\\Containers\\$container\\Seed";
             $location = "container '$container'";
         } else {
-            $targetPath = Rudra::config()->get('app.path') . "/app/Ship/Seed/";
+            $targetPath = Rudra::config()->get('app_path') . "/app/Ship/Seed/";
             $namespace = "App\\Ship\\Seed";
             $location = "Ship";
         }

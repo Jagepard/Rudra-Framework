@@ -54,7 +54,7 @@ class MakeMigration extends FileCreator
         $targetFile = "{$className}_migration.php";
 
         if (!empty($container)) {
-            $basePath = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+            $basePath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
             
             if (!is_dir($basePath)) {
                 Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
@@ -65,7 +65,7 @@ class MakeMigration extends FileCreator
             $namespace = "App\\Containers\\$container\\Migration";
             $location = "container '$container'";
         } else {
-            $targetPath = Rudra::config()->get('app.path') . "/app/Ship/Migration/";
+            $targetPath = Rudra::config()->get('app_path') . "/app/Ship/Migration/";
             $namespace = "App\\Ship\\Migration";
             $location = "Ship";
         }

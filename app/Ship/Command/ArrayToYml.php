@@ -63,8 +63,8 @@ class ArrayToYml
             return;
         }
 
-        // Resolve paths using app.path config
-        $configPath = Rudra::config()->get('app.path') . '/config';
+        // Resolve paths using app_path config
+        $configPath = Rudra::config()->get('app_path') . '/config';
         $phpFile = $configPath . "/$filename.php";
         $ymlFile = $configPath . "/$filename.yml";
 

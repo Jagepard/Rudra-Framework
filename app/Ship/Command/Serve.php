@@ -48,7 +48,7 @@ class Serve
      */
     public function actionIndex(): void
     {
-        $publicPath = Rudra::config()->get('app.path') . '/public';
+        $publicPath = Rudra::config()->get('app_path') . '/public';
 
         if (!$this->validateEnvironment($publicPath)) {
             return;

@@ -43,7 +43,7 @@ class MakeController extends FileCreator
     {
         $controllerPrefix = $this->getValidCamelCaseName("🎮 Enter controller name: ", "Controller");
         $container        = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
-        $containerPath    = Rudra::config()->get('app.path') . "/app/Containers/$container/";
+        $containerPath    = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
             Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
@@ -134,7 +134,7 @@ EOT;
 
     public function addRoute(string $container, string $controllerPrefix): void
     {
-        $path   = Rudra::config()->get('app.path') . "/app/Containers/$container/routes.php";
+        $path   = Rudra::config()->get('app_path') . "/app/Containers/$container/routes.php";
         $routes = require_once $path;
         $namespace = "App\\Containers\\{$container}\\Controller\\{$controllerPrefix}Controller";
 
