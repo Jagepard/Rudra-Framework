@@ -50,7 +50,7 @@ composer create-project --prefer-dist --stability=dev rudra/framework newapp
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
-git checkout v26.7.27
+git checkout v26.9.3
 ddev start
 ddev launch
 ```
