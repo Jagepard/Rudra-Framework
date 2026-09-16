@@ -28,12 +28,20 @@ $env = match (true) {
 Rudra::config(Yaml::parseFile(__DIR__ . "/../config/setting.{$env}.yml"));
 
 // Respect reverse proxy headers (nginx, Cloudflare) for correct URL scheme
-Rudra::config()->set(['url' => php_sapi_name() === 'cli-server' 
-    ? 'http://127.0.0.1:8000' 
-    : (Rudra::request()->server()->get('HTTP_X_FORWARDED_PROTO') ?? 'http') 
-        . '://' . Rudra::request()->server()->get('SERVER_NAME')
-]);
+$server = Rudra::request()->server();
+$isCli  = php_sapi_name() === 'cli-server';
 
+if ($isCli) {
+    $url = 'http://127.0.0.1:8000';
+} else {
+    $isHttps = ($server->has('HTTP_X_FORWARDED_PROTO') && $server->get('HTTP_X_FORWARDED_PROTO') === 'https')
+            || ($server->has('HTTPS') && in_array($server->get('HTTPS'), ['on', '1'], true));
+    
+    $host = $server->get('SERVER_NAME') ?: 'localhost'; 
+    $url  = ($isHttps ? 'https' : 'http') . '://' . $host;
+}
+
+Rudra::config()->set(['url' => $url]);
 Rudra::config()->set(["app_path" => realpath('..')]);
 Rudra::config()->set(require_once "../app/Ship/config.php");
 Rudra::binding(Rudra::config()->get("contracts"));
