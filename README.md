@@ -50,16 +50,15 @@ composer create-project --prefer-dist --stability=dev rudra/framework newapp
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
+git fetch --tags
 git checkout v26.9.3
 ddev start
-ddev launch
 ```
 ### Via Git + DDEV (dev)
 ```bash
 git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
 ddev start
-ddev launch
 ```
 #### 🔑 Secret Keys
 
