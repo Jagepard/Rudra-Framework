@@ -52,6 +52,7 @@ git clone git@github.com:Jagepard/Rudra-Framework.git
 cd Rudra-Framework
 git fetch --tags
 git checkout v26.9.3
+git checkout master -- .ddev/config.yaml # Required for v26.9.3 and older
 ddev start
 ```
 ### Via Git + DDEV (dev)
