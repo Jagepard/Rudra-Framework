@@ -21,6 +21,7 @@ hooks:
     - exec: "composer install --no-interaction --no-scripts"
     - exec: "php scripts/post-create-project.php"
     - exec: "php rudra secret"
+    - exec: "php rudra storage:publish"
 
 # Key features of DDEV's config.yaml:
 
