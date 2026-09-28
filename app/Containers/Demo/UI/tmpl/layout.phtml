@@ -1,6 +1,3 @@
-<?php
-    use Rudra\Container\Facades\Rudra;
-?>
 <!doctype html>
 <html lang="en">
   <head>
@@ -13,8 +10,8 @@
 
     <title><?= $title ?></title>
 
-    <link href="<?= Rudra::config()->get('url') ?>/assets/bootswatch/<?= $thema ?>.min.css" rel="stylesheet"/>
-    <link href="<?= Rudra::config()->get('url') ?>/assets/css/prism.css" rel="stylesheet" />
+    <link href="<?= $baseUrl ?>/assets/bootswatch/<?= $thema ?>.min.css" rel="stylesheet"/>
+    <link href="<?= $baseUrl ?>/assets/css/prism.css" rel="stylesheet" />
 
     <style>
       .bd-placeholder-img {
@@ -32,7 +29,7 @@
       }
     </style>
 
-    <?php if (Rudra::config()->get('environment') === 'development') {
+    <?php if ($environment === 'development') {
         echo $debugbar->renderHead();
     } ?>
   </head>
@@ -40,9 +37,9 @@
     
     <?= $content ?> 
 
-    <?php if (Rudra::config()->get('environment') === 'development') {
+    <?php if ($environment === 'development') {
         echo $debugbar->render();
     } ?>
-    <script src="<?= Rudra::config()->get('url') ?>/assets/js/prism.js"></script>
+    <script src="<?= $baseUrl ?>/assets/js/prism.js"></script>
   </body>
 </html>
