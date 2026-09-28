@@ -15,6 +15,7 @@ use App\Ship\Utils\Theme;
 use DebugBar\DebugBarException;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
+use Rudra\Container\Facades\Request;
 use App\Containers\Demo\Observer\TestObserver;
 use Rudra\Controller\ShipControllerInterface;
 use App\Containers\Demo\Listener\MessageListener;
@@ -41,7 +42,13 @@ class ShipController extends Controller implements ShipControllerInterface
             ]);
         }
 
-        data(["thema" => Theme::Yeti]);
+        data([
+            "thema"   => Theme::Yeti,
+            "baseUrl" => Rudra::config()->get('url'),
+            "environment" => Rudra::config()->get('environment'),
+            "currentPage" => Request::server()->get('REQUEST_URI') ?? '/'
+        ]);
+
         $this->eventRegistration();
     }
 

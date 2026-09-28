@@ -1,13 +1,9 @@
-<?php
-    use Rudra\Container\Facades\Rudra;
-    $url = Rudra::config()->get('url');
-?>
 <main>
     <div class="container py-4">
         <!-- ─── HEADER ─────────────────────────────────────────── -->
         <header class="pb-3 mb-4 border-bottom">
             <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
-                <img src="<?= $url ?>/images/rudra.png" alt="Rudra Framework" width="5%" class="me-2">
+                <img src="<?= $baseUrl ?>/images/rudra.png" alt="Rudra Framework" width="5%" class="me-2">
                 <span class="fs-4 fw-bold">Rudra Framework</span>
                 <span class="badge bg-secondary ms-2">~15 MB</span>
                 <span class="badge bg-info ms-1">PHP 8.3+</span>
