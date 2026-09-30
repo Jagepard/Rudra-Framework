@@ -130,7 +130,7 @@ class IndexController extends DemoController
         // ─── CONTENT RESOLUTION ───────────────────────────────
         // Cache-first strategy: try cache, fall back to view rendering
         data([
-            'content' => cache(['mainpage']) ?? view(['index', 'mainpage']),
+            'content' => cache(['mainpage']) ?? view(['index', 'mainpage'], data()),
         ]);
 
         // ─── FINAL RENDER ─────────────────────────────────────
