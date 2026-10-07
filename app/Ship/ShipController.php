@@ -16,6 +16,7 @@ use DebugBar\DebugBarException;
 use Rudra\Controller\Controller;
 use Rudra\Container\Facades\Rudra;
 use Rudra\Container\Facades\Request;
+use Rudra\Container\Facades\Session;
 use App\Containers\Demo\Observer\TestObserver;
 use Rudra\Controller\ShipControllerInterface;
 use App\Containers\Demo\Listener\MessageListener;
@@ -42,11 +43,16 @@ class ShipController extends Controller implements ShipControllerInterface
             ]);
         }
 
+        $isAuth = Session::has('user');
+
         data([
-            "thema"   => Theme::Yeti,
+            "theme"   => Theme::Yeti,
             "baseUrl" => Rudra::config()->get('url'),
             "environment" => Rudra::config()->get('environment'),
-            "currentPage" => Request::server()->get('REQUEST_URI') ?? '/'
+            "currentPage" => Request::server()->get('REQUEST_URI') ?? '/',
+            "isAuth" => $isAuth,
+            "user"   => $isAuth ? Session::get("user") : null,
+            "csrf"   => Session::get('csrf_token')[0] ?? ''
         ]);
 
         $this->eventRegistration();
