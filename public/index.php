@@ -9,7 +9,7 @@
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  */
 
-require "../vendor/autoload.php";
+require '../vendor/autoload.php';
 
 use App\Ship\Route;
 use App\Ship\Utils\RudraDumper;
@@ -42,15 +42,15 @@ if ($isCli) {
 }
 
 Rudra::config()->set(['url' => $url]);
-Rudra::config()->set(["app_path" => realpath('..')]);
-Rudra::config()->set(require_once "../app/Ship/config.php");
-Rudra::binding(Rudra::config()->get("contracts"));
-Rudra::waiting(Rudra::config()->get("services"));
+Rudra::config()->set(['app_path' => realpath('..')]);
+Rudra::config()->set(require_once '../app/Ship/config.php');
+Rudra::binding(Rudra::config()->get('contracts'));
+Rudra::waiting(Rudra::config()->get('services'));
 RudraDumper::register();
 
-if (Rudra::config()->get("environment") === "development") {
-    $debugbar = Rudra::get("debugbar");
-    $debugbar->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get("connection"))));
+if (Rudra::config()->get('environment') === 'development') {
+    $debugbar = Rudra::get('debugbar');
+    $debugbar->addCollector(new DebugBar\DataCollector\PDO\PDOCollector(new DebugBar\DataCollector\PDO\TraceablePDO(Rudra::get('connection'))));
     $debugbar->addCollector(new App\Ship\Utils\SecurityCollector());
     $debugbar->addCollector(new App\Ship\Utils\RoutingCollector());
     
@@ -58,18 +58,12 @@ if (Rudra::config()->get("environment") === "development") {
         $debugbar->addCollector(new DebugBar\DataCollector\ConfigCollector(Rudra::config()->all()));
     }
 
-    $debugbar["time"]->startMeasure("application");
-    $debugbar["time"]->startMeasure("index");
+    $debugbar['time']->startMeasure('application');
+    $debugbar['time']->startMeasure('index');
 } 
 
-// Prefix "RSID" = Rudra Session ID
+// Prefix 'RSID' = Rudra Session ID
 // Application-wide stable session name (independent of user IP and User-Agent)
-session_name("RSID_" . substr(hash('sha256', Rudra::config()->get('secret')), 0, 12));
+session_name('RSID_' . substr(hash('sha256', Rudra::config()->get('secret')), 0, 12));
 
 Rudra::get(Route::class)->run();
-
-/*
- | php rudra serve to run built-in web server
- | sudo chown -R $USER:www-data 'path to app'
- | sudo chmod -R 755 path to app
- */

@@ -18,7 +18,7 @@ class ErrorsController extends ShipController
 {
     public function containerInit(): void
     {
-        View::setup(dirname(__DIR__) . "/Errors/UI/tmpl");
-        data([ "title" => "Rudra Framework"]);
+        View::setup(dirname(__DIR__) . '/Errors/UI/tmpl');
+        data([ 'title' => 'Rudra Framework']);
     }
 }

@@ -17,8 +17,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 class DebugListeners
 {
     // Table formatting constants
-    private const MASK  = "| %-3s | %-15s | %-49s | %-15s |" . PHP_EOL;
-    private const FRAME = "+-----+-----------------+---------------------------------------------------+-----------------+" . PHP_EOL;
+    private const MASK  = '| %-3s | %-15s | %-49s | %-15s |' . PHP_EOL;
+    private const FRAME = '+-----+-----------------+---------------------------------------------------+-----------------+' . PHP_EOL;
 
     /**
      * 🎧 Debug Listeners List
@@ -45,26 +45,26 @@ class DebugListeners
 
         // Display header with emoji
         echo PHP_EOL;
-        Cli::printer("🎧 Event Listeners Reference:" . PHP_EOL, "light_magenta");
+        Cli::printer('🎧 Event Listeners Reference:' . PHP_EOL, 'light_magenta');
 
         // Top frame
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
 
         // Table header with background
-        Cli::printer(sprintf(self::MASK, "#", "Event", "Listener", "Action"), "light_cyan");
+        Cli::printer(sprintf(self::MASK, '#', 'Event', 'Listener', 'Action'), 'light_cyan');
 
         // Separator frame
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
 
         // Data rows or empty message
         if (empty($data)) {
-            Cli::printer("ℹ️  No listeners registered" . PHP_EOL, "light_cyan");
+            Cli::printer('ℹ️  No listeners registered' . PHP_EOL, 'light_cyan');
         } else {
             $this->renderTable($data);
         }
 
         // Bottom frame
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
     }
 
     /**
@@ -74,7 +74,7 @@ class DebugListeners
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["light_blue", "light_green"]; // alternating row colors
+        $colors = ['light_blue', 'light_green']; // alternating row colors
 
         foreach ($data as $name => $listeners) {
             $color = $colors[($i - 1) % 2];
@@ -82,8 +82,8 @@ class DebugListeners
                 self::MASK,
                 $i,
                 $name,
-                $listeners["listener"],
-                $listeners["method"] ?? 'actionIndex'
+                $listeners['listener'],
+                $listeners['method'] ?? 'actionIndex'
             );
             Cli::printer($row, $color);
             $i++;

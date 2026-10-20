@@ -18,8 +18,8 @@ use Rudra\Router\RouterFacade as Router;
 class DebugRouter
 {
     // Table formatting constants
-    private const MASK  = "| %-3s | %-45s | %-6s | %-65s | %-25s |" . PHP_EOL;
-    private const FRAME = "+-----+-----------------------------------------------+--------+-------------------------------------------------------------------+---------------------------+" . PHP_EOL;
+    private const MASK  = '| %-3s | %-45s | %-6s | %-65s | %-25s |' . PHP_EOL;
+    private const FRAME = '+-----+-----------------------------------------------+--------+-------------------------------------------------------------------+---------------------------+' . PHP_EOL;
 
     /**
      * 🗺️ Route List Viewer
@@ -70,12 +70,12 @@ class DebugRouter
         $this->simulateRequestContext();
 
         // Prompt for container name
-        Cli::printer("📦 Enter container name: ", "light_magenta");
+        Cli::printer('📦 Enter container name: ', 'light_magenta');
         $container = ucfirst(trim(Cli::reader()));
 
         // Validate container name format
         if (empty($container) || !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)' . PHP_EOL, 'light_red');
             return;
         }
 
@@ -91,21 +91,21 @@ class DebugRouter
 
         // Display container header
         echo PHP_EOL;
-        Cli::printer("📦 " . strtoupper($container) . PHP_EOL, "light_magenta");
+        Cli::printer('📦 ' . strtoupper($container) . PHP_EOL, 'light_magenta');
 
         // Render table frame and header
-        Cli::printer(self::FRAME, "light_blue");
-        Cli::printer(sprintf(self::MASK, "#", "Route", "Method", "Controller", "Action"), "light_cyan");
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
+        Cli::printer(sprintf(self::MASK, '#', 'Route', 'Method', 'Controller', 'Action'), 'light_cyan');
+        Cli::printer(self::FRAME, 'light_blue');
 
         // Render data rows or empty message
         if (empty($routes)) {
-            Cli::printer("ℹ️  No routes found for container '$container'" . PHP_EOL, "light_cyan");
+            Cli::printer("ℹ️  No routes found for container '$container'" . PHP_EOL, 'light_cyan');
         } else {
             $this->renderTable($routes);
         }
 
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
     }
 
     /**
@@ -115,7 +115,7 @@ class DebugRouter
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["light_blue", "light_green"]; // alternating row colors
+        $colors = ['light_blue', 'light_green']; // alternating row colors
 
         foreach ($data as $routes) {
             foreach ($routes as $route) {
@@ -139,8 +139,8 @@ class DebugRouter
      */
     protected function simulateRequestContext(): void
     {
-        $_SERVER["REQUEST_METHOD"] = 'GET';
-        $_SERVER["REQUEST_URI"]    = '';
+        $_SERVER['REQUEST_METHOD'] = 'GET';
+        $_SERVER['REQUEST_URI']    = '';
     }
 
     /**
@@ -151,10 +151,10 @@ class DebugRouter
      */
     protected function getRoutes(string $container): array
     {
-        $path = "app/Containers/" . ucfirst($container) . "/routes";
+        $path = 'app/Containers/' . ucfirst($container) . '/routes';
 
-        if (file_exists($path . ".php")) {
-            return Router::annotationCollector(require $path . ".php", true, Rudra::config()->get("attributes"));
+        if (file_exists($path . '.php')) {
+            return Router::annotationCollector(require $path . '.php', true, Rudra::config()->get("attributes"));
         }
 
         return [];

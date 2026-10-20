@@ -39,13 +39,13 @@ class CacheClear
      */
     public function actionIndex(): void
     {
-        Cli::printer("🧹 Cache Clearer:" . PHP_EOL, "light_magenta");
-        Cli::printer("Enter cache type [database, routes, templates, twig] (empty for all): ", "light_cyan");
+        Cli::printer('🧹 Cache Clearer:' . PHP_EOL, 'light_magenta');
+        Cli::printer('Enter cache type [database, routes, templates, twig] (empty for all): ', 'light_cyan');
         $type = trim(Cli::reader());
 
         $allowedTypes = ['database', 'routes', 'templates', 'twig'];
         if (!empty($type) && !in_array($type, $allowedTypes, true)) {
-            Cli::printer("❌ Invalid cache type. Allowed: " . implode(', ', $allowedTypes) . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid cache type. Allowed: ' . implode(', ', $allowedTypes) . PHP_EOL, 'light_red');
             return;
         }
 
@@ -53,7 +53,7 @@ class CacheClear
         $folderPath = !empty($type) ? $cacheBasePath . "/$type" : $cacheBasePath;
 
         if (!is_dir($folderPath)) {
-            Cli::printer("⚠️  Cache directory does not exist: $folderPath" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Cache directory does not exist: $folderPath" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -61,10 +61,10 @@ class CacheClear
         if ($this->clearDirectory($folderPath)) {
             $message = !empty($type) 
                 ? "✅ Cache '$type' was cleared" . PHP_EOL 
-                : "✅ All caches were cleared" . PHP_EOL;
-            Cli::printer($message, "light_green");
+                : '✅ All caches were cleared' . PHP_EOL;
+            Cli::printer($message, 'light_green');
         } else {
-            Cli::printer("❌ Failed to clear cache: $folderPath" . PHP_EOL, "light_red");
+            Cli::printer("❌ Failed to clear cache: $folderPath" . PHP_EOL, 'light_red');
         }
     }
 

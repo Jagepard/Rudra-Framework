@@ -41,40 +41,40 @@ class MakeModel extends FileCreator
     public function actionIndex(): void
     {
         // Accepts any format: item_tag_map, ItemTagMap, itemTagMap → returns ItemTagMap
-        $className = $this->getValidCamelCaseName("🗄️  Enter entity name: ", "Entity");
+        $className = $this->getValidCamelCaseName('🗄️  Enter entity name: ', 'Entity');
 
         // Derive snake_case table name from the PascalCase class name
         $tableName = $this->toSnakeCase($className);
 
-        Cli::printer("   → Class: $className | Table: $tableName" . PHP_EOL, "light_green");
+        Cli::printer("   → Class: $className | Table: $tableName" . PHP_EOL, 'light_green');
 
-        $container     = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $container     = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
-        $entityPath     = $containerPath . "Entity/";
-        $repositoryPath = $containerPath . "Repository/";
+        $entityPath     = $containerPath . 'Entity/';
+        $repositoryPath = $containerPath . 'Repository/';
         $entityFile     = "{$className}.php";
         $repositoryFile = "{$className}Repository.php";
 
         if (file_exists($entityPath . $entityFile)) {
-            Cli::printer("⚠️  Entity '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Entity '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
         if (file_exists($repositoryPath . $repositoryFile)) {
-            Cli::printer("⚠️  Repository '{$className}Repository' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Repository '{$className}Repository' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
         $this->writeFile([$entityPath, $entityFile], $this->createEntity($className, $tableName, $container));
         $this->writeFile([$repositoryPath, $repositoryFile], $this->createRepository($className, $container));
 
-        Cli::printer("✅ Entity '$className' and Repository were created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Entity '$className' and Repository were created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     protected function createEntity(string $className, string $tableName, string $container): string
@@ -100,7 +100,7 @@ use Rudra\Model\Entity;
  */
 class {$className} extends Entity
 {
-    public static ?string \$table = "$tableName";
+    public static ?string \$table = '$tableName';
 }
 
 EOT;

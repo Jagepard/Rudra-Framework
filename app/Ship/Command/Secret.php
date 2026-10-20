@@ -38,12 +38,12 @@ class Secret
     {
         // Initialize server variables required by Auth/Request components
         Request::server()->set([
-            "REMOTE_ADDR"     => "127.0.0.1",
-            "HTTP_USER_AGENT" => "Mozilla",
+            'REMOTE_ADDR'     => '127.0.0.1',
+            'HTTP_USER_AGENT' => 'Mozilla',
         ]);
 
         // Display header
-        Cli::printer("🔑 Key Rotation Tool:" . PHP_EOL, "light_magenta");
+        Cli::printer('🔑 Key Rotation Tool:' . PHP_EOL, 'light_magenta');
 
         $basePath = Rudra::config()->get('app_path') . '/';
         $files = [
@@ -60,36 +60,36 @@ class Secret
 
             // Check if file exists
             if (!file_exists($filePath)) {
-                Cli::printer("⚠️  Skipped (not found): {$relativePath}" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  Skipped (not found): {$relativePath}" . PHP_EOL, 'light_yellow');
                 $skipped++;
                 continue;
             }
 
             // Check if file is writable
             if (!is_writable($filePath)) {
-                Cli::printer("❌ Cannot write: {$relativePath}" . PHP_EOL, "light_red");
+                Cli::printer("❌ Cannot write: {$relativePath}" . PHP_EOL, 'light_red');
                 $skipped++;
                 continue;
             }
 
-            // Generate new secret (8 bytes = 16 hex chars)
-            $secret = bin2hex(random_bytes(8));
+            // Generate new secret (16 bytes = 32 hex chars)
+            $secret = bin2hex(random_bytes(16));
 
             $content = file_get_contents($filePath);
 
-            // Match "secret:" line with or without quotes, preserving YAML structure
+            // Match 'secret:' line with or without quotes, preserving YAML structure
             $pattern = '/^secret:\s*(?:[\'"][^\'"]*[\'"]|[^\s#]+).*/m';
             $newContent = preg_replace($pattern, "secret: '{$secret}'", $content);
 
             // Check if replacement was successful
             if ($newContent === null || $newContent === $content) {
-                Cli::printer("⚠️  Could not update (no 'secret:' key found): {$relativePath}" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  Could not update (no 'secret:' key found): {$relativePath}" . PHP_EOL, 'light_yellow');
                 $skipped++;
                 continue;
             }
 
             file_put_contents($filePath, $newContent);
-            Cli::printer("✅ {$relativePath}: {$secret}" . PHP_EOL, "light_green");
+            Cli::printer("✅ {$relativePath}: {$secret}" . PHP_EOL, 'light_green');
             $updated++;
         }
     }

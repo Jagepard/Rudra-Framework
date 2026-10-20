@@ -20,7 +20,7 @@ class Seed extends LoggerAdapter
 {
     public function __construct()
     {
-        parent::__construct("rudra_seeds");
+        parent::__construct('rudra_seeds');
     }
 
     /**
@@ -46,12 +46,12 @@ class Seed extends LoggerAdapter
     public function actionIndex(): void
     {
         // Prompt for container name (optional)
-        Cli::printer("📦 Enter container (empty for Ship): ", "light_cyan");
+        Cli::printer('📦 Enter container (empty for Ship): ', 'light_cyan');
         $container = ucfirst(trim(Cli::reader()));
 
         // Validate container name if provided
         if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)' . PHP_EOL, 'light_red');
             return;
         }
 
@@ -60,13 +60,13 @@ class Seed extends LoggerAdapter
             $seedPath = Rudra::config()->get('app_path') . "/app/Containers/$container/Seed/";
             $namespace = "App\\Containers\\$container\\Seed\\";
         } else {
-            $seedPath = Rudra::config()->get('app_path') . "/app/Ship/Seed/";
-            $namespace = "App\\Ship\\Seed\\";
+            $seedPath = Rudra::config()->get('app_path') . '/app/Ship/Seed/';
+            $namespace = 'App\\Ship\\Seed\\';
         }
 
         // Check if seed directory exists
         if (!is_dir($seedPath)) {
-            Cli::printer("⚠️  Seed directory does not exist: $seedPath" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Seed directory does not exist: $seedPath" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -81,7 +81,7 @@ class Seed extends LoggerAdapter
         });
 
         if (empty($files)) {
-            Cli::printer("ℹ️  No seeds found" . PHP_EOL, "light_cyan");
+            Cli::printer('ℹ️  No seeds found' . PHP_EOL, 'light_cyan');
             return;
         }
 
@@ -97,29 +97,29 @@ class Seed extends LoggerAdapter
 
             // Check if class exists to prevent fatal errors
             if (!class_exists($seedName)) {
-                Cli::printer("❌ Class '$seedName' not found. Skipping." . PHP_EOL, "light_red");
+                Cli::printer("❌ Class '$seedName' not found. Skipping." . PHP_EOL, 'light_red');
                 continue;
             }
 
             if ($this->checkLog($seedName)) {
-                Cli::printer("⚠️  $seedName already seeded (in log). Skipping." . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $seedName already seeded (in log). Skipping." . PHP_EOL, 'light_yellow');
             } else {
                 try {
                     (new $seedName)->create();
                     $this->writeLog($seedName);
-                    Cli::printer("✅ $seedName seeded successfully" . PHP_EOL, "light_green");
+                    Cli::printer("✅ $seedName seeded successfully" . PHP_EOL, 'light_green');
                 } catch (\PDOException $e) {
                     // Code 23000 - Integrity constraint violation (e.g., Duplicate entry 1062 in MySQL)
                     if ($e->getCode() === '23000') {
                         // Record already exists in DB. Sync the log so the seeder is skipped on subsequent runs.
                         $this->writeLog($seedName); 
-                        Cli::printer("⚠️  Record already exists in DB. Logged as seeded to prevent future errors." . PHP_EOL, "light_yellow");
+                        Cli::printer('⚠️  Record already exists in DB. Logged as seeded to prevent future errors.' . PHP_EOL, 'light_yellow');
                     } else {
-                        Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                        Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, 'light_red');
                         throw $e; // Re-throw other database exceptions
                     }
                 } catch (\Throwable $e) {
-                    Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                    Cli::printer("❌ Seeding failed: {$e->getMessage()}" . PHP_EOL, 'light_red');
                     throw $e; // Re-throw fatal PHP exceptions
                 }
             }

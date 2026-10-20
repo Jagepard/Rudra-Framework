@@ -68,12 +68,12 @@ class Serve
     private function validateEnvironment(string $publicPath): bool
     {
         if (!is_dir($publicPath)) {
-            Cli::printer("\n❌  Public directory not found: {$publicPath}\n\n", "light_red");
+            Cli::printer("\n❌  Public directory not found: {$publicPath}\n\n", 'light_red');
             return false;
         }
 
         if ($this->isPortInUse()) {
-            Cli::printer("\n⚠️  Port " . self::PORT . " is already in use\n\n", "light_yellow");
+            Cli::printer("\n⚠️  Port " . self::PORT . " is already in use\n\n", 'light_yellow');
             return false;
         }
 
@@ -85,19 +85,19 @@ class Serve
         $phpVersion = PHP_VERSION;
         $line = str_repeat('━', 54);
         
-        Cli::printer("{$line}\n", "dark_gray");
-        Cli::printer(sprintf("  🚀  Rudra Development Server  (PHP %s)\n", $phpVersion), "light_green");
-        Cli::printer("{$line}\n", "dark_gray");
+        Cli::printer("{$line}\n", 'dark_gray');
+        Cli::printer(sprintf("  🚀  Rudra Development Server  (PHP %s)\n", $phpVersion), 'light_green');
+        Cli::printer("{$line}\n", 'dark_gray');
     }
 
     private function renderServerInfo(string $publicPath): void
     {
-        $url = "http://" . self::HOST . ":" . self::PORT;
+        $url = 'http://' . self::HOST . ':' . self::PORT;
         
-        Cli::printer(sprintf("  🌐  %s\n", $url), "light_cyan");
-        Cli::printer(sprintf("  📁  %s\n", $publicPath), "light_gray");
-        Cli::printer(sprintf("  🛑  %s\n\n", "Press Ctrl+C to stop"), "light_yellow");
-        Cli::printer(str_repeat('━', 54) . "\n\n", "dark_gray");
+        Cli::printer(sprintf("  🌐  %s\n", $url), 'light_cyan');
+        Cli::printer(sprintf("  📁  %s\n", $publicPath), 'light_gray');
+        Cli::printer(sprintf("  🛑  %s\n\n", 'Press Ctrl+C to stop'), 'light_yellow');
+        Cli::printer(str_repeat('━', 54) . "\n\n", 'dark_gray');
     }
 
     private function isPortInUse(): bool

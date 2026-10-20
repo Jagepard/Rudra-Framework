@@ -10,11 +10,11 @@
  * @license https://mozilla.org/MPL/2.0/  MPL-2.0
  */
 
-if (php_sapi_name() !== "cli") {
+if (php_sapi_name() !== 'cli') {
     exit;
 }
 
-require __DIR__ . "/vendor/autoload.php";
+require __DIR__ . '/vendor/autoload.php';
 
 use Rudra\Cli\Console;
 use App\Ship\ShipController;
@@ -33,15 +33,15 @@ if ($env === false || $env === '') {
 $configFile = "config/setting.{$env}.yml";
 
 Rudra::config(Yaml::parseFile($configFile));
-Rudra::config()->set(["app_path" => realpath(__DIR__)]);
-Rudra::config()->set(require_once "app/Ship/config.php");
-Rudra::binding(Rudra::config()->get("contracts"));
-Rudra::waiting(Rudra::config()->get("services"));
+Rudra::config()->set(['app_path' => realpath(__DIR__)]);
+Rudra::config()->set(require_once 'app/Ship/config.php');
+Rudra::binding(Rudra::config()->get('contracts'));
+Rudra::waiting(Rudra::config()->get('services'));
 Rudra::set([Console::class, Console::class]);
 
 (new ShipController())->eventRegistration();
 
-foreach (Yaml::parseFile("config/commands.yml") as $name => $command) {
+foreach (Yaml::parseFile('config/commands.yml') as $name => $command) {
     Cli::addCommand($name, $command);
 }
 

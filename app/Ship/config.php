@@ -24,6 +24,6 @@ return [
             config('database.username'),
             config('database.password')
         ]],
-        "debugbar" => StandardDebugBar::class
+        'debugbar' => StandardDebugBar::class
     ]
 ];

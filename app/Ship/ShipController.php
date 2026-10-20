@@ -30,8 +30,8 @@ class ShipController extends Controller implements ShipControllerInterface
     #[\Override]
     public function shipInit(): void
     {
-        if (Rudra::config()->get("environment") === "development") {
-            $debugBar = Rudra::get("debugbar");
+        if (Rudra::config()->get('environment') === 'development') {
+            $debugBar = Rudra::get('debugbar');
             try {
                 $debugBar['time']->stopMeasure('routing');
                 $debugBar['time']->stopMeasure('application');
@@ -39,20 +39,20 @@ class ShipController extends Controller implements ShipControllerInterface
             }
 
             data([
-                "debugbar" => $debugBar->getJavascriptRenderer(),
+                'debugbar' => $debugBar->getJavascriptRenderer(),
             ]);
         }
 
         $isAuth = Session::has('user');
 
         data([
-            "theme"   => Theme::Yeti,
-            "baseUrl" => Rudra::config()->get('url'),
-            "environment" => Rudra::config()->get('environment'),
-            "currentPage" => Request::server()->get('REQUEST_URI') ?? '/',
-            "isAuth" => $isAuth,
-            "user"   => $isAuth ? Session::get("user") : null,
-            "csrf"   => Session::get('csrf_token')[0] ?? ''
+            'theme'   => Theme::Yeti,
+            'baseUrl' => Rudra::config()->get('url'),
+            'environment' => Rudra::config()->get('environment'),
+            'currentPage' => Request::server()->get('REQUEST_URI') ?? '/',
+            'isAuth' => $isAuth,
+            'user'   => $isAuth ? Session::get('user') : null,
+            'csrf'   => Session::get('csrf_token')[0] ?? ''
         ]);
 
         $this->eventRegistration();

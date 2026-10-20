@@ -15,8 +15,8 @@ use Rudra\Cli\ConsoleFacade as Cli;
 
 class Help
 {
-    private const MASK  = "| %-2s | %-22s | %-41s | %-15s |" . PHP_EOL;
-    private const FRAME = "+----+------------------------+-------------------------------------------+-----------------+" . PHP_EOL;
+    private const MASK  = '| %-2s | %-22s | %-41s | %-15s |' . PHP_EOL;
+    private const FRAME = '+----+------------------------+-------------------------------------------+-----------------+' . PHP_EOL;
 
     /**
      * 📖 CLI Command Reference
@@ -45,22 +45,22 @@ class Help
     public function actionIndex(): void
     {
         echo PHP_EOL;
-        Cli::printer("📖 Rudra CLI Command Reference:" . PHP_EOL, "light_magenta");
+        Cli::printer('📖 Rudra CLI Command Reference:' . PHP_EOL, 'light_magenta');
 
         // Top frame - use Cli::printer instead of echo
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
 
         // Table header - use Cli::printer with background
-        Cli::printer(sprintf(self::MASK, "#", "Command", "Controller", "Action"), "light_cyan");
+        Cli::printer(sprintf(self::MASK, '#', 'Command', 'Controller', 'Action'), 'light_cyan');
 
         // Separator frame
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
 
         // Data rows
         $this->renderTable(Cli::getRegistry());
 
         // Bottom frame  
-        Cli::printer(self::FRAME, "light_blue");
+        Cli::printer(self::FRAME, 'light_blue');
     }
 
     /**
@@ -70,11 +70,11 @@ class Help
     protected function renderTable(array $data): void
     {
         $i = 1;
-        $colors = ["light_blue", "light_green"]; // alternating row colors
+        $colors = ['light_blue', 'light_green']; // alternating row colors
 
         foreach ($data as $name => $routes) {
             $color = $colors[($i - 1) % 2];
-            $row = sprintf(self::MASK, $i, $name, $routes[0], $routes[1] ?? "actionIndex");
+            $row = sprintf(self::MASK, $i, $name, $routes[0], $routes[1] ?? 'actionIndex');
             Cli::printer($row, $color);
             $i++;
         }

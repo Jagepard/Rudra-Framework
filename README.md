@@ -195,7 +195,7 @@ class HelloController extends WebController
     public function greet(string $name): void
     {
         echo "<h1>Hello, {$name}!</h1>";
-        echo "<p>Your lucky number is: " . random_int(1, 100) . "</p>";
+        echo '<p>Your lucky number is: ' . random_int(1, 100) . '</p>';
     }
 }
 ```
@@ -272,20 +272,20 @@ use Rudra\Auth\AuthFacade as Auth;
 
 // Registration
 $user = [
-    "email"    => "user@email.com",
-    "password" => Auth::bcrypt("password")
+    'email'    => 'user@email.com',
+    'password' => Auth::bcrypt('password')
 ];
 
 // Authentication (plain password vs hash from DB)
-Auth::authentication($user, "password", ["admin/dashboard", "login"]);
+Auth::authentication($user, 'password', ['admin/dashboard', 'login']);
 
 // Authorization check (redirects to 'login' if not authenticated)
-if (!Auth::authorization(null, "login")) {
+if (!Auth::authorization(null, 'login')) {
     exit;
 }
 
 // Role-Based Access Control
-if (!Auth::roleBasedAccess($currentRole, "editor", "error/403")) {
+if (!Auth::roleBasedAccess($currentRole, 'editor', 'error/403')) {
     exit;
 }
 ```
@@ -321,7 +321,7 @@ $processed = [
 ];
 
 if (V::approve($processed)) {
-    $data = V::getValidated($processed, ["csrf", "_method"]);
+    $data = V::getValidated($processed, ['csrf', '_method']);
 } else {
     $errors = V::getErrors($processed);
 }
@@ -367,9 +367,9 @@ $router->resource('api/posts', 'api/post', PostController::class, [
 use Rudra\View\ViewFacade as View;
 
 // Cache-first strategy with fallback
-echo View::cache(['mainpage', "+1 day"]) ?? View::render(["layout", "mainpage"], [
-    'content' => View::cache(["page_{$slug}", "+1 day"]) 
-        ?? View::view(["page", "page_{$slug}"], ['foo' => 'bar']),
+echo View::cache(['mainpage', '+1 day']) ?? View::render(['layout', 'mainpage'], [
+    'content' => View::cache(["page_{$slug}", '+1 day']) 
+        ?? View::view(['page', "page_{$slug}"], ['foo' => 'bar']),
 ]);
 
 // Or with helpers

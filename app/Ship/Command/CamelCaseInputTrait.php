@@ -23,11 +23,11 @@ trait CamelCaseInputTrait
     {
         $name = '';
         while (empty($name)) {
-            Cli::printer($prompt, "light_cyan");
+            Cli::printer($prompt, 'light_cyan');
             $raw = trim(Cli::reader());
 
             if (empty($raw)) {
-                Cli::printer("⚠️  $entityLabel name cannot be empty" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $entityLabel name cannot be empty" . PHP_EOL, 'light_yellow');
                 continue;
             }
 
@@ -35,7 +35,7 @@ trait CamelCaseInputTrait
 
             // Safety check: result must be a valid PHP class name
             if (!preg_match('/^[A-Z][a-zA-Z0-9]*$/', $name)) {
-                Cli::printer("❌ Invalid $entityLabel name after conversion: '$name'" . PHP_EOL, "light_red");
+                Cli::printer("❌ Invalid $entityLabel name after conversion: '$name'" . PHP_EOL, 'light_red');
                 $name = '';
             }
         }
@@ -50,16 +50,16 @@ trait CamelCaseInputTrait
     {
         $name = '';
         while (empty($name)) {
-            Cli::printer($prompt, "cyan");
+            Cli::printer($prompt, 'cyan');
             $name = trim(Cli::reader());
 
             if (empty($name)) {
-                Cli::printer("⚠️  Table name cannot be empty" . PHP_EOL, "light_yellow");
+                Cli::printer('⚠️  Table name cannot be empty' . PHP_EOL, 'light_yellow');
                 continue;
             }
 
             if (!preg_match('/^[a-zA-Z][a-zA-Z0-9_]*$/', $name)) {
-                Cli::printer("❌ Invalid table name. Use alphanumeric or snake_case (e.g., users, blog_posts)" . PHP_EOL, "light_red");
+                Cli::printer('❌ Invalid table name. Use alphanumeric or snake_case (e.g., users, blog_posts)' . PHP_EOL, 'light_red');
                 $name = '';
             }
         }

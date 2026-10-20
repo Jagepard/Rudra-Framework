@@ -25,7 +25,7 @@ class MakeMiddleware extends FileCreator
      * CLI wizard that scaffolds a Middleware class following Porto architecture.
      * 
      * Workflow:
-     *  1. Enter middleware name → becomes class name (e.g. "Auth" → "AuthMiddleware")
+     *  1. Enter middleware name → becomes class name (e.g. 'Auth' → 'AuthMiddleware')
      *  2. Enter container name  → MUST be non-empty (re-prompts otherwise)
      * 
      * Generated file:
@@ -37,21 +37,21 @@ class MakeMiddleware extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = $this->getValidCamelCaseName("🛡️ Enter middleware name: ", "Middleware");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $prefix = $this->getValidCamelCaseName('🛡️ Enter middleware name: ', 'Middleware');
+        $container = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
         $className = $prefix . 'Middleware';
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
-        $middlewarePath = $containerPath . "Middleware/";
+        $middlewarePath = $containerPath . 'Middleware/';
         $middlewareFile = "{$className}.php";
 
         if (file_exists($middlewarePath . $middlewareFile)) {
-            Cli::printer("⚠️  Middleware '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Middleware '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -60,7 +60,7 @@ class MakeMiddleware extends FileCreator
             $this->createClass($className, $container)
         );
         
-        Cli::printer("✅ Middleware '$className' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Middleware '$className' was created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     protected function createClass(string $className, string $container): string

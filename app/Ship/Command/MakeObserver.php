@@ -31,14 +31,14 @@ class MakeObserver extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = $this->getValidCamelCaseName("👁️  Enter observer name: ", "Observer");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $prefix = $this->getValidCamelCaseName('👁️  Enter observer name: ', 'Observer');
+        $container = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
 
         $className = $prefix . 'Observer';
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -46,7 +46,7 @@ class MakeObserver extends FileCreator
         $observerFile = "{$className}.php";
 
         if (file_exists($observerPath . $observerFile)) {
-            Cli::printer("⚠️  Observer '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Observer '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -55,7 +55,7 @@ class MakeObserver extends FileCreator
             $this->createClass($className, $container)
         );
         
-        Cli::printer("✅ Observer '$className' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Observer '$className' was created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     private function createClass(string $className, string $container): string

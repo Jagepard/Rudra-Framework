@@ -65,8 +65,8 @@ class LoggerAdapter
 
         $query->execute([
             ':name'        => $namespace,
-            ":created_at"  => date('Y-m-d H:i:s'),
-            ":updated_at"  => date('Y-m-d H:i:s'),
+            ':created_at'  => date('Y-m-d H:i:s'),
+            ':updated_at'  => date('Y-m-d H:i:s'),
         ]);
     }
 

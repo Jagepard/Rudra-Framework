@@ -19,15 +19,15 @@ class RoutingCollector extends DataCollector implements Renderable
     public function getWidgets(): array
     {
         return [
-            "routes" => [
-                "icon"    => "list",
-                "widget"  => "PhpDebugBar.Widgets.HtmlVariableListWidget",
-                "map"     => "routing.html",
-                "default" => "[]",
+            'routes' => [
+                'icon'    => 'list',
+                'widget'  => 'PhpDebugBar.Widgets.HtmlVariableListWidget',
+                'map'     => 'routing.html',
+                'default' => '[]',
             ],
-            "routes:badge" => [
-                "map"     => "routing.total",
-                "default" => "null",
+            'routes:badge' => [
+                'map'     => 'routing.total',
+                'default' => 'null',
             ],
         ];
     }
@@ -142,10 +142,10 @@ class RoutingCollector extends DataCollector implements Renderable
     private function getRoutes(string $container, bool $attributes, ?string $appPath): array
     {
         $basePath = $appPath ? rtrim($appPath, '/') : '.';
-        $path = $basePath . "/app/Containers/" . ucfirst($container) . "/routes";
+        $path = $basePath . '/app/Containers/' . ucfirst($container) . '/routes';
 
-        if (file_exists($path . ".php")) {
-            $controllers = require $path . ".php";
+        if (file_exists($path . '.php')) {
+            $controllers = require $path . '.php';
             return Router::annotationCollector($controllers, true, $attributes);
         }
 
