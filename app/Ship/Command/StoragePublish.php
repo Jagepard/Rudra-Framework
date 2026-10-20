@@ -20,18 +20,18 @@ class StoragePublish
      */
     public function actionIndex(): void
     {
-        $storage = config("app_path") . '/storage/public';
-        $public  = config("app_path") . '/public';
+        $storage = config('app_path') . '/storage/public';
+        $public  = config('app_path') . '/public';
 
         // Collect all entries (folders and files) inside storage/public
         $entries = $this->getEntries($storage);
 
         if (empty($entries)) {
-            Cli::printer("⚠️  No entries found in '$storage'.\n", "light_yellow");
+            Cli::printer("⚠️  No entries found in '$storage'.\n", 'light_yellow');
             return;
         }
 
-        Cli::printer("Linking storage to public:\n", "light_cyan");
+        Cli::printer("Linking storage to public:\n", 'light_cyan');
 
         // Link every entry, no manual selection needed
         foreach ($entries as $name) {
@@ -60,7 +60,7 @@ class StoragePublish
     private function createSymlink(string $source, string $destination): void
     {
         if (!is_dir($source) && !is_file($source)) {
-            Cli::printer("❌  Error: Source '$source' does not exist.\n", "light_red");
+            Cli::printer("❌  Error: Source '$source' does not exist.\n", 'light_red');
             return;
         }
 
@@ -68,23 +68,23 @@ class StoragePublish
         if (file_exists($destination) || is_link($destination)) {
             if (is_link($destination)) {
                 unlink($destination);
-                Cli::printer("Existing symlink removed: $destination\n", "light_yellow");
+                Cli::printer("Existing symlink removed: $destination\n", 'light_yellow');
             } elseif (is_dir($destination) && count(scandir($destination)) <= 2) { // empty directory
                 rmdir($destination);
-                Cli::printer("Empty destination directory removed: $destination\n", "light_yellow");
+                Cli::printer("Empty destination directory removed: $destination\n", 'light_yellow');
             } else {
-                Cli::printer("❌  Error: Destination '$destination' already exists and is not empty or not a symlink.\n", "light_red");
+                Cli::printer("❌  Error: Destination '$destination' already exists and is not empty or not a symlink.\n", 'light_red');
                 return;
             }
         }
 
         // Create a symbolic link
         if (symlink($source, $destination)) {
-            Cli::printer("✅ Symlink created successfully:\n", "light_green");
-            Cli::printer("  From: $source\n", "light_cyan");
-            Cli::printer("  To:   $destination\n", "light_cyan");
+            Cli::printer("✅ Symlink created successfully:\n", 'light_green');
+            Cli::printer("  From: $source\n", 'light_cyan');
+            Cli::printer("  To:   $destination\n", 'light_cyan');
         } else {
-            Cli::printer("❌  Failed to create symlink.\n", "light_red");
+            Cli::printer("❌  Failed to create symlink.\n", 'light_red');
         }
     }
 }

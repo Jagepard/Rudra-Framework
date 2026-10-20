@@ -44,22 +44,22 @@ class ArrayToYml
     public function actionIndex(): void
     {
         // Display header
-        Cli::printer("🔄 PHP Array to YAML Converter" . PHP_EOL, "light_magenta");
+        Cli::printer('🔄 PHP Array to YAML Converter' . PHP_EOL, 'light_magenta');
         // Display instructions
-        Cli::printer("ℹ️  Place the PHP file containing the array into the config/ directory" . PHP_EOL, "light_cyan");
+        Cli::printer('ℹ️  Place the PHP file containing the array into the config/ directory' . PHP_EOL, 'light_cyan');
         // Prompt for filename
-        Cli::printer("📄 Enter the PHP filename (without .php extension): ", "light_cyan");
+        Cli::printer('📄 Enter the PHP filename (without .php extension): ', 'light_cyan');
         $filename = trim(Cli::reader());
 
         // Validate filename is not empty
         if (empty($filename)) {
-            Cli::printer("❌ Filename cannot be empty" . PHP_EOL, "light_red");
+            Cli::printer('❌ Filename cannot be empty' . PHP_EOL, 'light_red');
             return;
         }
 
         // Validate filename format (alphanumeric, underscores, hyphens only)
         if (!preg_match('/^[a-zA-Z0-9_-]+$/', $filename)) {
-            Cli::printer("❌ Invalid filename. Use only letters, numbers, underscores, and hyphens" . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid filename. Use only letters, numbers, underscores, and hyphens' . PHP_EOL, 'light_red');
             return;
         }
 
@@ -70,7 +70,7 @@ class ArrayToYml
 
         // Check if PHP file exists
         if (!file_exists($phpFile)) {
-            Cli::printer("❌ File not found: $phpFile" . PHP_EOL, "light_red");
+            Cli::printer("❌ File not found: $phpFile" . PHP_EOL, 'light_red');
             return;
         }
 
@@ -80,13 +80,13 @@ class ArrayToYml
 
             // Validate that the file returned an array
             if (!is_array($array)) {
-                Cli::printer("❌ The file must return an array. Got: " . gettype($array) . PHP_EOL, "light_red");
+                Cli::printer('❌ The file must return an array. Got: ' . gettype($array) . PHP_EOL, 'light_red');
                 return;
             }
 
             // Check if array is empty
             if (empty($array)) {
-                Cli::printer("⚠️  The array is empty. YAML file will be created but will be empty" . PHP_EOL, "light_yellow");
+                Cli::printer('⚠️  The array is empty. YAML file will be created but will be empty' . PHP_EOL, 'light_yellow');
             }
 
             // Convert array to YAML
@@ -94,16 +94,16 @@ class ArrayToYml
 
             // Write YAML file
             if (file_put_contents($ymlFile, $yaml) === false) {
-                Cli::printer("❌ Failed to write YAML file: $ymlFile" . PHP_EOL, "light_red");
+                Cli::printer("❌ Failed to write YAML file: $ymlFile" . PHP_EOL, 'light_red');
                 return;
             }
 
             // Success message with file size
             $fileSize = filesize($ymlFile);
-            Cli::printer("✅ YAML file created: $ymlFile ($fileSize bytes)" . PHP_EOL, "light_green");
+            Cli::printer("✅ YAML file created: $ymlFile ($fileSize bytes)" . PHP_EOL, 'light_green');
 
         } catch (Exception $e) {
-            Cli::printer("❌ Error: " . $e->getMessage() . PHP_EOL, "light_red");
+            Cli::printer('❌ Error: ' . $e->getMessage() . PHP_EOL, 'light_red');
         }
     }
 }

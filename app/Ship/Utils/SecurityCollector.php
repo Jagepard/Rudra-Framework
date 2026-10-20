@@ -34,11 +34,11 @@ class SecurityCollector extends DataCollector implements Renderable
     public function getWidgets()
     {
         return [
-            "security" => [
-                "icon" => "user",
-                "widget" => "PhpDebugBar.Widgets.VariableListWidget",
-                "map" => "security",
-                "default" => "{}"
+            'security' => [
+                'icon' => 'user',
+                'widget' => 'PhpDebugBar.Widgets.VariableListWidget',
+                'map' => 'security',
+                'default' => '{}'
             ]
         ];
     }

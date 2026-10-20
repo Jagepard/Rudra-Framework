@@ -20,12 +20,12 @@ class FirstMiddleware
 
     public function __invoke(array $next): void
     {
-        $this->info("▶ FirstMiddleware BEFORE");
+        $this->info('▶ FirstMiddleware BEFORE');
 
         if ($next) {
             Router::handleMiddleware($next);
         }
 
-        $this->info("◀ FirstMiddleware AFTER");
+        $this->info('◀ FirstMiddleware AFTER');
     }
 }

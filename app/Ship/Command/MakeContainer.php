@@ -26,7 +26,7 @@ class MakeContainer extends FileCreator
      * This is a meta-generator: it creates the entire directory structure and boilerplate files.
      * 
      * Workflow:
-     *  1. Enter container name → becomes module directory (e.g. "Demo" → "App\Containers\Demo")
+     *  1. Enter container name → becomes module directory (e.g. 'Demo' → 'App\Containers\Demo')
      *  2. Name MUST be non-empty (re-prompts otherwise)
      * 
      * Generated structure:
@@ -46,11 +46,11 @@ class MakeContainer extends FileCreator
      */
     public function actionIndex(): void
     {
-        $container     = $this->getValidCamelCaseName("📦 Enter container name: ", "Container");
+        $container     = $this->getValidCamelCaseName('📦 Enter container name: ', 'Container');
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' already exists" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -59,8 +59,8 @@ class MakeContainer extends FileCreator
         $className = $container . 'Controller';
         $files = [
             "{$className}.php" => $this->createContainersController($container),
-            "routes.php"       => $this->createRoutes(),
-            "config.php"       => $this->createConfig(strtolower($container)),
+            'routes.php'       => $this->createRoutes(),
+            'config.php'       => $this->createConfig(strtolower($container)),
         ];
 
         foreach ($files as $filename => $content) {
@@ -69,12 +69,12 @@ class MakeContainer extends FileCreator
 
         $this->addConfig($container);
         
-        Cli::printer("✅ Container '$container' was created" . PHP_EOL, "light_green");
-        Cli::printer("📝 Registered in config/setting.local.yml" . PHP_EOL, "light_green");
+        Cli::printer("✅ Container '$container' was created" . PHP_EOL, 'light_green');
+        Cli::printer('📝 Registered in config/setting.local.yml' . PHP_EOL, 'light_green');
         // Reminder about other environments that need manual update
-        Cli::printer(PHP_EOL . "💡 Don't forget to register it in other environments if needed:" . PHP_EOL, "light_cyan");
-        Cli::printer("   • config/setting.ddev.yml" . PHP_EOL, "light_cyan");
-        Cli::printer("   • config/setting.production.yml" . PHP_EOL . PHP_EOL, "light_cyan");
+        Cli::printer(PHP_EOL . "💡 Don't forget to register it in other environments if needed:" . PHP_EOL, 'light_cyan');
+        Cli::printer('   • config/setting.ddev.yml' . PHP_EOL, 'light_cyan');
+        Cli::printer('   • config/setting.production.yml' . PHP_EOL . PHP_EOL, 'light_cyan');
     
     }
 
@@ -104,7 +104,7 @@ class {$container}Controller extends ShipController implements ContainerControll
     #[\Override]
     public function containerInit(): void
     {
-        \$config = require_once "config.php";
+        \$config = require_once 'config.php';
 
         Rudra::config()->set(\$config);
         Rudra::binding()->set(\$config['contracts']);
@@ -113,7 +113,7 @@ class {$container}Controller extends ShipController implements ContainerControll
         View::setup(dirname(__DIR__) . "/{$container}/UI/tmpl", "{$container}_");
 
         data([
-            "title" => __CLASS__,
+            'title' => __CLASS__,
         ]);
     }
 }

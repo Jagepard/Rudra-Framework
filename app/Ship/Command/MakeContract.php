@@ -27,7 +27,7 @@ class MakeContract extends FileCreator
      * loose coupling and clean dependency injection.
      * 
      * Workflow:
-     *  1. Enter interface name → becomes class name (e.g. "User" → "UserInterface")
+     *  1. Enter interface name → becomes class name (e.g. 'User' → 'UserInterface')
      *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
      * 
      * Generated file:
@@ -39,22 +39,22 @@ class MakeContract extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = $this->getValidCamelCaseName("📜 Enter interface name: ", "Interface");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $prefix = $this->getValidCamelCaseName('📜 Enter interface name: ', 'Interface');
+        $container = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
 
         $className = $prefix . 'Interface';
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
-        $contractPath = $containerPath . "Contract/";
+        $contractPath = $containerPath . 'Contract/';
         $contractFile = "{$className}.php";
 
         if (file_exists($contractPath . $contractFile)) {
-            Cli::printer("⚠️  Interface '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Interface '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -63,7 +63,7 @@ class MakeContract extends FileCreator
             $this->createClass($className, $container)
         );
         
-        Cli::printer("✅ Interface '$className' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Interface '$className' was created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     private function createClass(string $className, string $container): string

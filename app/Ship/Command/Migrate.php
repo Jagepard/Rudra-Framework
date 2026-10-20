@@ -49,27 +49,27 @@ class Migrate extends LoggerAdapter
     public function actionIndex(): void
     {
         // Prompt for container name (optional)
-        Cli::printer("📦 Enter container (empty for Ship): ", "light_cyan");
+        Cli::printer('📦 Enter container (empty for Ship): ', 'light_cyan');
         $container = ucfirst(trim(Cli::reader()));
 
         // Validate container name if provided
         if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)' . PHP_EOL, 'light_red');
             return;
         }
 
         // Resolve migration directory and namespace
         if (!empty($container)) {
             $migrationPath = Rudra::config()->get('app_path') . "/app/Containers/$container/Migration/";
-            $namespace = "App\\Containers\\$container\\Migration\\";
+            $namespace = 'App\\Containers\\$container\\Migration\\';
         } else {
-            $migrationPath = Rudra::config()->get('app_path') . "/app/Ship/Migration/";
-            $namespace = "App\\Ship\\Migration\\";
+            $migrationPath = Rudra::config()->get('app_path') . '/app/Ship/Migration/';
+            $namespace = 'App\\Ship\\Migration\\';
         }
 
         // Check if migration directory exists
         if (!is_dir($migrationPath)) {
-            Cli::printer("⚠️  Migration directory does not exist: $migrationPath" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Migration directory does not exist: $migrationPath" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -84,7 +84,7 @@ class Migrate extends LoggerAdapter
         });
 
         if (empty($files)) {
-            Cli::printer("ℹ️  No migrations found" . PHP_EOL, "light_cyan");
+            Cli::printer('ℹ️  No migrations found' . PHP_EOL, 'light_cyan');
             return;
         }
 
@@ -94,27 +94,27 @@ class Migrate extends LoggerAdapter
             $migrationName = $namespace . $className;
 
             if (!class_exists($migrationName)) {
-                Cli::printer("❌ Class '$migrationName' not found. Skipping." . PHP_EOL, "light_red");
+                Cli::printer("❌ Class '$migrationName' not found. Skipping." . PHP_EOL, 'light_red');
                 continue;
             }
 
             if ($this->checkLog($migrationName)) {
-                Cli::printer("⚠️  $migrationName already migrated (in log). Skipping." . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  $migrationName already migrated (in log). Skipping." . PHP_EOL, 'light_yellow');
             } else {
                 try {
                     (new $migrationName)->up();
                     $this->writeLog($migrationName);
-                    Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, "light_green");
+                    Cli::printer("✅ $migrationName migrated successfully" . PHP_EOL, 'light_green');
                 } catch (\RuntimeException $e) {
                     if (str_contains($e->getMessage(), 'already exists')) {
                         $this->writeLog($migrationName);
-                        Cli::printer("⚠️  {$e->getMessage()}. Logged as migrated." . PHP_EOL, "light_yellow");
+                        Cli::printer("⚠️  {$e->getMessage()}. Logged as migrated." . PHP_EOL, 'light_yellow');
                     } else {
-                        Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                        Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, 'light_red');
                         throw $e;
                     }
                 } catch (\Throwable $e) {
-                    Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, "light_red");
+                    Cli::printer("❌ Migration failed: {$e->getMessage()}" . PHP_EOL, 'light_red');
                     throw $e;
                 }
             }

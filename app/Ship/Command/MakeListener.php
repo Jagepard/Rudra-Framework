@@ -26,7 +26,7 @@ class MakeListener extends FileCreator
      * Listeners react to events dispatched via the EventDispatcher.
      * 
      * Workflow:
-     *  1. Enter listener name  → becomes class name (e.g. "User" → "UserListener")
+     *  1. Enter listener name  → becomes class name (e.g. 'User' → 'UserListener')
      *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
      * 
      * Generated file:
@@ -38,14 +38,14 @@ class MakeListener extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = $this->getValidCamelCaseName("🎧 Enter listener name: ", "Listener");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $prefix = $this->getValidCamelCaseName('🎧 Enter listener name: ', 'Listener');
+        $container = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
 
         $className = $prefix . 'Listener';
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -53,7 +53,7 @@ class MakeListener extends FileCreator
         $listenerFile = "{$className}.php";
 
         if (file_exists($listenerPath . $listenerFile)) {
-            Cli::printer("⚠️  Listener '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Listener '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 

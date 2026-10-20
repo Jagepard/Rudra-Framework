@@ -14,8 +14,8 @@ use Rudra\Router\RouterFacade as Router;
 // ─── MANUAL ROUTE REGISTRATION ──────────────────────────────────
 // Define routes explicitly using Router facade (closure-based)
 // Useful for simple routes, API endpoints, or quick prototypes
-if (php_sapi_name() != "cli") {
-    Router::get("callable/:name", function ($name) {
+if (php_sapi_name() != 'cli') {
+    Router::get('callable/:name', function ($name) {
             echo "Hello $name!";
         }
     );

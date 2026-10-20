@@ -35,7 +35,7 @@ class Env
      */
     public function actionIndex(): void
     {
-        Cli::printer("⚙️  Set environment [1. local 2. ddev 3. production]: ", "light_cyan");
+        Cli::printer('⚙️  Set environment [1. local 2. ddev 3. production]: ', 'light_cyan');
         $choice = trim(Cli::reader());
 
         $environments = [
@@ -45,7 +45,7 @@ class Env
         ];
 
         if (!array_key_exists($choice, $environments)) {
-            Cli::printer("❌ Invalid choice. Please enter 1, 2, or 3." . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid choice. Please enter 1, 2, or 3.' . PHP_EOL, 'light_red');
             return;
         }
 
@@ -58,11 +58,11 @@ class Env
         if (!file_exists($envFilePath)) {
             if (file_exists($exampleFilePath)) {
                 copy($exampleFilePath, $envFilePath);
-                Cli::printer("📄 app_env.php created from app_env.php.example" . PHP_EOL, "light_cyan");
+                Cli::printer('📄 app_env.php created from app_env.php.example' . PHP_EOL, 'light_cyan');
             } else {
                 $fallbackContent = "<?php\n\n/**\n * Environment configuration for CLI commands.\n * Available values: 'local', 'ddev', 'production'\n * \n * Note: For web requests, environment is auto-detected in index.php.\n * This file is used ONLY for CLI commands.\n */\nreturn 'local';\n";
                 file_put_contents($envFilePath, $fallbackContent);
-                Cli::printer("📄 app_env.php created with default template" . PHP_EOL, "light_cyan");
+                Cli::printer('📄 app_env.php created with default template' . PHP_EOL, 'light_cyan');
             }
         }
 
@@ -75,9 +75,9 @@ class Env
             $lines[count($lines) - 1] = "return '{$env}';";
             
             if (file_put_contents($envFilePath, implode("\n", $lines) . "\n") !== false) {
-                Cli::printer("✅ Environment set to '{$env}'" . PHP_EOL, "light_green");
+                Cli::printer("✅ Environment set to '{$env}'" . PHP_EOL, 'light_green');
             } else {
-                Cli::printer("❌ Failed to write to app_env.php. Check permissions." . PHP_EOL, "light_red");
+                Cli::printer('❌ Failed to write to app_env.php. Check permissions.' . PHP_EOL, 'light_red');
             }
         }
     }

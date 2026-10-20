@@ -25,6 +25,6 @@ trait HelperTrait
             $message = json_encode($message, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
         }
         
-        Rudra::get("debugbar")['messages']->info($message);
+        Rudra::get('debugbar')['messages']->info($message);
     }
 }

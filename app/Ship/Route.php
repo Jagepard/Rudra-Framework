@@ -23,7 +23,7 @@ class Route
     public function run()
     {
         if (config('environment') === 'development') {
-            $timeCollector = Rudra::get("debugbar")['time'];
+            $timeCollector = Rudra::get('debugbar')['time'];
 
             if ($timeCollector->hasStartedMeasure('index')) {
                 $timeCollector->stopMeasure('index');
@@ -35,7 +35,7 @@ class Route
         }
 
         $this->collect(config('containers'));
-        throw new RouterException("Not Found", 404);
+        throw new RouterException('Not Found', 404);
 
         if (config('environment') !== 'test') {
             exit();
@@ -56,10 +56,10 @@ class Route
 
     protected function getRoutes(string $container): array
     {
-        $cacheDir  = "../storage/cache";
+        $cacheDir  = '../storage/cache';
         $cacheTime = config('cache_time.routes');
-        $routesDir = $cacheDir . "/routes";
-        $cacheFile = $routesDir . "/routes_" . $container . ".php";
+        $routesDir = $cacheDir . '/routes';
+        $cacheFile = $routesDir . '/routes_' . $container . '.php';
         $cacheLifetime = strtotime($cacheTime) - time();
 
         if (!is_dir($cacheDir)) {
@@ -79,15 +79,15 @@ class Route
             }
         }
 
-        $path = "../app/Containers/" . ucfirst($container) . "/routes";
+        $path = '../app/Containers/' . ucfirst($container) . '/routes';
 
-        if (!file_exists($path . ".php")) {
-            throw new \RuntimeException("Routes file not found for container: " . $container);
+        if (!file_exists($path . '.php')) {
+            throw new \RuntimeException('Routes file not found for container: ' . $container);
         }
 
         // Generating routes and caching them.
-        $routes = Router::annotationCollector(require_once $path . ".php", true, Rudra::config()->get("attributes"));
-        file_put_contents($cacheFile, "<?php\nreturn " . var_export($routes, true) . ";");
+        $routes = Router::annotationCollector(require_once $path . '.php', true, Rudra::config()->get('attributes'));
+        file_put_contents($cacheFile, '<?php\nreturn ' . var_export($routes, true) . ';');
 
         return $routes;
     }

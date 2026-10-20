@@ -26,7 +26,7 @@ class MakeController extends FileCreator
      * Controllers handle HTTP requests and map them to application logic.
      * 
      * Workflow:
-     *  1. Enter controller name  → becomes class name (e.g. "User" → "UserController")
+     *  1. Enter controller name  → becomes class name (e.g. 'User' → 'UserController')
      *  2. Enter container name   → MUST be non-empty (re-prompts otherwise)
      * 
      * Generated file:
@@ -41,20 +41,20 @@ class MakeController extends FileCreator
      */
     public function actionIndex(): void
     {
-        $controllerPrefix = $this->getValidCamelCaseName("🎮 Enter controller name: ", "Controller");
-        $container        = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $controllerPrefix = $this->getValidCamelCaseName('🎮 Enter controller name: ', 'Controller');
+        $container        = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
         $containerPath    = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
-        $controllerPath = $containerPath . "Controller/";
+        $controllerPath = $containerPath . 'Controller/';
         $controllerFile = "{$controllerPrefix}Controller.php";
 
         if (file_exists($controllerPath . $controllerFile)) {
-            Cli::printer("⚠️  Controller '{$controllerPrefix}Controller' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Controller '{$controllerPrefix}Controller' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -65,14 +65,14 @@ class MakeController extends FileCreator
 
         $this->addRoute($container, $controllerPrefix);
         
-        Cli::printer("✅ Controller '{$controllerPrefix}Controller' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Controller '{$controllerPrefix}Controller' was created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     protected function createClass(string $controllerPrefix, string $container): string
     {
         $url = strtolower("$container/$controllerPrefix");
 
-        if (Rudra::config()->get("attributes")) {
+        if (Rudra::config()->get('attributes')) {
             return <<<EOT
 <?php declare(strict_types=1);
 
@@ -140,7 +140,7 @@ EOT;
 
         if (!in_array($namespace, $routes, true)) {
             $contents = file_get_contents($path);
-            $contents = str_replace("];", "\t\\$namespace::class,\n];", $contents);
+            $contents = str_replace('];', "\t\\$namespace::class,\n];", $contents);
             file_put_contents($path, $contents, LOCK_EX);
         }
     }

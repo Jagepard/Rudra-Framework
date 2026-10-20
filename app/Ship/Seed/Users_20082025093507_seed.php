@@ -18,16 +18,16 @@ class Users_20082025093507_seed extends AbstractSeed
     #[\Override]
     public function create(): void
     {
-        $table  = "users";
+        $table  = 'users';
         $fields = [
-            "name"     => "Admin",
-            "email"    => "admin@admin.com",
-            "password" => Auth::bcrypt('password'),
-            "role"     => "admin",
-            "activate" => md5(random_bytes(16)),
-            "status"   => 1,
-            "created_at" => date('Y-m-d H:i:s'),
-            "updated_at" => date('Y-m-d H:i:s'),
+            'name'     => 'Admin',
+            'email'    => 'admin@admin.com',
+            'password' => Auth::bcrypt('password'),
+            'role'     => 'admin',
+            'activate' => md5(random_bytes(16)),
+            'status'   => 1,
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         $this->execute($table, $fields);

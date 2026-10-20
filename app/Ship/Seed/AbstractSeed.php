@@ -19,8 +19,8 @@ abstract class AbstractSeed
     public function __construct()
     {
         Request::server()->set([
-            "REMOTE_ADDR" => "127.0.0.1",
-            "HTTP_USER_AGENT" => "Mozilla"
+            'REMOTE_ADDR' => '127.0.0.1',
+            'HTTP_USER_AGENT' => 'Mozilla'
         ]);
     }
 
@@ -36,7 +36,7 @@ abstract class AbstractSeed
             $execute[] = ":{$key}";
         }
 
-        return [implode(",", $insert), implode(",", $execute)];
+        return [implode(',', $insert), implode(',', $execute)];
     }
 
     protected function execute(string $table, array $fields): void

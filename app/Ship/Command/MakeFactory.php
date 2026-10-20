@@ -26,7 +26,7 @@ class MakeFactory extends FileCreator
      * Factories encapsulate complex object creation and instantiation logic.
      * 
      * Workflow:
-     *  1. Enter factory name   → becomes class name (e.g. "User" → "UserFactory")
+     *  1. Enter factory name   → becomes class name (e.g. 'User' → 'UserFactory')
      *  2. Enter container name → MUST be non-empty (re-prompts otherwise)
      * 
      * Generated file:
@@ -38,22 +38,22 @@ class MakeFactory extends FileCreator
      */
     public function actionIndex(): void
     {
-        $prefix = $this->getValidCamelCaseName("🏭 Enter factory name: ", "Factory");
-        $container = $this->getValidCamelCaseName("📦 Enter container: ", "Container");
+        $prefix = $this->getValidCamelCaseName('🏭 Enter factory name: ', 'Factory');
+        $container = $this->getValidCamelCaseName('📦 Enter container: ', 'Container');
 
         $className = $prefix . 'Factory';
         $containerPath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
 
         if (!is_dir($containerPath)) {
-            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
             return;
         }
 
-        $factoryPath = $containerPath . "Factory/";
+        $factoryPath = $containerPath . 'Factory/';
         $factoryFile = "{$className}.php";
 
         if (file_exists($factoryPath . $factoryFile)) {
-            Cli::printer("⚠️  Factory '$className' already exists in container '$container'" . PHP_EOL, "light_yellow");
+            Cli::printer("⚠️  Factory '$className' already exists in container '$container'" . PHP_EOL, 'light_yellow');
             return;
         }
 
@@ -62,7 +62,7 @@ class MakeFactory extends FileCreator
             $this->createClass($className, $container)
         );
         
-        Cli::printer("✅ Factory '$className' was created in container '$container'" . PHP_EOL, "light_green");
+        Cli::printer("✅ Factory '$className' was created in container '$container'" . PHP_EOL, 'light_green');
     }
 
     private function createClass(string $className, string $container): string

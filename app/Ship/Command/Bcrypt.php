@@ -43,25 +43,25 @@ class Bcrypt
     {
         // Initialize server variables required by Auth component
         Request::server()->set([
-            "REMOTE_ADDR"     => "127.0.0.1",
-            "HTTP_USER_AGENT" => "Mozilla",
+            'REMOTE_ADDR'     => '127.0.0.1',
+            'HTTP_USER_AGENT' => 'Mozilla',
         ]);
 
         // Prompt for password until non-empty value is provided
         $password = '';
         while (empty($password)) {
-            Cli::printer("🔐 Enter password: ", "light_magenta");
+            Cli::printer('🔐 Enter password: ', 'light_magenta');
             $password = trim(Cli::reader());
 
             if (empty($password)) {
-                Cli::printer("⚠️  Password cannot be empty" . PHP_EOL, "light_yellow");
+                Cli::printer('⚠️  Password cannot be empty' . PHP_EOL, 'light_yellow');
                 continue;
             }
         }
 
         // Generate and display bcrypt hash
         $hash = Auth::bcrypt($password);
-        Cli::printer("✅ Bcrypt hash: " , "light_green");
-        Cli::printer($hash . PHP_EOL, "cyan");
+        Cli::printer('✅ Bcrypt hash: ' , 'light_green');
+        Cli::printer($hash . PHP_EOL, 'cyan');
     }
 }

@@ -32,21 +32,21 @@ class MakeSeed extends FileCreator
      */
     public function actionIndex(): void
     {
-        $table = $this->getValidTableName("🌱 Enter table name: ");
+        $table = $this->getValidTableName('🌱 Enter table name: ');
         
-        Cli::printer("📦 Enter container (empty for Ship): ", "cyan");
+        Cli::printer('📦 Enter container (empty for Ship): ', 'cyan');
         $container = ucfirst(trim(Cli::reader()));
         
         if (!empty($container) && !preg_match('/^[A-Z][a-zA-Z0-9]*$/', $container)) {
-            Cli::printer("❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)" . PHP_EOL, "light_red");
+            Cli::printer('❌ Invalid container name. Use CamelCase (e.g., User, BlogPost)' . PHP_EOL, 'light_red');
             return;
         }
 
-        Cli::printer("📝 Multiline seed [y/N]: ", "cyan");
+        Cli::printer('📝 Multiline seed [y/N]: ', 'cyan');
         $multilineInput = strtolower(trim(Cli::reader()));
         $multiline = in_array($multilineInput, ['yes', 'y'], true);
 
-        $date = date("_YmdHis");
+        $date = date('_YmdHis');
         $className = ucfirst($table) . $date;
         $targetFile = "{$className}_seed.php";
 
@@ -54,17 +54,17 @@ class MakeSeed extends FileCreator
             $basePath = Rudra::config()->get('app_path') . "/app/Containers/$container/";
             
             if (!is_dir($basePath)) {
-                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, "light_yellow");
+                Cli::printer("⚠️  Container '$container' does not exist" . PHP_EOL, 'light_yellow');
                 return;
             }
             
-            $targetPath = $basePath . "Seed/";
+            $targetPath = $basePath . 'Seed/';
             $namespace = "App\\Containers\\$container\\Seed";
             $location = "container '$container'";
         } else {
-            $targetPath = Rudra::config()->get('app_path') . "/app/Ship/Seed/";
-            $namespace = "App\\Ship\\Seed";
-            $location = "Ship";
+            $targetPath = Rudra::config()->get('app_path') . '/app/Ship/Seed/';
+            $namespace = 'App\\Ship\\Seed';
+            $location = 'Ship';
         }
 
         $this->writeFile(
@@ -72,8 +72,8 @@ class MakeSeed extends FileCreator
             $this->createClass($className, $table, $namespace, $multiline)
         );
         
-        $mode = $multiline ? "multiline" : "single-line";
-        Cli::printer("✅ $mode Seed for table '$table' was created in $location" . PHP_EOL, "light_green");
+        $mode = $multiline ? 'multiline' : 'single-line';
+        Cli::printer("✅ $mode Seed for table '$table' was created in $location" . PHP_EOL, 'light_green');
     }
 
     private function createClass(string $className, string $table, string $namespace, bool $multiline = false): string
@@ -100,16 +100,16 @@ class {$className}_seed extends AbstractSeed
     #[\Override]
     public function create(): void
     {
-        \$table = "$table";
+        \$table = '$table';
 
         \$fieldsArray = [
             [
-                "created_at" => date('Y-m-d H:i:s'),
-                "updated_at" => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
             [
-                "created_at" => date('Y-m-d H:i:s'),
-                "updated_at" => date('Y-m-d H:i:s'),
+                'created_at' => date('Y-m-d H:i:s'),
+                'updated_at' => date('Y-m-d H:i:s'),
             ],
         ];
 
@@ -133,10 +133,10 @@ class {$className}_seed extends AbstractSeed
     #[\Override]
     public function create(): void
     {
-        \$table = "$table";
+        \$table = '$table';
         \$fields = [
-            "created_at" => date('Y-m-d H:i:s'),
-            "updated_at" => date('Y-m-d H:i:s'),
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ];
 
         \$this->execute(\$table, \$fields);
