@@ -61,7 +61,7 @@ class Migrate extends LoggerAdapter
         // Resolve migration directory and namespace
         if (!empty($container)) {
             $migrationPath = Rudra::config()->get('app_path') . "/app/Containers/$container/Migration/";
-            $namespace = 'App\\Containers\\$container\\Migration\\';
+            $namespace     = "App\\Containers\\$container\\Migration\\";
         } else {
             $migrationPath = Rudra::config()->get('app_path') . '/app/Ship/Migration/';
             $namespace = 'App\\Ship\\Migration\\';
