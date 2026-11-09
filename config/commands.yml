@@ -62,3 +62,5 @@ to:yml:
 
 storage:publish:
   - App\Ship\Command\StoragePublish
+make:link:
+  - App\Ship\Command\StoragePublish
